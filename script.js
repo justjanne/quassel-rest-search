@@ -49,7 +49,7 @@ var render_buffer_full = function (buffer) {
       "<h2>" + buffer.network + " – " + buffer.name + "</h2>" + 
       "<article>" + 
         buffer.contexts.map(render_context).reduce((x, y) => x + y, "") +
-        "<inline-button class='load_more'>Load More</inline-button>" +  
+        "<inline-button class='load_more'>Load More Results</inline-button>" +  
       "</article>" + 
     "</buffer>"
   )
@@ -61,7 +61,7 @@ var render_buffer_overview = function (buffer) {
       "<h2>" + buffer.network + " – " + buffer.name + "</h2>" + 
       "<article>" + 
         buffer.contexts.slice(0, 4).map(render_context).reduce((x, y) => x + y, "") +
-        "<inline-button class='load_more'>Load More</inline-button>" +   
+        "<inline-button class='load_more'>Load More Results</inline-button>" +   
       "</article>" + 
     "</buffer>"
   )
@@ -97,11 +97,11 @@ var render_context_overview = function (context) {
 var render_context_full = function (context) {
   return (
     "<context id='context"+context.id+"' data-contextid='"+context.id+"' data-bufferid='"+context.buffer+"' class='selected'>" +
-      "<inline-button class='load_before'>Load Earlier</inline-button>" +
+      "<inline-button class='load_before'>Load Earlier Context</inline-button>" +
       context.before.map(render_message).reduce((x, y) => x + y, "") +
       render_message(context.original, true) +
       context.after.map(render_message).reduce((x, y) => x + y, "") + 
-      "<inline-button class='load_after'>Load Later</inline-button>" +
+      "<inline-button class='load_after'>Load Later Context</inline-button>" +
     "</context>"
   )
 }
@@ -169,7 +169,7 @@ var process_data = function (callback, limit) {
 var search = function () {
   $("#results").children().remove();
   buffers = {};
-  $("#results").append("<inline-button id='load_more'>Load More</inline-button>");
+  $("#results").append("<inline-button id='load_more'>Load More Channels/Queries</inline-button>");
   $("#load_more").click(more);
   $("#results").click(deselect_buffers);
   state = {
