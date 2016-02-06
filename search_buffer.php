@@ -10,5 +10,5 @@
   }
   
   header('Content-Type: application/json');
-  echo json_encode($backend->search($_GET['query'],$_GET['limit'],$_GET['offset'], 5))."\n";
+  echo json_encode($backend->search_buffer($_GET['query'],$_GET['buffer'],$_GET['limit'],$_GET['offset']))."\n";
 ?>

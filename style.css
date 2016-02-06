@@ -12,14 +12,26 @@ body {
 
 section {
   max-width: 1200px;
-  padding: 56px 4rem 0 4rem;
+  padding: 56px 4rem 8rem 4rem;
   margin: 0 auto;
 }
 
+buffer {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+buffer.selected {
+  background-color: #ddd;
+  border: rgba(0,0,0,.4);
+  padding: 20px 16px;
+  margin-left: -16px;
+  margin-right: -16px;
+}
+
 buffer > article {
-  background: #fff;
   font-size: 13px;
-  box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24)
 }
 
 buffer > h2 {
@@ -39,6 +51,12 @@ message {
   line-height: 48px;
   border-bottom: 1px solid #e5e5e5;
   color: #212121;
+  background: #fff;
+  position: relative;
+}
+
+message.faded * {
+  opacity: .6
 }
 
 message sender {
@@ -74,6 +92,7 @@ nav {
   height: 56px;
   background: #4285f4;
   padding: 0px 4rem;
+  z-index: 1;
 }
 
 nav input[type=text]::-moz-placeholder {
@@ -113,19 +132,73 @@ nav input[type=text] {
 }
 
 #searchicon {
-  background-image: url(https://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/ic_search_wht_24dp_r1.png);
   display: inline-block;
   width: 72px;
   height: 36px;
   position: absolute;
+  text-align: center;
+  line-height: 36px;
+  color: #ffffff;
   left: 0;
   top: 0;
-  background-repeat: no-repeat;
-  background-position: center center;
 }
 
-#searchicon span {
-  display: none;
+#no_more img {
+  margin: 8rem auto 0px;
+  display: block;
+}
+
+#no_more h2 {
+  display: block;
+  text-align: center;
+  margin: 1rem;
+  color: rgb(113, 113, 113);
+  font-weight: 300;
+  font-size: 20pt;
+}
+
+inline-button {
+  display: block;
+  background: rgb(255, 255, 255) none repeat scroll 0% 0%;
+  font-size: 16px;
+  height: 48px;
+  line-height: 48px;
+  color: rgb(113, 113, 113);
+  text-align: center;
+  font-style: italic;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  position: relative;
+}
+
+context {
+  display: block;
+}
+
+context.selected {
+  padding: 50px 0;
+  margin: 0 -20px;
+}
+
+message:before, inline-button:before {
+    bottom: 0;
+    box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
+    content: '';
+    display: block;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+section > inline-button {
+  margin-top: 20px;
+}
+
+article > inline-button {
+  background: #f5f5f5;
 }
 
 nav input[type=text]:hover {
@@ -139,5 +212,32 @@ nav input[type=text]:focus {
 }
 
 nav input[type=text]:focus+#searchicon {
-  background-image: url(https://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/ic_search_blk_24dp_r1.png);
+  color: #212121;
+}
+
+.icon {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
 }

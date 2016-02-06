@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>Quassel Search</title>
+
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 
 <nav>
   <div id="searchbar">
-    <input type="text" name="q" id="q">
-    <div id="searchicon"><span>Search</span></div>
+    <input type="text" name="q" id="q" placeholder="Search">
+    <div id="searchicon" class="icon">search</div>
   </div>
 </nav>
 
@@ -15,73 +18,4 @@
 </section>
 
 <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-<script>
-var userdata = { "username": localStorage.getItem("username"), "password": localStorage.getItem("password") };
-var result = undefined;
-
-var renderBuffer = function (buffer) {
-  return (
-    "<buffer>" +
-      "<h2>" + buffer.network + " – " + buffer.name + "</h2>" + 
-      "<article>" + 
-        buffer.messages.map(renderMessage).reduce((x, y) => x + y) + 
-      "</article>" + 
-    "</buffer>"
-  )
-}
-var renderMessage = function (message) {
-  return (
-    "<message data-id='" + message.messageid + "'>" +
-      "<time>" + message.time.toLocaleString() + "</time>" + 
-      "<sender>" + message.sender.split("!")[0] + "</sender>" + 
-      "<content>" + message.message + "</content>" + 
-    "</message>"
-  )
-}
-var render = function (data) {
-  return $.map(data, renderBuffer).reduce((x, y) => x + y);
-}
-var display = function (data) {
-  $("#results").children().remove();
-  $("#results").append(data);
-}
-var sortData = function (data) {
-  var buffers = {};
-  data.forEach(message => {
-    if (!buffers.hasOwnProperty(message.bufferid)) {
-      buffers[message.bufferid] = {
-        id: message.bufferid,
-        name: message.buffername,
-        network: message.networkname,
-        messages: []
-      }
-    }
-    message.time = new Date(message.time.replace(" ", "T") + "Z");
-    buffers[message.bufferid].messages.push(message);
-  });
-  return buffers;
-}
-var show = function (data) {
-  result = data;
-  display(render(sortData(data)));
-}
-var load = function() {
-  $("#results").children().remove()
-  $.post("search.php?query="+$("#q").val(), userdata, show, "json");
-}
-$("#q").keypress(function (e) {
-  var key = e.which || e.keyCode;
-  if (key === 13) {
-    load();
-  }
-})
-
-$("#login").click(function() {
-  localStorage.setItem("username", prompt("username"));
-  localStorage.setItem("password", prompt("password"));
-})
-$("#logout").click(function() {
-  localStorage.removeItem("username");
-  localStorage.removeItem("password");
-})
-</script>
+<script src="script.js"></script>
