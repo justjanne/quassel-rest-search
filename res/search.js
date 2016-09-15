@@ -1,5 +1,6 @@
 var state = {"query": "", "selected_history_entry": -1};
 var buffers = {};
+var open = [];
 
 var max_history_size = 8;
 
@@ -49,6 +50,14 @@ $("#q").keypress(function (e) {
             $("#history"+state.selected_history_entry).addClass("selected");
         }
     }
+});
+
+$("body").click(function (e) {
+    open[open.length-1](e);
+});
+
+$("nav").click(function (e) {
+    e.stopPropagation();
 });
 
 $("#q").focus(function (){
@@ -320,6 +329,7 @@ var search = function () {
     $("#q").blur();
     show_loader();
     buffers = {};
+    open = [];
     results.click(wrap_click_handler(deselect_buffers));
     state = {
         "query": $("#q").val(),
@@ -364,9 +374,11 @@ var make_toggle_buffer = function (id) {
     return function (e) {
         if (buffers[id].selected) {
             deselect_buffers();
+            open.pop();
             buffers[id].selected = false;
         } else {
             deselect_buffers();
+            open.push(make_toggle_buffer(id));
             buffers[id].selected = true;
         }
         update_buffer(id);
@@ -391,10 +403,14 @@ var make_toggle_context = function (buffer, id) {
         if (context.selected) {
             unselect_contexts(buffer);
             context.selected = false;
+            open.pop();
         } else {
             unselect_contexts(buffer);
+            if (!buffers[buffer].selected)
+                open.push(make_toggle_buffer(buffer));
             buffers[buffer].selected = true;
             context.selected = true;
+            open.push(make_toggle_context(buffer, id));
             if (context.before.length === 0) earlier(buffer, id, 5);
             if (context.after.length === 0) later(buffer, id, 5);
         }
