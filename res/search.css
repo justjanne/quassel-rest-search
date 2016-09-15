@@ -68,7 +68,7 @@ message sender {
 }
 
 message time {
-    width: 148px;
+    width: 180px;
     display: inline-block;
     padding: 0 24px;
     text-align: right;
