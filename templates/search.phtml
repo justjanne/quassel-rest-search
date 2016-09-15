@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Quassel Search</title>
+
+    <link rel="stylesheet" href="res/search.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<nav>
+    <div class="wrapper">
+        <div id="searchbar">
+            <input name="q" id="q" placeholder="Search" type="text">
+            <div id="searchicon" class="icon">search</div>
+        </div>
+    </div>
+    <div id="actions">
+        <a title="Logout" href="login.php?action=logout">
+            <span class="icon">account_circle</span>
+        </a>
+    </div>
+    <div id="autocomplete">
+        <ul></ul>
+    </div>
+</nav>
+
+<section id="results">
+</section>
+
+<div id="modal-background"></div>
+
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script src="res/search.js"></script>
+</body>
+</html>
