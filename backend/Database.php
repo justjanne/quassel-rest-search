@@ -33,7 +33,7 @@ class Backend {
             GROUP BY backlog.bufferid,
                      buffer.buffername,
                      network.networkname
-            ORDER BY MIN((1 + log(EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - TIME)))) * (1 - ts_rank(tsv, query, 32)) * (1 + ln(backlog.type))) ASC;
+            ORDER BY MIN((1 + log(MAX(1, EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - TIME))))) * (1 - ts_rank(tsv, query, 32)) * (1 + ln(backlog.type))) ASC;
         ");
         $this->storedFindInBufferMultiple = $db->prepare("
             SELECT tmp.bufferid,
@@ -50,7 +50,7 @@ class Backend {
                       backlog.message,
                       query,
                       rank() OVER(PARTITION BY backlog.bufferid
-                                  ORDER BY (1 + log(EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - TIME)))) * (1 - ts_rank(tsv, query, 32)) * (1 + ln(backlog.type)) ASC
+                                  ORDER BY (1 + log(MAX(1, EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - TIME))))) * (1 - ts_rank(tsv, query, 32)) * (1 + ln(backlog.type)) ASC
                                   ) AS rank
                FROM backlog
                JOIN buffer ON backlog.bufferid = buffer.bufferid,
@@ -58,7 +58,7 @@ class Backend {
                WHERE (backlog.type & 23559) > 0
                  AND buffer.userid = :userid
                  AND backlog.tsv @@ query
-               ORDER BY (1 + log(EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - TIME)))) * (1 - ts_rank(tsv, query, 32)) * (1 + ln(backlog.type)) ASC
+               ORDER BY (1 + log(MAX(1, EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - TIME))))) * (1 - ts_rank(tsv, query, 32)) * (1 + ln(backlog.type)) ASC
               ) tmp
             JOIN sender ON tmp.senderid = sender.senderid
             WHERE tmp.rank <= :limit;
@@ -77,7 +77,7 @@ class Backend {
               AND buffer.userid = :userid
               AND backlog.bufferid = :bufferid
               AND backlog.tsv @@ query
-            ORDER BY (1 + log(EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - TIME)))) * (1 - ts_rank(tsv, query, 32)) * ( 1 + ln(backlog.type)) ASC
+            ORDER BY (1 + log(MAX(1, EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - TIME))))) * (1 - ts_rank(tsv, query, 32)) * ( 1 + ln(backlog.type)) ASC
             LIMIT :limit OFFSET :offset;
         ");
         $this->loadAfter = $db->prepare("
