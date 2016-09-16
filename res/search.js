@@ -334,6 +334,7 @@ var search = function () {
         "query": $("#q").val(),
         "selected_history_entry": -1
     };
+    location.hash = state.query;
     load_search_overview(state.query, show_overview);
     add_to_history(state.query);
     update_history();
@@ -470,3 +471,7 @@ $("body").click(function (e) {
 $("nav").click(function (e) {
     e.stopPropagation();
 });
+
+$("#q").val(location.hash.substr(1));
+if ($("#q").val())
+    search();
