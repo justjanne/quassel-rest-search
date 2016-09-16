@@ -428,7 +428,7 @@ var make_toggle_context = function (buffer, id) {
 };
 
 var show_no_more_msg = function () {
-    $("#results").append("<div id='no_more'><img src='https://raw.githubusercontent.com/xiprox/ErrorView/master/library/src/main/res/drawable-xxhdpi/error_view_cloud.png'><h2>No results</h2></div>");
+    $("#results").append("<div id='no_more'><img src='res/error.png'><h2>No results</h2></div>");
 };
 
 var show_loader = function () {
