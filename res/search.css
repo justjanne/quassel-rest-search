@@ -424,6 +424,17 @@ nav input[type=text]:focus + #searchicon {
     white-space: nowrap;
 }
 
+#autocomplete p {
+    cursor: default;
+    line-height: 36px;
+    overflow: hidden;
+    padding: 0 24px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-style: italic;
+    color: #646464;
+}
+
 #autocomplete li .icon {
     border-radius: 12px;
     height: 24px;

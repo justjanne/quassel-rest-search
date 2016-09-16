@@ -215,6 +215,9 @@ var update_history = function () {
         container.append(render_history_item(i, history[i]));
         attach_history_item($("#history"+i));
     }
+    if (history.length == 0) {
+        container.append("<p>No search history available</p>");
+    }
 };
 
 var attach_history_item = function (elem) {
