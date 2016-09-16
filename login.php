@@ -12,7 +12,7 @@ $config = Config::createFromGlobals();
 $renderer = new RendererHelper($config);
 $backend = Backend::createFromConfig($config);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'login') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
     $username = $_POST['username'] ?: '';
     $password = $_POST['password'] ?: '';
     if ($backend->authenticate($username, $password)) {
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'login') {
         $session->password = $password;
         $renderer->redirect('/');
     }
-} elseif ($_GET['action'] === 'logout') {
+} elseif (isset($_GET['action']) && $_GET['action'] === 'logout') {
     $session->destroy();
     $renderer->redirect('/login.php');
 } else if ($backend->authenticate($session->username ?: '', $session->password ?: '')) {
