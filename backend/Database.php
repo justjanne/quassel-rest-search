@@ -137,20 +137,26 @@ class Backend {
     }
 
     public function authenticate(string $username, string $password) : bool {
-        if (!isset($username) || !isset($password))
+        if (!isset($username) || !isset($password)) {
+            syslog(LOG_ERR, "Username or password not set");
             return false;
+        }
 
         $this->findUser->bindParam(":username", $username);
         $this->findUser->execute();
 
         $result = $this->findUser->fetch(\PDO::FETCH_ASSOC);
-        if ($result === FALSE)
+        if ($result === FALSE) {
+            syslog(LOG_ERR, "Couldn’t find user " . $username);
             return false;
+        }
 
         $user = new User($result);
 
-        if (!AuthHelper::initialAuthenticateUser($password, $user->password, $user->hashversion))
+        if (!AuthHelper::initialAuthenticateUser($password, $user->password, $user->hashversion)) {
+            syslog(LOG_ERR, "Password does not match for user ".$username);
             return false;
+        }
 
         $this->user = $user;
         return true;
