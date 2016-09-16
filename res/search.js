@@ -8,7 +8,9 @@ var add_to_history = function (query) {
     if (!query)
         return;
 
-    var history = get_history().filter(function (x) { return x != query; });
+    var history = get_history().filter(function (x) {
+        return x != query;
+    });
     history.push(query);
     history = history.slice(Math.max(0, history.length - max_history_size));
     localStorage.setItem('history', JSON.stringify(history));
@@ -31,24 +33,24 @@ $("#q").keypress(function (e) {
         search();
     }
     if (key === 40) {
-        $("#history"+state.selected_history_entry).removeClass("selected");
+        $("#history" + state.selected_history_entry).removeClass("selected");
         state.selected_history_entry = (state.selected_history_entry + 1) % get_history().length;
         $("#q").val(get_history().reverse()[state.selected_history_entry]);
-        $("#history"+state.selected_history_entry).addClass("selected");
+        $("#history" + state.selected_history_entry).addClass("selected");
     } else if (key === 38) {
-        $("#history"+state.selected_history_entry).removeClass("selected");
+        $("#history" + state.selected_history_entry).removeClass("selected");
         if (state.selected_history_entry === 0) {
             state.selected_history_entry = -1;
             $("#q").val("");
         } else {
             state.selected_history_entry = (state.selected_history_entry - 1) % get_history().length;
             $("#q").val(get_history().reverse()[state.selected_history_entry]);
-            $("#history"+state.selected_history_entry).addClass("selected");
+            $("#history" + state.selected_history_entry).addClass("selected");
         }
     }
 });
 
-$("#q").focus(function (){
+$("#q").focus(function () {
     $("#autocomplete").addClass("active");
     $("#results").addClass("hidden");
     $("nav").addClass("search");
@@ -79,7 +81,7 @@ var sendercolor = function (nick) {
         "#3176b3"
     ];
 
-    var reflect = function(crc, n) {
+    var reflect = function (crc, n) {
         var j = 1, crcout = 0;
         for (var i = (1 << (n - 1)); i > 0; i >>= 1) {
             if ((crc & i) > 0) {
@@ -90,7 +92,7 @@ var sendercolor = function (nick) {
         return crcout;
     };
 
-    var qChecksum = function(str) {
+    var qChecksum = function (str) {
         var crc = 0xffff;
         var crcHighBitMask = 0x8000;
 
@@ -191,10 +193,10 @@ var render_context_full = function (context) {
 
 var render_history_item = function (id, query) {
     return (
-        "<li id='history"+id+"' data-query='"+btoa(query)+"'>" + (
+        "<li id='history" + id + "' data-query='" + btoa(query) + "'>" + (
             "<span class='icon'>history</span>" +
             query
-        ) +"</li>"
+        ) + "</li>"
     )
 };
 
@@ -205,7 +207,7 @@ var update_history = function () {
     var history = get_history().reverse();
     for (var i = 0; i < history.length; i++) {
         container.append(render_history_item(i, history[i]));
-        attach_history_item($("#history"+i));
+        attach_history_item($("#history" + i));
     }
     if (history.length == 0) {
         container.append("<p>No search history available</p>");
@@ -233,8 +235,10 @@ var attach_context = function (elem) {
         console.log("Undefined buffer: " + bufferid);
     }
 
-    elem.click(wrap_click_handler(function (e) {e.stopPropagation(); }));
-    $("#message"+buffers[bufferid].contexts[id].original.messageid).click(wrap_click_handler(make_toggle_context(bufferid, id)));
+    elem.click(wrap_click_handler(function (e) {
+        e.stopPropagation();
+    }));
+    $("#message" + buffers[bufferid].contexts[id].original.messageid).click(wrap_click_handler(make_toggle_context(bufferid, id)));
     elem.find(".load_before").click(wrap_click_handler(function (e) {
         earlier(bufferid, id, 5);
         e.stopPropagation();
@@ -333,7 +337,7 @@ var search = function () {
         "query": $("#q").val(),
         "selected_history_entry": -1
     };
-    location = "#"+encodeURIComponent(state.query);
+    location = "#" + encodeURIComponent(state.query);
     if (state.query) {
         show_loader();
         load_search_overview(state.query, show_overview);
@@ -464,7 +468,6 @@ var sort_messages = function (arr) {
 update_history();
 
 
-
 $("body").click(function (e) {
     if (open.length)
         open[open.length - 1](e);
@@ -474,7 +477,7 @@ $("nav").click(function (e) {
     e.stopPropagation();
 });
 
-var hashChange = function() {
+var hashChange = function () {
     $("#q").val(decodeURIComponent(location.hash.substr(1)));
     search();
 };

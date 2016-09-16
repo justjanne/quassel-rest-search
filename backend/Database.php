@@ -154,7 +154,7 @@ class Backend {
         $user = new User($result);
 
         if (!AuthHelper::initialAuthenticateUser($password, $user->password, $user->hashversion)) {
-            syslog(LOG_ERR, "Password does not match for user ".$username);
+            syslog(LOG_ERR, "Password does not match for user " . $username);
             return false;
         }
 
