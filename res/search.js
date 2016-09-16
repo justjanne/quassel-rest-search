@@ -63,10 +63,12 @@ $("nav").click(function (e) {
 $("#q").focus(function (){
     $("#autocomplete").addClass("active");
     $("#results").addClass("hidden");
+    $("nav").addClass("search");
 });
 $("#q").blur(function () {
     $("#autocomplete").removeClass("active");
     $("#results").removeClass("hidden");
+    $("nav").removeClass("search");
 });
 
 var sendercolor = function (nick) {
