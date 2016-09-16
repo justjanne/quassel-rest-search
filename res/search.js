@@ -20,12 +20,8 @@ var get_history = function () {
 
 var wrap_click_handler = function (fun) {
     return function (event) {
-        var sel = getSelection().toString();
-        if (sel) {
-            event.stopPropagation();
-        } else if (fun) {
-            fun(event);
-        }
+        event.stopPropagation();
+        fun(event);
     }
 };
 
@@ -50,14 +46,6 @@ $("#q").keypress(function (e) {
             $("#history"+state.selected_history_entry).addClass("selected");
         }
     }
-});
-
-$("body").click(function (e) {
-    open[open.length-1](e);
-});
-
-$("nav").click(function (e) {
-    e.stopPropagation();
 });
 
 $("#q").focus(function (){
@@ -175,7 +163,9 @@ var attach_buffer = function (elem) {
         e.stopPropagation();
     }));
     buffers[id].contexts.forEach(function (context) {
-        attach_context(elem.find("#context" + context.id));
+        var context = elem.find("#context" + context.id);
+        if (context.length)
+            attach_context(context);
     })
 };
 
@@ -239,6 +229,10 @@ var attach_context = function (elem) {
     elem.unbind();
     var id = elem.data("contextid");
     var bufferid = elem.data("bufferid");
+    if (buffers[bufferid] === undefined) {
+        console.log("Undefined buffer: " + bufferid);
+    }
+
     elem.click(wrap_click_handler(function (e) {e.stopPropagation(); }));
     $("#message"+buffers[bufferid].contexts[id].original.messageid).click(wrap_click_handler(make_toggle_context(bufferid, id)));
     elem.find(".load_before").click(wrap_click_handler(function (e) {
@@ -393,6 +387,7 @@ var make_toggle_buffer = function (id) {
 
 var select_buffer = function (id) {
     deselect_buffers(id);
+    open.push(make_toggle_buffer(id));
     buffers[id].selected = true;
     update_buffer(id);
 };
@@ -411,9 +406,10 @@ var make_toggle_context = function (buffer, id) {
             open.pop();
         } else {
             unselect_contexts(buffer);
-            if (!buffers[buffer].selected)
+            if (!buffers[buffer].selected) {
                 open.push(make_toggle_buffer(buffer));
-            buffers[buffer].selected = true;
+                buffers[buffer].selected = true;
+            }
             context.selected = true;
             open.push(make_toggle_context(buffer, id));
             if (context.before.length === 0) earlier(buffer, id, 5);
@@ -463,3 +459,14 @@ var sort_messages = function (arr) {
 };
 
 update_history();
+
+
+
+$("body").click(function (e) {
+    if (open.length)
+        open[open.length - 1](e);
+});
+
+$("nav").click(function (e) {
+    e.stopPropagation();
+});
