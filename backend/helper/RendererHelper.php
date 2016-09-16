@@ -37,6 +37,6 @@ class RendererHelper {
     }
 
     public function redirect(string $page, string $flash = null) {
-        header('Location: ' . $this->config->page_prefix . $page);
+        header('Location: ' . $this->config->path_prefix . $page);
     }
 }

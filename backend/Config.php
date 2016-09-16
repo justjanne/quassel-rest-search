@@ -8,16 +8,16 @@ class Config {
     public $username;
     public $password;
 
-    public $page_prefix;
+    public $path_prefix;
 
-    public function __construct(string $page_prefix, string $database_connector, string $username, string $password) {
+    public function __construct(string $path_prefix, string $database_connector, string $username, string $password) {
         $this->database_connector = $database_connector;
         $this->username = $username;
         $this->password = $password;
-        $this->page_prefix = $page_prefix;
+        $this->path_prefix = $path_prefix;
     }
 
     public static function createFromGlobals() {
-        return new Config(page_prefix, 'pgsql:host=' . db_host . ';port=' . db_port . ';dbname=' . db_name . '', db_user, db_pass);
+        return new Config(path_prefix, 'pgsql:host=' . db_host . ';port=' . db_port . ';dbname=' . db_name . '', db_user, db_pass);
     }
 }
