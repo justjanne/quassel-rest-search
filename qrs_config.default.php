@@ -5,4 +5,4 @@ define('db_name', 'quassel');
 define('db_user', 'quassel');
 define('db_pass', 'password');
 define('backend', 'pgsql-smart');
-define('path_prefix', '/');
+define('path_prefix', '');
