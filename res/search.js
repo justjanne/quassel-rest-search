@@ -117,8 +117,8 @@ var sendercolor = function (nick) {
     };
 
     var senderIndex = function (str) {
-        var nickToHash = nick.replace(/_*$/, "").toLowerCase();
-        return qChecksum(str) & 0xF;
+        var nickToHash = str.replace(/_*$/, "").toLowerCase();
+        return qChecksum(nickToHash) & 0xF;
     };
 
     return sendercolors[senderIndex(nick)];
@@ -163,9 +163,9 @@ var attach_buffer = function (elem) {
         e.stopPropagation();
     }));
     buffers[id].contexts.forEach(function (context) {
-        var context = elem.find("#context" + context.id);
-        if (context.length)
-            attach_context(context);
+        var ctx = elem.find("#context" + context.id);
+        if (ctx.length)
+            attach_context(ctx);
     })
 };
 
