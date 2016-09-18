@@ -15,5 +15,5 @@ try {
     $backend->authenticateFromHeader($_SERVER['HTTP_AUTHORIZATION'] ?: "");
     $renderer->renderJson($backend->findBuffers($_GET['q'] ?: ""));
 } catch (\Exception $e) {
-    $renderer->renderError($e);
+    $renderer->renderJson(["error" => $e->getMessage()]);
 }

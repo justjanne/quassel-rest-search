@@ -144,7 +144,7 @@ var render_buffer_overview = function (buffer) {
             "<h2>" + buffer.network + " – " + buffer.name + "</h2>" +
             "<article>" + (
                 buffer.contexts.slice(0, 4).map(render_context).join("") +
-                "<inline-button class='load_more'>Load More Results</inline-button>"
+                "<inline-button class='load_more'>Show More Results</inline-button>"
             ) + "</article>"
         ) + "</buffer>"
     )

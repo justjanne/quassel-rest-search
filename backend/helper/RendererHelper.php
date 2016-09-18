@@ -21,7 +21,6 @@ class RendererHelper {
     public function renderJsonError($json) {
         header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden');
         header('Status: 403 Forbidden');
-        echo 'Error 403: Forbidden' . "\n";
         header('Content-Type: application/json');
         echo json_encode($json) . "\n";
     }
