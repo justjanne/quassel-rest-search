@@ -3,12 +3,15 @@
 namespace QuasselRestSearch;
 
 require_once 'ViewHelper.php';
+require_once 'TranslationHelper.php';
 
 class RendererHelper {
     private $config;
+    private $translator;
 
     public function __construct(Config $config) {
         $this->config = $config;
+        $this->translator = new TranslationHelper($config);
     }
 
     public function renderError($e) {
@@ -31,7 +34,8 @@ class RendererHelper {
     }
 
     public function renderPage(string $template, array $vars = null) {
-        $viewHelper = new ViewHelper($vars);
+        $translation = $this->translator->loadTranslation($this->translator->findMatchingLanguage($_SERVER['HTTP_ACCEPT_LANGUAGE']));
+        $viewHelper = new ViewHelper($translation, $vars);
         $viewHelper->render($template);
     }
 

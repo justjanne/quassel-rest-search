@@ -1,5 +1,3 @@
-var translation = translations.en;
-
 var state = {
     query: "",
     selected_history_entry: -1,

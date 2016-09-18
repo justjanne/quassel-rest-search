@@ -120,7 +120,21 @@ nav input[type=text]::-moz-placeholder {
     -moz-osx-font-smoothing: grayscale;
 }
 
+nav input[type=text]::-webkit-input-placeholder {
+    color: #ffffff;
+    opacity: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 nav input[type=text]:focus::-moz-placeholder {
+    color: #757575;
+    opacity: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+nav input[type=text]:focus::-webkit-input-placeholder {
     color: #757575;
     opacity: 1;
     -webkit-font-smoothing: antialiased;
