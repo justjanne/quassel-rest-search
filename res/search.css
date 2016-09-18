@@ -49,7 +49,7 @@ buffer > h2 {
 message {
     display: flex;
     line-height: 24px;
-    padding: 12px 0;
+    padding: 12px 24px;
     border-bottom: 1px solid #e5e5e5;
     color: #212121;
     background: #fff;
@@ -57,28 +57,31 @@ message {
 }
 
 message.faded * {
-    opacity: .6
+    opacity: .8
 }
 
 message sender {
     width: 148px;
     display: inline-block;
+    padding: 0 24px;
     font-weight: bold;
     flex-shrink: 0;
 }
 
 message time {
-    width: 180px;
+    width: 132px;
     display: inline-block;
-    padding: 0 24px;
     text-align: right;
     flex-shrink: 0;
 }
 
-message content {
-    padding: 0 24px;
+message .container, message content {
     flex-shrink: 1;
     overflow: hidden;
+}
+
+message .container {
+    display: flex;
 }
 
 message:last-child {
@@ -208,7 +211,7 @@ message:before, inline-button:before {
     top: 0;
 }
 
-message > content > b {
+message content > b {
     font-weight: initial;
     background-color: rgba(251, 246, 167, 0.5);
 }
@@ -480,4 +483,50 @@ nav.search #actions > * {
 
 #results.hidden + #modal-background {
     display: block;
+}
+
+@media(max-width: 800px) {
+    #results {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    nav .wrapper, #autocomplete {
+        padding-left: 2rem;
+        padding-right: 4rem;
+    }
+
+    #actions {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    message {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-bottom: 2rem;
+    }
+
+    message sender {
+        padding: 0;
+        width: initial;
+    }
+
+    message sender:after {
+        content: ":";
+        margin-right: 8px;
+    }
+
+    message .container {
+        display: block;
+    }
+
+    message time {
+        position: absolute;
+        right: 8px;
+        bottom: 8px;
+        width: initial;
+        font-style: italic;
+        color: #777;
+    }
 }

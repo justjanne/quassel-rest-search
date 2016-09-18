@@ -170,8 +170,10 @@ var render = {
         return (
             "<message id='message" + message.messageid + "' data-messageid='" + message.messageid + "' " + (highlight === true ? "" : "class='faded'") + ">" + (
                 "<time>" + new Date(message.time.replace(" ", "T") + "Z").toLocaleString() + "</time>" +
-                "<sender style='color: " + sendercolor(message.sender.split("!")[0]) + "'>" + message.sender.split("!")[0] + "</sender>" +
-                "<content>" + content + "</content>"
+                "<div class='container'>" + (
+                    "<sender style='color: " + sendercolor(message.sender.split("!")[0]) + "'>" + message.sender.split("!")[0] + "</sender>" +
+                    "<content>" + content + "</content>"
+                ) + "</div>"
             ) + "</message>"
         )
     },
