@@ -170,16 +170,12 @@ class Backend {
 
         $buffermap = [];
         foreach ($buffers as &$buffer) {
+            $buffer['messages'] = [];
             $buffermap[$buffer['bufferid']] = &$buffer;
-            $buffermap[$buffer['bufferid']]['messages'] = [];
         }
 
         foreach ($messages as $message) {
-            $buffer = $buffermap[$message['bufferid']];
-            $messages1 = $buffer['messages'];
-            array_push($messages1, $message);
-            $buffer['messages'] = $messages1;
-            $buffermap[$buffer['bufferid']] = $buffer;
+            array_push($buffermap[$message['bufferid']]['messages'], $message);
         }
 
         return array_values($buffermap);
