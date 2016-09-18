@@ -18,6 +18,9 @@ class Config {
     }
 
     public static function createFromGlobals() {
-        return new Config(path_prefix, 'pgsql:host=' . db_host . ';port=' . db_port . ';dbname=' . db_name . '', db_user, db_pass);
+        if (isset(db_connector))
+            return new Config(path_prefix, db_connector, db_user, db_pass);
+        else
+            return new Config(path_prefix, 'pgsql:host=' . db_host . ';port=' . db_port . ';dbname=' . db_name . '', db_user, db_pass);
     }
 }
