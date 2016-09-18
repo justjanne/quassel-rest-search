@@ -309,7 +309,8 @@ var deselect_buffers = function (except) {
             unselect_contexts(key);
             render.buffer.update(key);
         }
-    })
+    });
+    state.open = [];
 };
 
 var unselect_contexts = function (bufferid) {
@@ -328,7 +329,7 @@ var make_toggle_buffer = function (id) {
             state.open.pop();
             state.buffers[id].selected = false;
         } else {
-            deselect_buffers();
+            deselect_buffers(id);
             state.open.push(make_toggle_buffer(id));
             state.buffers[id].selected = true;
         }
@@ -346,6 +347,7 @@ var make_toggle_context = function (buffer, id) {
             context.selected = false;
             state.open.pop();
         } else {
+            deselect_buffers(buffer);
             unselect_contexts(buffer);
             if (!state.buffers[buffer].selected) {
                 state.open.push(make_toggle_buffer(buffer));
