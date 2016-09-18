@@ -1,0 +1,9 @@
+<FilesMatch "^(\.gitignore|qrs_config.php)$">
+	Order allow,deny
+	deny from all
+	Require all denied
+</FilesMatch>
+
+<IfModule mod_alias.c>
+	RedirectMatch 403 ^.*/\.git.*$
+</IfModule>
