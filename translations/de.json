@@ -11,7 +11,10 @@
     "error_unavailable": "No search history available"
   },
   "login": {
-    "description": "You have to login to access this page"
+    "description": "You have to login to access this page",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "submit": "Anmelden"
   },
   "search": "Suchen",
   "logout": "Abmelden",
