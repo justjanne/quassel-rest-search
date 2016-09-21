@@ -21,8 +21,7 @@ var search_history = {
             return x != query;
         });
         tmp.push(query);
-        tmp = tmp.slice(Math.max(0, tmp.length - tmp.max_size));
-        localStorage.setItem('history', JSON.stringify(tmp));
+        localStorage.setItem('history', JSON.stringify(tmp.slice(0, tmp.max_size)));
     }
 };
 
