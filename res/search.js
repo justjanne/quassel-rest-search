@@ -21,7 +21,7 @@ var search_history = {
             return x != query;
         }).reverse();
         tmp.push(query);
-        localStorage.setItem('history', JSON.stringify(tmp.slice(Math.max(0, tmp.length - tmp.max_size))));
+        localStorage.setItem('history', JSON.stringify(tmp.slice(Math.max(0, tmp.length - search_history.max_size))));
     }
 };
 
