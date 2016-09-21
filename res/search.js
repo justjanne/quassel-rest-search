@@ -19,9 +19,9 @@ var search_history = {
 
         var tmp = search_history.get().filter(function (x) {
             return x != query;
-        });
+        }).reverse();
         tmp.push(query);
-        localStorage.setItem('history', JSON.stringify(tmp.slice(0, tmp.max_size)));
+        localStorage.setItem('history', JSON.stringify(tmp.slice(Math.max(0, tmp.length - tmp.max_size))));
     }
 };
 
@@ -360,8 +360,12 @@ var make_toggle_context = function (buffer, id) {
 };
 
 var hashChange = function () {
-    $("#q").val(decodeURIComponent(location.hash.substr(1)));
-    search();
+    var input = $("#q");
+    var newquery = decodeURIComponent(location.hash.substr(1));
+    if (input.val() != newquery) {
+        input.val(newquery);
+        search();
+    }
 };
 
 var init = function () {
