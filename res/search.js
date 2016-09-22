@@ -149,6 +149,7 @@ var render = {
             elem.click(function (e) {
                 e.stopPropagation();
             });
+            $("#message" + state.buffers[bufferid].contexts[id].original.messageid).unbind();
             $("#message" + state.buffers[bufferid].contexts[id].original.messageid).click(make_toggle_context(bufferid, id));
             elem.find(".load_before").click(function (e) {
                 e.stopPropagation();
