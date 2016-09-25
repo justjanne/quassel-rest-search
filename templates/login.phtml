@@ -23,6 +23,7 @@
 <form method="post" action="login.php?action=login">
     <input name="username" type="text" placeholder="<?php $t('login.username'); ?>">
     <input name="password" type="password" placeholder="<?php $t('login.password'); ?>">
+    <?php if($this->vars['incorrect']){ ?><p class="error"><?php $t('login.incorrect'); ?></p><?php } ?>
     <input type="submit" value="<?php $t('login.submit'); ?>">
 </form>
 
