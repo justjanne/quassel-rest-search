@@ -28,6 +28,7 @@ class ViewHelper {
                 $var = $var[$key];
             echo $var;
         };
+        $vars = $this->vars;
 
         $path = $this->template_dir . '/' . $template_file . '.phtml';
         if (file_exists($path)) {

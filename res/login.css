@@ -1,8 +1,13 @@
-body :first-child {
+body {
+    font-family: 'Open Sans', Helvetica Neue, Helvetica, Arial, arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body > :first-child {
     margin-top: 8rem;
 }
 
-body:last-child {
+body > :last-child {
     margin-bottom: 2rem;
 }
 
@@ -11,13 +16,11 @@ form {
     margin: 0 auto 25px;
     border-radius: 2px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-    width: 274px;
-    padding: 40px 40px;
+    width: 16rem;
+    padding: 1.5rem 2rem;
 }
 
 h1 {
-    font-family: 'Open Sans', arial;
-    -webkit-font-smoothing: antialiased;
     color: #555;
     font-size: 42px;
     font-weight: 300;
@@ -26,7 +29,6 @@ h1 {
 }
 
 h2 {
-    font-family: 'Open Sans', arial;
     color: #555;
     font-size: 18px;
     font-weight: 400;
@@ -76,18 +78,26 @@ input[type=submit] {
     background-image: linear-gradient(top, #4d90fe, #4787ed);
     width: 100%;
     display: block;
-    margin-bottom: 10px;
     z-index: 1;
     position: relative;
     box-sizing: border-box;
 }
 
+form .message {
+    margin: 0 0 1rem 0;
+    font-size: 14px;
+}
+
+form .message.error {
+    color: #b71c1c;
+}
+
 @media (max-width: 800px) {
-    body :first-child {
+    body > :first-child {
         margin-top: 1rem;
     }
 
-    body:last-child {
+    body > :last-child {
         margin-bottom: 1rem;
     }
 }

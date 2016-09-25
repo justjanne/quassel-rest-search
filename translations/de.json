@@ -14,7 +14,12 @@
     "description": "You have to login to access this page",
     "username": "Benutzername",
     "password": "Passwort",
-    "submit": "Anmelden"
+    "submit": "Anmelden",
+    "message": {
+      "success_logout": "You have successfully logged out.",
+      "error_invalid": "Invalid username/password combination.",
+      "error_unauthed": "You need to be logged in to access this page."
+    }
   },
   "search": "Suchen",
   "logout": "Abmelden",

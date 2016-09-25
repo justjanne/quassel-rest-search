@@ -9,12 +9,12 @@ require_once 'backend/helper/SessionHelper.php';
 
 $session = SessionHelper::getInstance();
 $config = Config::createFromGlobals();
-$renderer = new RendererHelper($config);
+$renderer = new RendererHelper($config, $session);
 $backend = Backend::createFromConfig($config);
 
 if (!$backend->authenticate($session->username ?: '', $session->password ?: '')) {
     $session->destroy();
-    $renderer->redirect('/login.php');
+    $renderer->redirect('/login.php', ['message' => 'login.message.error_unauthed', 'type' => 'error']);
 } else {
     $renderer->renderPage('search', ['username' => $session->username]);
 }

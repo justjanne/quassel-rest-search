@@ -8,10 +8,12 @@ require_once 'TranslationHelper.php';
 class RendererHelper {
     private $config;
     private $translator;
+    private $sessionHelper;
 
-    public function __construct(Config $config) {
+    public function __construct(Config $config, SessionHelper $sessionHelper = null) {
         $this->config = $config;
         $this->translator = new TranslationHelper($config);
+        $this->sessionHelper = $sessionHelper;
     }
 
     public function renderError($e) {
@@ -33,13 +35,15 @@ class RendererHelper {
         echo json_encode($json) . "\n";
     }
 
-    public function renderPage(string $template, array $vars = null) {
+    public function renderPage(string $template, array $vars = []) {
         $translation = $this->translator->loadTranslation($this->translator->findMatchingLanguage($_SERVER['HTTP_ACCEPT_LANGUAGE']));
-        $viewHelper = new ViewHelper($translation, $vars);
+        $viewHelper = new ViewHelper($translation, array_merge($this->sessionHelper->vars, $vars));
         $viewHelper->render($template);
     }
 
-    public function redirect(string $page, string $flash = null) {
+    public function redirect(string $page, array $vars = []) {
         header('Location: ' . $this->config->path_prefix . $page);
+        $this->sessionHelper->startSession();
+        $this->sessionHelper->vars = $vars;
     }
 }
