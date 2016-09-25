@@ -82,6 +82,12 @@ input[type=submit] {
     box-sizing: border-box;
 }
 
+p.error {
+    font-family: 'Open Sans', arial;
+    color: red;
+    text-align: center;
+}
+
 @media (max-width: 800px) {
     body :first-child {
         margin-top: 1rem;

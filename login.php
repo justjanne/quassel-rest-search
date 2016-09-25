@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
         $renderer->redirect('/');
     } else {
         syslog(LOG_ERR, "Could not authenticate user " . $username);
+        $renderer->renderPage('login', array('incorrect' => true));
     }
 } elseif (isset($_GET['action']) && $_GET['action'] === 'logout') {
     $session->destroy();

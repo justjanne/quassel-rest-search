@@ -14,7 +14,8 @@
     "description": "You have to login to access this page",
     "username": "Username",
     "password": "Password",
-    "submit": "Login"
+    "submit": "Login",
+    "incorrect": "Incorrect username or password"
   },
   "search": "Search",
   "logout": "Logout",
