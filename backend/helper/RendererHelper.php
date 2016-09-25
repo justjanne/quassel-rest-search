@@ -39,6 +39,7 @@ class RendererHelper {
         $translation = $this->translator->loadTranslation($this->translator->findMatchingLanguage($_SERVER['HTTP_ACCEPT_LANGUAGE']));
         $viewHelper = new ViewHelper($translation, array_merge($this->sessionHelper->vars, $vars));
         $viewHelper->render($template);
+        $this->sessionHelper->vars = [];
     }
 
     public function redirect(string $page, array $vars = []) {
