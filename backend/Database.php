@@ -40,7 +40,7 @@ class Backend {
                    tmp.messageid,
                    sender.sender,
                    tmp.time,
-                   tmp.message,
+                   replace(replace(tmp.message, '<', '&lt;'), '>', '&gt;'),
                    ts_headline(replace(replace(tmp.message, '<', '&lt;'), '>', '&gt;'), query) AS preview
             FROM
               (SELECT backlog.messageid,
@@ -67,7 +67,7 @@ class Backend {
             SELECT backlog.messageid,
                    sender.sender,
                    backlog.time,
-                   backlog.message,
+                   replace(replace(backlog.message, '<', '&lt;'), '>', '&gt;'),
                    ts_headline(replace(replace(backlog.message, '<', '&lt;'), '>', '&gt;'), query) AS preview
             FROM backlog
             JOIN sender ON backlog.senderid = sender.senderid
