@@ -87,7 +87,7 @@ class Backend {
                    sender.sender,
                    backlog.time,
                    network.networkname,
-                   backlog.message
+                   replace(replace(backlog.message, '<', '&lt;'), '>', '&gt;')
             FROM backlog
             JOIN sender ON backlog.senderid = sender.senderid
             JOIN buffer ON backlog.bufferid = buffer.bufferid
@@ -105,7 +105,7 @@ class Backend {
                    sender.sender,
                    backlog.time,
                    network.networkname,
-                   backlog.message
+                   replace(replace(backlog.message, '<', '&lt;'), '>', '&gt;')
             FROM backlog
             JOIN sender ON backlog.senderid = sender.senderid
             JOIN buffer ON backlog.bufferid = buffer.bufferid
