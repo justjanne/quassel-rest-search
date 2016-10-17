@@ -40,7 +40,7 @@ class Backend {
                    tmp.messageid,
                    sender.sender,
                    tmp.time,
-                   replace(replace(tmp.message, '<', '&lt;'), '>', '&gt;'),
+                   replace(replace(tmp.message, '<', '&lt;'), '>', '&gt;') AS message,
                    ts_headline(replace(replace(tmp.message, '<', '&lt;'), '>', '&gt;'), query) AS preview
             FROM
               (SELECT backlog.messageid,
@@ -67,7 +67,7 @@ class Backend {
             SELECT backlog.messageid,
                    sender.sender,
                    backlog.time,
-                   replace(replace(backlog.message, '<', '&lt;'), '>', '&gt;'),
+                   replace(replace(backlog.message, '<', '&lt;'), '>', '&gt;') AS message,
                    ts_headline(replace(replace(backlog.message, '<', '&lt;'), '>', '&gt;'), query) AS preview
             FROM backlog
             JOIN sender ON backlog.senderid = sender.senderid
@@ -87,7 +87,7 @@ class Backend {
                    sender.sender,
                    backlog.time,
                    network.networkname,
-                   replace(replace(backlog.message, '<', '&lt;'), '>', '&gt;')
+                   replace(replace(backlog.message, '<', '&lt;'), '>', '&gt;') AS message
             FROM backlog
             JOIN sender ON backlog.senderid = sender.senderid
             JOIN buffer ON backlog.bufferid = buffer.bufferid
@@ -105,7 +105,7 @@ class Backend {
                    sender.sender,
                    backlog.time,
                    network.networkname,
-                   replace(replace(backlog.message, '<', '&lt;'), '>', '&gt;')
+                   replace(replace(backlog.message, '<', '&lt;'), '>', '&gt;') AS message
             FROM backlog
             JOIN sender ON backlog.senderid = sender.senderid
             JOIN buffer ON backlog.bufferid = buffer.bufferid
