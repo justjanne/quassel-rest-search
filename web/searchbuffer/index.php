@@ -16,5 +16,5 @@ if (!$backend->authenticate($session->username ?: '', $session->password ?: ''))
     $session->destroy();
     $renderer->renderJsonError(false);
 } else {
-    $renderer->renderJson($backend->findInBuffer($_GET['query'] ?: "", $_GET['buffer'] ?: 0, $_GET['offset'] ?: 0, $_GET['limit'] ?: 20));
+    $renderer->renderJson($backend->findInBuffer($_GET['query'] ?: "", $_GET['since'] ?: null, $_GET['before'] ?: null, $_GET['buffer'] ?: 0, $_GET['offset'] ?: 0, $_GET['limit'] ?: 20));
 }

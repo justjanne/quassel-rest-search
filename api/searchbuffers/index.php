@@ -13,7 +13,7 @@ $backend = Backend::createFromConfig($config);
 
 try {
     $backend->authenticateFromHeader($_SERVER['HTTP_AUTHORIZATION'] ?: "");
-    $renderer->renderJson($backend->findInBufferMultiple($_GET['q'] ?: "", $_GET['limit'] ?: 4));
+    $renderer->renderJson($backend->findInBufferMultiple($_GET['q'] ?: "", $_GET['since'] ?: null, $_GET['before'] ?: null, $_GET['limit'] ?: 4));
 } catch (\Exception $e) {
     $renderer->renderJson(["error" => $e->getMessage()]);
 }

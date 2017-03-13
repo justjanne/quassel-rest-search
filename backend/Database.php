@@ -2,6 +2,8 @@
 
 namespace QuasselRestSearch;
 
+use PDO;
+
 require_once 'User.php';
 require_once 'Config.php';
 require_once 'helper/AuthHelper.php';
@@ -29,6 +31,10 @@ class Backend {
                             plainto_tsquery('english'::REGCONFIG, :query) query
             WHERE (backlog.type & 23559) > 0
               AND buffer.userid = :userid
+              AND (NOT(:_since) OR backlog.time > to_timestamp(:since))
+              AND (NOT(:_before) OR backlog.time < to_timestamp(:before))
+              AND (NOT(:_network) OR network.networkname ILIKE :network)
+              AND (NOT(:_buffer) OR buffer.buffername ILIKE :buffer)
               AND backlog.tsv @@ query
             GROUP BY backlog.bufferid,
                      buffer.buffername,
@@ -56,6 +62,8 @@ class Backend {
                JOIN buffer ON backlog.bufferid = buffer.bufferid,
                               plainto_tsquery('english'::REGCONFIG, :query) query
                WHERE (backlog.type & 23559) > 0
+                 AND (NOT(:_since) OR backlog.time > to_timestamp(:since))
+                 AND (NOT(:_before) OR backlog.time < to_timestamp(:before))
                  AND buffer.userid = :userid
                  AND backlog.tsv @@ query
                ORDER BY (1 + log(GREATEST(1, EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - TIME))))) * (1 - ts_rank(tsv, query, 32)) * (1 + ln(backlog.type)) ASC
@@ -74,6 +82,8 @@ class Backend {
             JOIN buffer ON backlog.bufferid = buffer.bufferid,
                             plainto_tsquery('english'::REGCONFIG, :query) query
             WHERE (backlog.type & 23559) > 0
+              AND (NOT(:_since) OR backlog.time > to_timestamp(:since))
+              AND (NOT(:_before) OR backlog.time < to_timestamp(:before))
               AND buffer.userid = :userid
               AND backlog.bufferid = :bufferid
               AND backlog.tsv @@ query
@@ -162,11 +172,11 @@ class Backend {
         return true;
     }
 
-    public function find(string $query, int $limitPerBuffer = 4) : array {
+    public function find(string $query, int $since = null, int $before = null, string $buffer = null, string $network = null, int $limitPerBuffer = 4) : array {
         $truncatedLimit = max(min($limitPerBuffer, 10), 0);
 
-        $buffers = $this->findBuffers($query);
-        $messages = $this->findInBufferMultiple($query, $truncatedLimit);
+        $buffers = $this->findBuffers($query, $since, $before, $buffer, $network);
+        $messages = $this->findInBufferMultiple($query, $since, $before, $truncatedLimit);
 
         $buffermap = [];
         foreach ($buffers as &$buffer) {
@@ -175,33 +185,65 @@ class Backend {
         }
 
         foreach ($messages as $message) {
-            array_push($buffermap[$message['bufferid']]['messages'], $message);
+            if (!is_null($buffermap[$message['bufferid']]))
+                array_push($buffermap[$message['bufferid']]['messages'], $message);
         }
 
         return array_values($buffermap);
     }
 
-    public function findBuffers(string $query) : array {
+    public function findBuffers(string $query, int $since = null, int $before = null, string $buffer = null, string $network = null) : array {
+        $_since = $since!==null;
+        $_before = $before!==null;
+        $_buffer = $buffer!==null;
+        $_network = $network!==null;
+        
         $this->storedFindBuffers->bindParam(':userid', $this->user->userid);
         $this->storedFindBuffers->bindParam(':query', $query);
+
+        $this->storedFindBuffers->bindValue(':since', $_since ? (int) $since : 0, PDO::PARAM_INT);
+        $this->storedFindBuffers->bindValue(':before', $_before ? (int) $before : 0, PDO::PARAM_INT);
+        $this->storedFindBuffers->bindValue(':buffer', $_buffer ? (string) $buffer : "");
+        $this->storedFindBuffers->bindValue(':network', $_network ? (string) $network : "");
+        $this->storedFindBuffers->bindParam(':_since', $_since, PDO::PARAM_INT);
+        $this->storedFindBuffers->bindParam(':_before', $_before, PDO::PARAM_INT);
+        $this->storedFindBuffers->bindParam(':_buffer', $_buffer, PDO::PARAM_INT);
+        $this->storedFindBuffers->bindParam(':_network', $_network, PDO::PARAM_INT);
+
         $this->storedFindBuffers->execute();
         return $this->storedFindBuffers->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function findInBufferMultiple(string $query, int $limit = 4) : array {
+    public function findInBufferMultiple(string $query, int $since = null, int $before = null, int $limit = 4) : array {
+        $_since = $since!==null;
+        $_before = $before!==null;
+
         $this->storedFindInBufferMultiple->bindParam(':userid', $this->user->userid);
         $this->storedFindInBufferMultiple->bindParam(':query', $query);
         $this->storedFindInBufferMultiple->bindParam(':limit', $limit);
+
+        $this->storedFindInBufferMultiple->bindValue(':since', $_since ? (int) $since : 0, PDO::PARAM_INT);
+        $this->storedFindInBufferMultiple->bindValue(':before', $_before ? (int) $before : 0, PDO::PARAM_INT);
+        $this->storedFindInBufferMultiple->bindParam(':_since', $_since, PDO::PARAM_INT);
+        $this->storedFindInBufferMultiple->bindParam(':_before', $_before, PDO::PARAM_INT);
+
         $this->storedFindInBufferMultiple->execute();
         return $this->storedFindInBufferMultiple->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function findInBuffer(string $query, int $bufferid, int $offset = 0, int $limit = 20) : array {
+    public function findInBuffer(string $query, int $since = null, int $before = null, int $bufferid, int $offset = 0, int $limit = 20) : array {
         $truncatedLimit = max(min($limit, 50), 0);
+        $_since = $since!==null;
+        $_before = $before!==null;
 
         $this->storedFindInBuffer->bindParam(':userid', $this->user->userid);
         $this->storedFindInBuffer->bindParam(':bufferid', $bufferid);
         $this->storedFindInBuffer->bindParam(':query', $query);
+
+        $this->storedFindInBuffer->bindValue(':since', $_since ? (int) $since : 0, PDO::PARAM_INT);
+        $this->storedFindInBuffer->bindValue(':before', $_before ? (int) $before : 0, PDO::PARAM_INT);
+        $this->storedFindInBuffer->bindParam(':_since', $_since, PDO::PARAM_INT);
+        $this->storedFindInBuffer->bindParam(':_before', $_before, PDO::PARAM_INT);
 
         $this->storedFindInBuffer->bindParam(':limit', $truncatedLimit);
         $this->storedFindInBuffer->bindParam(':offset', $offset);
@@ -220,7 +262,9 @@ class Backend {
         $this->loadBefore->bindParam(":userid", $this->user->userid);
         $this->loadBefore->bindParam(":bufferid", $buffer);
         $this->loadBefore->bindParam(":anchor", $anchor);
+
         $this->loadBefore->bindParam(":limit", $truncatedLimit);
+
         $this->loadBefore->execute();
         return $this->loadBefore->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -231,7 +275,9 @@ class Backend {
         $this->loadAfter->bindParam(":userid", $this->user->userid);
         $this->loadAfter->bindParam(":bufferid", $buffer);
         $this->loadAfter->bindParam(":anchor", $anchor);
+
         $this->loadAfter->bindParam(":limit", $truncatedLimit);
+
         $this->loadAfter->execute();
         return $this->loadAfter->fetchAll(\PDO::FETCH_ASSOC);
     }
