@@ -1,9 +1,14 @@
 .results
-  max-width: 1328px
-  padding: 56px 6rem 8rem 6rem
+  max-width: 1136px
+  padding: 56px 2rem 4rem 2rem
   margin: 0 auto
 
   transition: opacity 400ms
+
+  @media(max-width: 800px)
+    padding-left: 0
+    padding-right: 0
+    padding-bottom: 0
 
   .buffer
     display: block
@@ -96,10 +101,22 @@
             text-align: right
             flex-shrink: 0
 
+            @media(max-width: 800px)
+              position: absolute
+              right: 8px
+              bottom: 8px
+              width: initial
+              font-style: italic
+              color: #777
+
           .container
             display: flex
             flex-grow: 1
             flex-shrink: 1
+
+            @media(max-width: 800px)
+              display: block
+              padding-bottom: 16px
 
             .sender
               width: 148px
@@ -108,14 +125,30 @@
               font-weight: bold
               flex-shrink: 0
 
+              @media(max-width: 800px)
+                width: initial
+                padding: 0
+
+              &:after
+                @media(max-width: 800px)
+                  content: ': '
+                  margin-right: 8px
+
             .preview
               flex: 50%
+
+              @media(max-width: 800px)
+                display: none
+
               .irc_highlight
                 background-color: rgba(251, 246, 167, 0.5)
 
             .content
               flex: 50%
               overflow: hidden
+
+              @media(max-width: 800px)
+                display: inline
 
               .irc_bold
                 font-weight: bold

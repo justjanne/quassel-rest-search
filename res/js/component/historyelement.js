@@ -15,5 +15,8 @@ class HistoryElement {
             const queryValue = document.createTextNode(this.query);
             wrapper.appendChild(queryValue);
         this.elem = wrapper;
+        this.elem.addEventListener("click", () => {
+            window.location.href = "#"+encodeURIComponent(this.query);
+        })
     }
 }

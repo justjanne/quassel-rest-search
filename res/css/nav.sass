@@ -8,9 +8,8 @@
   height: 56px
   z-index: 2
 
-  .container
+  .bar
     background: #0271B3
-    padding: 0 6rem
     z-index: 1
     position: absolute
     top: 0
@@ -19,96 +18,104 @@
     box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24)
     transition: background .15s
 
-    .searchBar
+    .container
       max-width: 1136px
-      margin: 10px auto
-      height: 36px
+      margin: 0 auto
+      padding: 0 2rem
       display: flex
-      position: relative
-      border: none
-      transition: background .15s
-      background: rgba(255, 255, 255, .15)
-      border-radius: 2px
-      padding: 0 0 0 72px
-      color: #ffffff
-      flex-direction: row
 
-      &:hover
-        background: rgba(255, 255, 255, .3)
+      @media(max-width: 800px)
+        padding: 0 0 0 8px
 
-      .icon
-        display: inline-block
-        width: 72px
-        height: 36px
-        position: absolute
-        text-align: center
-        line-height: 36px
-        left: 0
-        top: 0
-
-      .search
-        display: inline-block
-        flex-grow: 1
-        flex-shrink: 1
-        background: none
+      .searchBar
+        margin: 8px auto
+        height: 40px
+        display: flex
+        position: relative
         border: none
-        line-height: 100%
+        transition: background .15s
+        background: #358dc2
+        border-radius: 2px
+        padding: 0 0 0 72px
         color: #ffffff
-        font-size: 1rem
+        flex-direction: row
+        flex: 1
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .06)
 
-        &::-moz-placeholder
+        &:hover
+          background: rgba(255, 255, 255, .3)
+
+        .icon
+          display: inline-block
+          width: 72px
+          height: 40px
+          position: absolute
+          text-align: center
+          line-height: 40px
+          left: 0
+          top: 0
+
+        .search
+          display: inline-block
+          flex-grow: 1
+          flex-shrink: 1
+          background: none
+          border: none
+          line-height: 100%
           color: #ffffff
-          opacity: 1
-          -moz-osx-font-smoothing: grayscale
+          font-size: 1rem
 
-        &::-webkit-input-placeholder
-          color: #ffffff
-          opacity: 1
-          -webkit-font-smoothing: antialiased
+          &::-moz-placeholder
+            color: #ffffff
+            opacity: 1
+            -moz-osx-font-smoothing: grayscale
 
-  .actions
-    position: absolute
-    height: 56px
-    z-index: 8
-    right: 0
-    display: flex
-    align-items: center
-    justify-content: flex-end
-    padding-left: 30px
-    padding-right: 30px
+          &::-webkit-input-placeholder
+            color: #ffffff
+            opacity: 1
+            -webkit-font-smoothing: antialiased
+
+      .actions
+        display: flex
+        align-items: center
+        justify-content: flex-end
 
     a
-      height: 30px
-      width: 30px
+      height: 56px
+      width: 56px
       position: relative
-      padding: 3px
+      padding: 16px 13px
       cursor: pointer
       color: #fff
       transition: all .15s
       text-decoration: none
+      text-align: center
       @include vendor-prefix('user-select', 'none')
 
       &:hover:before
         background-color: rgba(0, 0, 0, .12)
-        bottom: -4px
+        bottom: 9px
         content: ' '
-        left: -4px
+        left: 9px
         margin: auto
         padding: 4px
         position: absolute
-        right: -4px
-        top: -4px
+        right: 9px
+        top: 9px
         z-index: -1
         border-radius: 50%
 
   .history
     top: 100%
-    max-width: 1328px
+    max-width: 1136px
     margin: auto
-    padding: 0 6rem
+    padding: 0 2rem
     transform: translateY(-200%)
     transition: transform 400ms
     position: relative
+
+    @media(max-width: 800px)
+      padding: 0
 
     ul
       list-style-type: none
@@ -149,26 +156,28 @@
         color: #646464
 
   &.focus
-    .container
+    .bar
       background: #f2f2f2
 
-      .searchBar
-        background: #ffffff
+      .container
 
-        .search
-          color: #333333
+        .searchBar
+          background: #ffffff
 
-          &::-moz-placeholder
-            color: #757575
+          .search
+            color: #333333
 
-          &::-webkit-input-placeholder
-            color: #757575
+            &::-moz-placeholder
+              color: #757575
+
+            &::-webkit-input-placeholder
+              color: #757575
+
+        .icon
+          color: #757575
 
     .history
       transform: translateY(0)
-
-    .icon
-      color: #333333
 
     &+.results
       opacity: 0

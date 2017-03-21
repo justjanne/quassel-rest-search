@@ -39,7 +39,8 @@
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; }
 
 body {
   background: #F2F2F2;
@@ -56,9 +57,8 @@ body {
   top: 0;
   height: 56px;
   z-index: 2; }
-  .nav .container {
+  .nav .bar {
     background: #0271B3;
-    padding: 0 6rem;
     z-index: 1;
     position: absolute;
     top: 0;
@@ -66,91 +66,98 @@ body {
     right: 0;
     box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
     transition: background 0.15s; }
-    .nav .container .searchBar {
+    .nav .bar .container {
       max-width: 1136px;
-      margin: 10px auto;
-      height: 36px;
-      display: flex;
-      position: relative;
-      border: none;
-      transition: background 0.15s;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 2px;
-      padding: 0 0 0 72px;
-      color: #ffffff;
-      flex-direction: row; }
-      .nav .container .searchBar:hover {
-        background: rgba(255, 255, 255, 0.3); }
-      .nav .container .searchBar .icon {
-        display: inline-block;
-        width: 72px;
-        height: 36px;
-        position: absolute;
-        text-align: center;
-        line-height: 36px;
-        left: 0;
-        top: 0; }
-      .nav .container .searchBar .search {
-        display: inline-block;
-        flex-grow: 1;
-        flex-shrink: 1;
-        background: none;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex; }
+@media(max-width: 800px) {
+  .nav .bar .container {
+    padding: 0 0 0 8px; } }
+      .nav .bar .container .searchBar {
+        margin: 8px auto;
+        height: 40px;
+        display: flex;
+        position: relative;
         border: none;
-        line-height: 100%;
+        transition: background 0.15s;
+        background: #358dc2;
+        border-radius: 2px;
+        padding: 0 0 0 72px;
         color: #ffffff;
-        font-size: 1rem; }
-        .nav .container .searchBar .search::-moz-placeholder {
+        flex-direction: row;
+        flex: 1;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06); }
+        .nav .bar .container .searchBar:hover {
+          background: rgba(255, 255, 255, 0.3); }
+        .nav .bar .container .searchBar .icon {
+          display: inline-block;
+          width: 72px;
+          height: 40px;
+          position: absolute;
+          text-align: center;
+          line-height: 40px;
+          left: 0;
+          top: 0; }
+        .nav .bar .container .searchBar .search {
+          display: inline-block;
+          flex-grow: 1;
+          flex-shrink: 1;
+          background: none;
+          border: none;
+          line-height: 100%;
           color: #ffffff;
-          opacity: 1;
-          -moz-osx-font-smoothing: grayscale; }
-        .nav .container .searchBar .search::-webkit-input-placeholder {
-          color: #ffffff;
-          opacity: 1;
-          -webkit-font-smoothing: antialiased; }
-  .nav .actions {
-    position: absolute;
-    height: 56px;
-    z-index: 8;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-left: 30px;
-    padding-right: 30px; }
-    .nav .actions a {
-      height: 30px;
-      width: 30px;
+          font-size: 1rem; }
+          .nav .bar .container .searchBar .search::-moz-placeholder {
+            color: #ffffff;
+            opacity: 1;
+            -moz-osx-font-smoothing: grayscale; }
+          .nav .bar .container .searchBar .search::-webkit-input-placeholder {
+            color: #ffffff;
+            opacity: 1;
+            -webkit-font-smoothing: antialiased; }
+      .nav .bar .container .actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end; }
+    .nav .bar a {
+      height: 56px;
+      width: 56px;
       position: relative;
-      padding: 3px;
+      padding: 16px 13px;
       cursor: pointer;
       color: #fff;
       transition: all 0.15s;
       text-decoration: none;
+      text-align: center;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       -o-user-select: none;
       user-select: none; }
-      .nav .actions a:hover:before {
+      .nav .bar a:hover:before {
         background-color: rgba(0, 0, 0, 0.12);
-        bottom: -4px;
+        bottom: 9px;
         content: " ";
-        left: -4px;
+        left: 9px;
         margin: auto;
         padding: 4px;
         position: absolute;
-        right: -4px;
-        top: -4px;
+        right: 9px;
+        top: 9px;
         z-index: -1;
         border-radius: 50%; }
   .nav .history {
     top: 100%;
-    max-width: 1328px;
+    max-width: 1136px;
     margin: auto;
-    padding: 0 6rem;
+    padding: 0 2rem;
     transform: translateY(-200%);
     transition: transform 400ms;
     position: relative; }
+@media(max-width: 800px) {
+  .nav .history {
+    padding: 0; } }
     .nav .history ul {
       list-style-type: none;
       margin: 0;
@@ -184,28 +191,33 @@ body {
         white-space: nowrap;
         font-style: italic;
         color: #646464; }
-  .nav.focus .container {
+  .nav.focus .bar {
     background: #f2f2f2; }
-    .nav.focus .container .searchBar {
+    .nav.focus .bar .container .searchBar {
       background: #ffffff; }
-      .nav.focus .container .searchBar .search {
+      .nav.focus .bar .container .searchBar .search {
         color: #333333; }
-        .nav.focus .container .searchBar .search::-moz-placeholder {
+        .nav.focus .bar .container .searchBar .search::-moz-placeholder {
           color: #757575; }
-        .nav.focus .container .searchBar .search::-webkit-input-placeholder {
+        .nav.focus .bar .container .searchBar .search::-webkit-input-placeholder {
           color: #757575; }
+    .nav.focus .bar .container .icon {
+      color: #757575; }
   .nav.focus .history {
     transform: translateY(0); }
-  .nav.focus .icon {
-    color: #333333; }
   .nav.focus + .results {
     opacity: 0; }
 
 .results {
-  max-width: 1328px;
-  padding: 56px 6rem 8rem 6rem;
+  max-width: 1136px;
+  padding: 56px 2rem 4rem 2rem;
   margin: 0 auto;
   transition: opacity 400ms; }
+@media(max-width: 800px) {
+  .results {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0; } }
   .results .buffer {
     display: block;
     margin-top: 0;
@@ -277,23 +289,49 @@ body {
           display: inline-block;
           text-align: right;
           flex-shrink: 0; }
+@media(max-width: 800px) {
+  .results .buffer .container .context .message time {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: initial;
+    font-style: italic;
+    color: #777; } }
         .results .buffer .container .context .message .container {
           display: flex;
           flex-grow: 1;
           flex-shrink: 1; }
+@media(max-width: 800px) {
+  .results .buffer .container .context .message .container {
+    display: block;
+    padding-bottom: 16px; } }
           .results .buffer .container .context .message .container .sender {
             width: 148px;
             display: inline-block;
             padding: 0 24px;
             font-weight: bold;
             flex-shrink: 0; }
+@media(max-width: 800px) {
+  .results .buffer .container .context .message .container .sender {
+    width: initial;
+    padding: 0; } }
+@media(max-width: 800px) {
+  .results .buffer .container .context .message .container .sender:after {
+    content: ": ";
+    margin-right: 8px; } }
           .results .buffer .container .context .message .container .preview {
             flex: 50%; }
+@media(max-width: 800px) {
+  .results .buffer .container .context .message .container .preview {
+    display: none; } }
             .results .buffer .container .context .message .container .preview .irc_highlight {
               background-color: rgba(251, 246, 167, 0.5); }
           .results .buffer .container .context .message .container .content {
             flex: 50%;
             overflow: hidden; }
+@media(max-width: 800px) {
+  .results .buffer .container .context .message .container .content {
+    display: inline; } }
             .results .buffer .container .context .message .container .content .irc_bold {
               font-weight: bold; }
             .results .buffer .container .context .message .container .content .irc_italic {
