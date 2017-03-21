@@ -29,6 +29,13 @@ class App {
 
     search(query) {
         this.clear();
+        this.navigation.historyView.add(new HistoryElement(query));
+        this.navigation.input.value = query;
+        this.urlBar.set(query);
+
+        if (query.trim() === "")
+            return;
+
         this.loadingQuery++;
         const queryId = this.loadingQuery;
         load("web/search/", {query: query}).then((result) => {
@@ -42,9 +49,6 @@ class App {
             });
             this.buffers.forEach((buffer) => this.insert(buffer));
         });
-        this.navigation.historyView.add(new HistoryElement(query));
-        this.navigation.input.value = query;
-        this.urlBar.set(query);
     }
 
     clear() {
