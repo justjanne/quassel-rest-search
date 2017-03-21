@@ -33,6 +33,9 @@ class HistoryView {
     }
 
     add(item) {
+        if (item.query == "")
+            return;
+
         const idx = this.elements.map((item) => item.query).indexOf(item.query);
         if (idx !== -1) {
             this.list.removeChild(this.elements[idx].elem);
