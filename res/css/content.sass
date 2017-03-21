@@ -47,6 +47,11 @@
         right: 0
         top: 0
 
+    &:not(.selected)
+      .container
+        > .inline-button
+          display: none
+
     .container
       font-size: 13px
 
@@ -56,10 +61,10 @@
         .after
 
         &:not(.selected)
-          .before, .after
+          > .before, > .after
             display: none
 
-          .inline-button
+          > .inline-button
             display: none
 
         .message
@@ -93,6 +98,8 @@
 
           .container
             display: flex
+            flex-grow: 1
+            flex-shrink: 1
 
             .sender
               width: 148px
@@ -102,11 +109,12 @@
               flex-shrink: 0
 
             .preview
+              flex: 50%
               .irc_highlight
                 background-color: rgba(251, 246, 167, 0.5)
 
             .content
-              flex-shrink: 1
+              flex: 50%
               overflow: hidden
 
               .irc_bold

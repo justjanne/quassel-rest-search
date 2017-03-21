@@ -244,11 +244,13 @@ body {
         position: absolute;
         right: 0;
         top: 0; }
+    .results .buffer:not(.selected) .container > .inline-button {
+      display: none; }
     .results .buffer .container {
       font-size: 13px; }
-      .results .buffer .container .context:not(.selected) .before, .results .buffer .container .context:not(.selected) .after {
+      .results .buffer .container .context:not(.selected) > .before, .results .buffer .container .context:not(.selected) > .after {
         display: none; }
-      .results .buffer .container .context:not(.selected) .inline-button {
+      .results .buffer .container .context:not(.selected) > .inline-button {
         display: none; }
       .results .buffer .container .context .message {
         display: flex;
@@ -276,17 +278,21 @@ body {
           text-align: right;
           flex-shrink: 0; }
         .results .buffer .container .context .message .container {
-          display: flex; }
+          display: flex;
+          flex-grow: 1;
+          flex-shrink: 1; }
           .results .buffer .container .context .message .container .sender {
             width: 148px;
             display: inline-block;
             padding: 0 24px;
             font-weight: bold;
             flex-shrink: 0; }
-          .results .buffer .container .context .message .container .preview .irc_highlight {
-            background-color: rgba(251, 246, 167, 0.5); }
+          .results .buffer .container .context .message .container .preview {
+            flex: 50%; }
+            .results .buffer .container .context .message .container .preview .irc_highlight {
+              background-color: rgba(251, 246, 167, 0.5); }
           .results .buffer .container .context .message .container .content {
-            flex-shrink: 1;
+            flex: 50%;
             overflow: hidden; }
             .results .buffer .container .context .message .container .content .irc_bold {
               font-weight: bold; }
