@@ -8,7 +8,7 @@ require_once 'User.php';
 require_once 'Config.php';
 require_once 'helper/AuthHelper.php';
 
-class Backend {
+class Database {
     private $storedFindBuffers;
     private $storedFindInBuffer;
     private $loadBefore;
@@ -28,7 +28,7 @@ class Backend {
             FROM backlog
             JOIN buffer ON backlog.bufferid = buffer.bufferid
             JOIN network ON buffer.networkid = network.networkid,
-                            plainto_tsquery('english'::REGCONFIG, :query) query
+                            phraseto_tsquery_multilang(:query) query
             WHERE (backlog.type & 23559) > 0
               AND buffer.userid = :userid
               AND (NOT(:_since) OR backlog.time > to_timestamp(:since))
@@ -60,7 +60,7 @@ class Backend {
                                   ) AS rank
                FROM backlog
                JOIN buffer ON backlog.bufferid = buffer.bufferid,
-                              plainto_tsquery('english'::REGCONFIG, :query) query
+                              phraseto_tsquery_multilang(:query) query
                WHERE (backlog.type & 23559) > 0
                  AND (NOT(:_since) OR backlog.time > to_timestamp(:since))
                  AND (NOT(:_before) OR backlog.time < to_timestamp(:before))
@@ -80,7 +80,7 @@ class Backend {
             FROM backlog
             JOIN sender ON backlog.senderid = sender.senderid
             JOIN buffer ON backlog.bufferid = buffer.bufferid,
-                            plainto_tsquery('english'::REGCONFIG, :query) query
+                            phraseto_tsquery_multilang(:query) query
             WHERE (backlog.type & 23559) > 0
               AND (NOT(:_since) OR backlog.time > to_timestamp(:since))
               AND (NOT(:_before) OR backlog.time < to_timestamp(:before))
@@ -133,12 +133,12 @@ class Backend {
         ");
     }
 
-    public static function createFromOptions(string $database_connector, string $username, string $password) : Backend {
-        return new Backend($database_connector, $username, $password);
+    public static function createFromOptions(string $database_connector, string $username, string $password) : Database {
+        return new Database($database_connector, $username, $password);
     }
 
-    public static function createFromConfig(Config $config) : Backend {
-        return new Backend($config->database_connector, $config->username, $config->password);
+    public static function createFromConfig(Config $config) : Database {
+        return new Database($config->database_connector, $config->username, $config->password);
     }
 
     public function authenticateFromHeader(string $header) : bool {

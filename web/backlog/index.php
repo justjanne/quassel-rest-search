@@ -10,12 +10,12 @@ require_once '../../backend/helper/SessionHelper.php';
 $session = SessionHelper::getInstance();
 $config = Config::createFromGlobals();
 $renderer = new RendererHelper($config);
-$backend = Backend::createFromConfig($config);
+$backend = Database::createFromConfig($config);
 
 if (!$backend->authenticate($session->username ?: '', $session->password ?: '')) {
     $session->destroy();
     $renderer->renderJsonError(false);
 } else {
     syslog(LOG_INFO, json_encode($_GET));
-    $renderer->renderJson($backend->context($_GET['anchor'] ?: 0, $_GET['buffer'] ?: 0, $_GET['before'], $_GET['after']));
+    $renderer->renderJson($backend->context($_REQUEST['anchor'] ?: 0, $_REQUEST['buffer'] ?: 0, $_REQUEST['before'], $_REQUEST['after']));
 }

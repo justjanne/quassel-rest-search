@@ -12,6 +12,7 @@ body {
 }
 
 section {
+    transition: opacity 400ms;
     max-width: 1328px;
     padding: 56px 6rem 8rem 6rem;
     margin: 0 auto;
@@ -19,14 +20,17 @@ section {
 
 buffer {
     display: block;
-    margin-top: 20px;
+    margin-top: 0;
     margin-bottom: 20px;
+    border: rgba(0, 0, 0, 0);
+    transition: all 400ms;
 }
 
 buffer.selected {
     background-color: #ddd;
     border: rgba(0, 0, 0, .4);
     padding: 20px 16px;
+    margin-top: 20px;
     margin-left: -16px;
     margin-right: -16px;
 }
@@ -56,8 +60,20 @@ message {
     position: relative;
 }
 
-message.faded * {
+message:not(.original) * {
     opacity: .8
+}
+
+context:not(.selected) > .before, context:not(.selected) > .after {
+    display: none;
+}
+
+context:not(.selected) inline-button {
+    display: none;
+}
+
+buffer:not(.selected) context:nth-child(4)~context * {
+    display: none;
 }
 
 message sender {

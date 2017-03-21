@@ -1,8 +1,34 @@
+/*
 var state = {
     query: "",
     selected_history_entry: -1,
     buffers: {},
     open: []
+};
+
+var bind_click = function (elem, handler) {
+    elem.unbind("mousedown");
+    elem.unbind("mouseup");
+
+    elem.mousedown(function (e) {
+        getSelection().removeAllRanges();
+    });
+
+    elem.mouseup(function (e) {
+        if (e.which === 1 && getSelection().isCollapsed)
+            handler(e);
+    });
+};
+
+var make_select_buffer = function (buffer, id) {
+    state.buffers[buffer].selected = true;
+    apply_selection();
+};
+
+var make_select_context = function (buffer, id) {
+    state.buffers[buffer].selected = true;
+    state.buffers[buffer].contexts[id].selected = true;
+    apply_selection();
 };
 
 var search_history = {
@@ -60,33 +86,20 @@ var render = {
             render.no_more();
     },
     buffer: {
-        auto: function (buffer) {
-            return (buffer.selected) ? render.buffer.full(buffer) : render.buffer.overview(buffer);
-        },
-        overview: function (buffer) {
+        full: function (buffer) {
             return (
                 "<buffer id='buffer" + buffer.id + "' data-bufferid='" + buffer.id + "'>" + (
                     "<h2>" + buffer.network + " – " + buffer.name + "</h2>" +
                     "<article>" + (
-                        buffer.contexts.slice(0, 4).map(render.context.auto).join("") +
-                        "<inline-button class='load_more'>" + (buffer.contexts.length > 4 ? translation.results.show_more : translation.results.load_more) + "</inline-button>"
-                    ) + "</article>"
-                ) + "</buffer>"
-            )
-        },
-        full: function (buffer) {
-            return (
-                "<buffer id='buffer" + buffer.id + "' data-bufferid='" + buffer.id + "' class='selected'>" + (
-                    "<h2>" + buffer.network + " – " + buffer.name + "</h2>" +
-                    "<article>" + (
-                        buffer.contexts.map(render.context.auto).join("") +
+                        buffer.contexts.map(render.context.full).join("") +
                         "<inline-button class='load_more'>" + translation.results.load_more + "</inline-button>"
                     ) + "</article>"
                 ) + "</buffer>"
             )
         },
         update: function (id) {
-            var renderedBuffer = render.buffer.auto(state.buffers[id]);
+            $("#buffer" + id).unbind();
+            var renderedBuffer = render.buffer.full(state.buffers[id]);
             if ($("#buffer" + id).length)
                 $("#buffer" + id).replaceWith(renderedBuffer);
             else
@@ -97,8 +110,8 @@ var render = {
         attach: function (elem) {
             elem.unbind();
             var id = elem.data("bufferid");
-            elem.click(make_toggle_buffer(id));
-            elem.find(".load_more").click(function (e) {
+            bind_click(elem, make_toggle_buffer(id));
+            bind_click(elem.find(".load_more"), function (e) {
                 e.stopPropagation();
 
                 if (state.buffers[id].selected || state.buffers[id].contexts.length <= 4)
@@ -107,34 +120,29 @@ var render = {
                 deselect_buffers(id);
                 state.open.push(make_toggle_buffer(id));
                 state.buffers[id].selected = true;
-                render.buffer.update(id);
             });
             state.buffers[id].contexts.forEach(function (context) {
                 var ctx = elem.find("#context" + context.id);
-                if (ctx.length)
+                if (ctx.length) {
+                    ctx.unbind();
                     render.context.attach(ctx);
+                }
             })
         }
     },
     context: {
-        auto: function (context) {
-            return context.selected ? render.context.full(context) : render.context.overview(context);
-        },
-        overview: function (context) {
-            return (
-                "<context id='context" + context.id + "' data-contextid='" + context.id + "' data-bufferid='" + context.buffer + "'>" + (
-                    render.message(context.original, true, true)
-                ) + "</context>"
-            )
-        },
         full: function (context) {
             return (
-                "<context id='context" + context.id + "' data-contextid='" + context.id + "' data-bufferid='" + context.buffer + "' class='selected'>" + (
-                    "<inline-button class='load_before'>" + translation.context.load_earlier + "</inline-button>" + (
-                        context.before.map(render.message).join("") +
-                        render.message(context.original, true) +
+                "<context id='context" + context.id + "' data-contextid='" + context.id + "' data-bufferid='" + context.buffer + "'>" + (
+                    "<div class='before'>" +(
+                        "<inline-button class='load_before'>" + translation.context.load_earlier + "</inline-button>" +
+                        context.before.map(render.message).join("")
+                    ) + "</div>" +
+                    render.message(context.original, true) +
+                    "<div class='after'>" +(
                         context.after.map(render.message).join("")
-                    ) + "<inline-button class='load_after'>" + translation.context.load_later + "</inline-button>"
+                        + "<inline-button class='load_after'>" + translation.context.load_later + "</inline-button>"
+                    ) + "</div>"
                 ) + "</context>"
             )
         },
@@ -146,17 +154,17 @@ var render = {
                 console.log("Undefined buffer: " + bufferid);
             }
 
-            elem.click(function (e) {
+            bind_click(elem, function (e) {
                 e.stopPropagation();
             });
             $("#message" + state.buffers[bufferid].contexts[id].original.messageid).unbind();
-            $("#message" + state.buffers[bufferid].contexts[id].original.messageid).click(make_toggle_context(bufferid, id));
-            elem.find(".load_before").click(function (e) {
+            bind_click($("#message" + state.buffers[bufferid].contexts[id].original.messageid), make_toggle_context(bufferid, id));
+            bind_click(elem.find(".load_before"), function (e) {
                 e.stopPropagation();
 
                 load.context.earlier(bufferid, id, 5);
             });
-            elem.find(".load_after").click(function (e) {
+            bind_click(elem.find(".load_after"), function (e) {
                 e.stopPropagation();
 
                 load.context.later(bufferid, id, 5);
@@ -166,7 +174,7 @@ var render = {
     message: function (message, highlight, preview) {
         var content = preview === true ? message.preview : message.message;
         return (
-            "<message id='message" + message.messageid + "' data-messageid='" + message.messageid + "' " + (highlight === true ? "" : "class='faded'") + ">" + (
+            "<message id='message" + message.messageid + "' data-messageid='" + message.messageid + "' " + (highlight === true ? "class='original'" : "") + ">" + (
                 "<time>" + new Date(message.time.replace(" ", "T") + "Z").toLocaleString() + "</time>" +
                 "<div class='container'>" + (
                     "<sender style='color: " + sendercolor(message.sender.split("!")[0]) + "'>" + message.sender.split("!")[0] + "</sender>" +
@@ -187,6 +195,10 @@ var render = {
             if (history.length == 0) {
                 container.append("<p>" + translation.history.error_unavailable + "</p>");
             }
+ "<li id='history" + id + "' data-query='" + btoa(query) + "'>" + (
+ "<span class='icon'>history</span>" +
+ query
+ ) + "</li>"
         },
         item: function (id, query) {
             return (
@@ -199,7 +211,7 @@ var render = {
         attach: function (elem) {
             elem.unbind();
             var query = atob(elem.data("query"));
-            elem.click(function (e) {
+            bind_click(elem, function (e) {
                 e.stopPropagation();
 
                 $("#q").val(query);
@@ -244,7 +256,6 @@ var load = {
                         "id": ctx++
                     };
                 }));
-                render.buffer.update(id);
             });
         }
     },
@@ -264,7 +275,7 @@ var load = {
             load.context.raw(earliest, bufferid, amount, 0, function (messages) {
                 var newmsgs = messages.slice(0, messages.length - 1);
                 context.before = newmsgs.concat(context.before);
-                render.buffer.update(bufferid);
+                $("#buffer"+bufferid+" #context"+contextid+" .before .load_before").after(newmsgs.map(render.message).join(""))
             })
         },
         later: function (bufferid, contextid, amount) {
@@ -274,7 +285,7 @@ var load = {
             load.context.raw(latest, bufferid, 0, amount, function (messages) {
                 var newmsgs = messages.slice(1);
                 context.after = context.after.concat(newmsgs);
-                render.buffer.update(bufferid);
+                $("#buffer"+bufferid+" #context"+contextid+" .after .load_after").before(newmsgs.map(render.message).join(""))
             })
         }
     }
@@ -284,7 +295,7 @@ var search = function () {
     var results = $("#results");
     results.children().remove();
     $("#q").blur();
-    results.click(deselect_buffers);
+    bind_click(results, deselect_buffers);
     state = {
         "query": $("#q").val(),
         "selected_history_entry": -1,
@@ -305,21 +316,21 @@ var deselect_buffers = function (except) {
         if (key !== except && buffer.selected) {
             buffer.selected = false;
             unselect_contexts(key);
-            render.buffer.update(key);
         }
     });
     state.open = [];
 };
 
 var unselect_contexts = function (bufferid) {
-    state.buffers[bufferid].contexts = state.buffers[bufferid].contexts.map(function (context) {
+    state.buffers[bufferid].contexts.forEach(function (context) {
         context.selected = false;
-        return context
     })
 };
 
 var make_toggle_buffer = function (id) {
     return function (e) {
+        console.log("toggle buffer " + id);
+
         e.stopPropagation();
 
         if (state.buffers[id].selected) {
@@ -331,12 +342,14 @@ var make_toggle_buffer = function (id) {
             state.open.push(make_toggle_buffer(id));
             state.buffers[id].selected = true;
         }
-        render.buffer.update(id);
+        apply_selection();
     }
 };
 
 var make_toggle_context = function (buffer, id) {
     return function (e) {
+        console.log("toggle_context " + buffer + " " + id);
+
         e.stopPropagation();
 
         var context = state.buffers[buffer].contexts[id];
@@ -356,8 +369,17 @@ var make_toggle_context = function (buffer, id) {
             if (context.before.length === 0) load.context.earlier(buffer, id, 5);
             if (context.after.length === 0) load.context.later(buffer, id, 5);
         }
-        render.buffer.update(buffer);
+        apply_selection();
     }
+};
+
+var apply_selection = function () {
+    $.each(state.buffers, function (key, buffer) {
+        $("#buffer"+key).toggleClass("selected", state.buffers[key].selected);
+        state.buffers[key].contexts.map(function (ctx) {
+            $("#buffer"+key+" #context"+ctx.id).toggleClass("selected", ctx.selected);
+        })
+    });
 };
 
 var hashChange = function () {
@@ -381,28 +403,7 @@ var init = function () {
 
     $(window).on("hashchange", hashChange);
 
-    $("#q").on("keypress", function (e) {
-        var key = e.which || e.keyCode;
-        if (key === 13) {
-            search();
-        }
-        if (key === 40) {
-            $("#history" + state.selected_history_entry).removeClass("selected");
-            state.selected_history_entry = (state.selected_history_entry + 1) % get_history().length;
-            $("#q").val(get_history().reverse()[state.selected_history_entry]);
-            $("#history" + state.selected_history_entry).addClass("selected");
-        } else if (key === 38) {
-            $("#history" + state.selected_history_entry).removeClass("selected");
-            if (state.selected_history_entry === 0) {
-                state.selected_history_entry = -1;
-                $("#q").val("");
-            } else {
-                state.selected_history_entry = (state.selected_history_entry - 1) % get_history().length;
-                $("#q").val(get_history().reverse()[state.selected_history_entry]);
-                $("#history" + state.selected_history_entry).addClass("selected");
-            }
-        }
-    });
+
 
     $("#q").on("focus", function () {
         $("#autocomplete").addClass("active");
@@ -419,3 +420,22 @@ var init = function () {
     render.history.all(search_history.get());
 };
 init();
+
+ $("#q").on("keypress", function (e) {
+ const key = e.which || e.keyCode;
+ if (key === 13) {
+ search();
+ }
+
+ const index_before = historyHandler.index;
+ if (key === 40) {
+ historyHandler.navigateBefore();
+ } else if (key === 38) {
+ historyHandler.navigateLater();
+ }
+ if (index_before != historyHandler.index) {
+ $("[data-history="+index_before+"]").removeClass("selected");
+ $("[data-history="+historyHandler.index+"]").addClass("selected");
+ }
+ });
+*/

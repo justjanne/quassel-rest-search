@@ -10,11 +10,11 @@ require_once '../../backend/helper/SessionHelper.php';
 $session = SessionHelper::getInstance();
 $config = Config::createFromGlobals();
 $renderer = new RendererHelper($config);
-$backend = Backend::createFromConfig($config);
+$backend = Database::createFromConfig($config);
 
 if (!$backend->authenticate($session->username ?: '', $session->password ?: '')) {
     $session->destroy();
     $renderer->renderJsonError(false);
 } else {
-    $renderer->renderJson($backend->find($_GET['query'] ?: "", $_GET['since'] ?: null, $_GET['before'] ?: null, $_GET['buffer'] ?: null, $_GET['network'] ?: null, 4));
+    $renderer->renderJson($backend->find($_REQUEST['query'] ?: "", $_REQUEST['since'] ?: null, $_REQUEST['before'] ?: null, $_REQUEST['buffer'] ?: null, $_REQUEST['network'] ?: null, 4));
 }

@@ -12,38 +12,27 @@
 
     <link rel="icon" type="image/png" href="favicon.png">
 
-    <link rel="stylesheet" href="res/search.css">
-    <link rel="stylesheet" href="res/material-icons.css">
+    <link rel="stylesheet" href="res/css/search.css">
 </head>
 <body>
-<nav>
-    <div class="wrapper">
-        <div id="searchbar">
-            <div id="searchicon" class="icon">search</div>
-            <input name="q" id="q" placeholder="<?php $t('search'); ?>" type="text" autocomplete="off">
-        </div>
-    </div>
-    <div id="actions">
-        <a title="<?php $t('logout'); ?>" href="login.php?action=logout">
-            <span class="icon">account_circle</span>
-        </a>
-    </div>
-    <div id="autocomplete">
-        <ul></ul>
-    </div>
-</nav>
 
-<section id="results">
-</section>
-
-<div id="modal-background"></div>
-<div id="bg"></div>
-
-<script src="res/jquery.js"></script>
 <script>
-    var translation = <?php echo json_encode($translation); ?>;
+    const translation = <?php echo json_encode($translation); ?>;
 </script>
-<script src="res/sendercolor.js"></script>
-<script src="res/search.js"></script>
+<script src="res/js/util/loader.js"></script>
+<script src="res/js/util/component.js"></script>
+<script src="res/js/util/mirccolorhandler.js"></script>
+<script src="res/js/util/sendercolorhandler.js"></script>
+<script src="res/js/component/nohistoryelement.js"></script>
+<script src="res/js/component/historyelement.js"></script>
+<script src="res/js/component/history.js"></script>
+<script src="res/js/component/nav.js"></script>
+<script src="res/js/component/messagePreview.js"></script>
+<script src="res/js/component/message.js"></script>
+<script src="res/js/component/loadmore.js"></script>
+<script src="res/js/component/context.js"></script>
+<script src="res/js/component/buffer.js"></script>
+<script src="res/js/component/urlbar.js"></script>
+<script src="res/js/app.js"></script>
 </body>
 </html>

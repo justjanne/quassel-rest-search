@@ -10,7 +10,7 @@ require_once 'backend/helper/SessionHelper.php';
 $session = SessionHelper::getInstance();
 $config = Config::createFromGlobals();
 $renderer = new RendererHelper($config, $session);
-$backend = Backend::createFromConfig($config);
+$backend = Database::createFromConfig($config);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
     $username = $_POST['username'] ?: '';

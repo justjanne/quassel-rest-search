@@ -9,11 +9,11 @@ require_once '../../backend/helper/SessionHelper.php';
 
 $config = Config::createFromGlobals();
 $renderer = new RendererHelper($config);
-$backend = Backend::createFromConfig($config);
+$backend = Database::createFromConfig($config);
 
 try {
     $backend->authenticateFromHeader($_SERVER['HTTP_AUTHORIZATION'] ?: "");
-    $renderer->renderJson($backend->findInBufferMultiple($_GET['q'] ?: "", $_GET['since'] ?: null, $_GET['before'] ?: null, $_GET['limit'] ?: 4));
+    $renderer->renderJson($backend->findInBufferMultiple($_REQUEST['q'] ?: "", $_REQUEST['since'] ?: null, $_REQUEST['before'] ?: null, $_REQUEST['limit'] ?: 4));
 } catch (\Exception $e) {
     $renderer->renderJson(["error" => $e->getMessage()]);
 }

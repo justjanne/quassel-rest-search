@@ -1,0 +1,183 @@
+.results
+  max-width: 1328px
+  padding: 56px 6rem 8rem 6rem
+  margin: 0 auto
+
+  transition: opacity 400ms
+
+  .buffer
+    display: block
+    margin-top: 0
+    margin-bottom: 20px
+    border: rgba(0, 0, 0, 0)
+    transition: all 400ms
+
+    .title
+      border-bottom: 1px solid transparent
+      border-top: 1px solid transparent
+      color: #616161
+      margin-top: 20px
+      padding-bottom: 10px
+      padding-left: 22px
+      position: relative
+      will-change: transform, -webkit-transform
+
+    .inline-button
+      display: block
+      background: #f5f5f5
+      font-size: 16px
+      height: 48px
+      line-height: 48px
+      color: rgb(113, 113, 113)
+      text-align: center
+      font-style: italic
+      cursor: pointer
+      -webkit-user-select: none
+      -moz-user-select: none
+      position: relative
+
+      &:before
+        bottom: 0
+        box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24)
+        content: ''
+        display: block
+        left: 0
+        pointer-events: none
+        position: absolute
+        right: 0
+        top: 0
+
+    .container
+      font-size: 13px
+
+      .context
+        .container
+        .before
+        .after
+
+        &:not(.selected)
+          .before, .after
+            display: none
+
+          .inline-button
+            display: none
+
+        .message
+          display: flex
+          line-height: 24px
+          padding: 12px 24px
+          border-bottom: 1px solid #e5e5e5
+          color: #212121
+          background: #fff
+          position: relative
+
+          &:before
+            bottom: 0
+            box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24)
+            content: ''
+            display: block
+            left: 0
+            pointer-events: none
+            position: absolute
+            right: 0
+            top: 0
+
+          &:last-child
+            border-bottom: none
+
+          time
+            width: 132px
+            display: inline-block
+            text-align: right
+            flex-shrink: 0
+
+          .container
+            display: flex
+
+            .sender
+              width: 148px
+              display: inline-block
+              padding: 0 24px
+              font-weight: bold
+              flex-shrink: 0
+
+            .preview
+              .irc_highlight
+                background-color: rgba(251, 246, 167, 0.5)
+
+            .content
+              flex-shrink: 1
+              overflow: hidden
+
+              .irc_bold
+                font-weight: bold
+              .irc_italic
+                font-style: italic
+              .irc_underline
+                text-decoration: underline
+
+              [data-irc_foreground="0"]
+                color: #ffffff
+              [data-irc_foreground="1"]
+                color: #000000
+              [data-irc_foreground="2"]
+                color: #000080
+              [data-irc_foreground="3"]
+                color: #008000
+              [data-irc_foreground="4"]
+                color: #ff0000
+              [data-irc_foreground="5"]
+                color: #800000
+              [data-irc_foreground="6"]
+                color: #800080
+              [data-irc_foreground="7"]
+                color: #ffa500
+              [data-irc_foreground="8"]
+                color: #ffff00
+              [data-irc_foreground="9"]
+                color: #00ff00
+              [data-irc_foreground="10"]
+                color: #008080
+              [data-irc_foreground="11"]
+                color: #00ffff
+              [data-irc_foreground="12"]
+                color: #4169e1
+              [data-irc_foreground="13"]
+                color: #ff00ff
+              [data-irc_foreground="14"]
+                color: #808080
+              [data-irc_foreground="15"]
+                color: #c0c0c0
+
+              [data-irc_background="0"]
+                background-color: #ffffff
+              [data-irc_background="1"]
+                background-color: #000000
+              [data-irc_background="2"]
+                background-color: #000080
+              [data-irc_background="3"]
+                background-color: #008000
+              [data-irc_background="4"]
+                background-color: #ff0000
+              [data-irc_background="5"]
+                background-color: #800000
+              [data-irc_background="6"]
+                background-color: #800080
+              [data-irc_background="7"]
+                background-color: #ffa500
+              [data-irc_background="8"]
+                background-color: #ffff00
+              [data-irc_background="9"]
+                background-color: #00ff00
+              [data-irc_background="10"]
+                background-color: #008080
+              [data-irc_background="11"]
+                background-color: #00ffff
+              [data-irc_background="12"]
+                background-color: #4169e1
+              [data-irc_background="13"]
+                background-color: #ff00ff
+              [data-irc_background="14"]
+                background-color: #808080
+              [data-irc_background="15"]
+                background-color: #c0c0c0

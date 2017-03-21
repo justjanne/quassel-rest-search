@@ -1,0 +1,174 @@
+@import "util"
+
+.nav
+  position: fixed
+  left: 0
+  right: 0
+  top: 0
+  height: 56px
+  z-index: 2
+
+  .container
+    background: #0271B3
+    padding: 0 6rem
+    z-index: 1
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24)
+    transition: background .15s
+
+    .searchBar
+      max-width: 1136px
+      margin: 10px auto
+      height: 36px
+      display: flex
+      position: relative
+      border: none
+      transition: background .15s
+      background: rgba(255, 255, 255, .15)
+      border-radius: 2px
+      padding: 0 0 0 72px
+      color: #ffffff
+      flex-direction: row
+
+      &:hover
+        background: rgba(255, 255, 255, .3)
+
+      .icon
+        display: inline-block
+        width: 72px
+        height: 36px
+        position: absolute
+        text-align: center
+        line-height: 36px
+        left: 0
+        top: 0
+
+      .search
+        display: inline-block
+        flex-grow: 1
+        flex-shrink: 1
+        background: none
+        border: none
+        line-height: 100%
+        color: #ffffff
+        font-size: 1rem
+
+        &::-moz-placeholder
+          color: #ffffff
+          opacity: 1
+          -moz-osx-font-smoothing: grayscale
+
+        &::-webkit-input-placeholder
+          color: #ffffff
+          opacity: 1
+          -webkit-font-smoothing: antialiased
+
+  .actions
+    position: absolute
+    height: 56px
+    z-index: 8
+    right: 0
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    padding-left: 30px
+    padding-right: 30px
+
+    a
+      height: 30px
+      width: 30px
+      position: relative
+      padding: 3px
+      cursor: pointer
+      color: #fff
+      transition: all .15s
+      text-decoration: none
+      @include vendor-prefix('user-select', 'none')
+
+      &:hover:before
+        background-color: rgba(0, 0, 0, .12)
+        bottom: -4px
+        content: ' '
+        left: -4px
+        margin: auto
+        padding: 4px
+        position: absolute
+        right: -4px
+        top: -4px
+        z-index: -1
+        border-radius: 50%
+
+  .history
+    top: 100%
+    max-width: 1328px
+    margin: auto
+    padding: 0 6rem
+    transform: translateY(-200%)
+    transition: transform 400ms
+    position: relative
+
+    ul
+      list-style-type: none
+      margin: 0
+      padding: 6px 0
+      background: #fff
+      box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24)
+
+      li
+        cursor: pointer
+        line-height: 36px
+        overflow: hidden
+        padding: 0 24px
+        text-overflow: ellipsis
+        white-space: nowrap
+
+        &:hover, &:focus, &.selected
+          background: rgba(0, 0, 0, 0.03)
+
+        .icon
+          border-radius: 12px
+          height: 24px
+          margin-right: 24px
+          vertical-align: middle
+          width: 24px
+          display: inline-block
+          background-size: cover
+          opacity: 0.6
+
+      p
+        cursor: default
+        line-height: 36px
+        overflow: hidden
+        padding: 0 24px
+        text-overflow: ellipsis
+        white-space: nowrap
+        font-style: italic
+        color: #646464
+
+  &.focus
+    .container
+      background: #f2f2f2
+
+      .searchBar
+        background: #ffffff
+
+        .search
+          color: #333333
+
+          &::-moz-placeholder
+            color: #757575
+
+          &::-webkit-input-placeholder
+            color: #757575
+
+    .history
+      transform: translateY(0)
+
+    .icon
+      color: #333333
+
+    &+.results
+      opacity: 0

@@ -7,7 +7,7 @@ It offers both a simple HTTP API for search, and a normal website for the same p
 Setting up search backends
 --------------------------
 
-#### pgsql-smart
+####pgsql-smart
 
 First, add a new column to the backlog table:
 
