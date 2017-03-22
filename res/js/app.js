@@ -42,8 +42,15 @@ class App {
             if (this.loadingQuery != queryId)
                 return;
 
+            const gen_testdata = function (list) {
+                let res = [];
+                for (let i = 0; i < 10; i++)
+                    res = res.concat(list);
+                return res;
+            };
+
             this.buffers = result.map((buffer) => {
-                return new Buffer(buffer.bufferid, buffer.buffername, buffer.networkname, buffer.messages.map((msg) => {
+                return new Buffer(buffer.bufferid, buffer.buffername, buffer.networkname, gen_testdata(buffer.messages).map((msg) => {
                     return new Context(new MessagePreview(msg.messageid, msg.time, msg.sender, msg.message, msg.preview));
                 }));
             });

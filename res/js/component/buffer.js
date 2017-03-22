@@ -1,5 +1,7 @@
-class Buffer {
+class Buffer extends Component {
     constructor(id, name, network, contextList = []) {
+        super();
+
         this.id = id;
         this.name = name;
         this.network = network;
@@ -11,10 +13,17 @@ class Buffer {
     render() {
         const buffer = document.createElement("div");
             buffer.classList.add("buffer");
-            const title = document.createElement("h2");
+            const title = document.createElement("div");
                 title.classList.add("title");
-                const titleValue = document.createTextNode(this.network + " - " + this.name);
-                title.appendChild(titleValue);
+                const titleHeader = document.createElement("h2");
+                    const titleValue = document.createTextNode(this.network + " - " + this.name);
+                    titleHeader.appendChild(titleValue);
+                title.appendChild(titleHeader);
+                const toggleButton = document.createElement("button");
+                    toggleButton.addEventListener("click", () => {
+                        this.selected();
+                    });
+                title.appendChild(toggleButton);
             buffer.appendChild(title);
             const contextWrap = document.createElement("div");
                 contextWrap.classList.add("container");
@@ -31,6 +40,14 @@ class Buffer {
 
     loadMore() {
         /* load data */
+    }
+
+    selected(isSelected) {
+        if (isSelected === undefined)
+            isSelected = !this.elem.classList.contains("selected");
+
+        this.elem.classList.toggle("selected", isSelected);
+        this.sendEvent("expanded", isSelected);
     }
 
     insert(context) {
