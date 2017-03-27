@@ -1,6 +1,3 @@
-const senderColorHandler = new SenderColorHandler();
-const mircColorHandler = new MircColorHandler();
-
 class App {
     constructor() {
         this.navigation = new Navigation();

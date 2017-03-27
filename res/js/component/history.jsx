@@ -10,20 +10,19 @@ class HistoryView {
         });
 
         this.render();
+        this.elements.reverse().forEach((elem) => this.insert(elem));
     }
 
     render() {
-        const historyView = document.createElement("div");
-            historyView.classList.add("history");
-            const list = document.createElement("ul");
-                const noHistory = new NoHistoryElement();
-                list.appendChild(noHistory.elem);
-            historyView.appendChild(list);
-        this.elem = historyView;
-        this.list = list;
-        this.noHistory = noHistory;
-
-        this.elements.forEach((elem) => this.insert(elem));
+        return this.elem = (
+            <div className="history">
+                {this.list = (
+                    <ul>
+                        {(this.noHistory = new NoHistoryElement()).elem}
+                    </ul>
+                )}
+            </div>
+        );
     }
 
     insert(item) {
@@ -42,7 +41,7 @@ class HistoryView {
             this.elements.splice(idx, 1);
         }
 
-        this.elements.push(item);
+        this.elements.unshift(item);
         this.insert(item);
 
         this.truncate();
@@ -68,16 +67,32 @@ class HistoryView {
     }
 
     navigateBefore() {
+        if (this.elements[this.index])
+            this.elements[this.index].selected(false);
+
         this.index++;
         this.index %= this.elements.length;
+
+        if (this.elements[this.index])
+            this.elements[this.index].selected(true);
+
+        console.log(this.index);
     }
 
     navigateLater() {
+        if (this.elements[this.index])
+            this.elements[this.index].selected(false);
+
         this.index--;
         if (this.index < 0)
             this.index = -1;
         else
             this.index %= this.elements.length;
+
+        if (this.elements[this.index])
+            this.elements[this.index].selected(true);
+
+        console.log(this.index);
     }
 
     truncate() {

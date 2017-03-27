@@ -1,25 +1,4 @@
 class SenderColorHandler {
-    constructor(sendercolors = [
-        "#e90d7f",
-        "#8e55e9",
-        "#b30e0e",
-        "#17b339",
-        "#58afb3",
-        "#9d54b3",
-        "#b39775",
-        "#3176b3",
-        "#e90d7f",
-        "#8e55e9",
-        "#b30e0e",
-        "#17b339",
-        "#58afb3",
-        "#9d54b3",
-        "#b39775",
-        "#3176b3"
-    ]) {
-        this.sendercolors = sendercolors;
-    }
-
     static reflect(crc, n) {
         let j = 1, crcout = 0;
         for (let i = (1 << (n - 1)); i > 0; i >>= 1) {
@@ -62,7 +41,7 @@ class SenderColorHandler {
         return SenderColorHandler.qChecksum(nickToHash) & 0xF;
     }
 
-    nickToColor(nick) {
-        return this.sendercolors[SenderColorHandler.senderIndex(nick)];
+    static nickToColor(str) {
+        return SenderColorHandler.senderIndex(str).toString(16);
     }
 }

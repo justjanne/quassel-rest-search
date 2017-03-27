@@ -174,6 +174,7 @@ class Database {
 
     public function find(string $query, int $since = null, int $before = null, string $buffer = null, string $network = null, int $limitPerBuffer = 4) : array {
         $truncatedLimit = max(min($limitPerBuffer, 10), 0);
+        $truncatedLimit = 20;
 
         $buffers = $this->findBuffers($query, $since, $before, $buffer, $network);
         $messages = $this->findInBufferMultiple($query, $since, $before, $truncatedLimit);
