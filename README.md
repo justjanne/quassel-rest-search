@@ -52,6 +52,14 @@ First, rename the file `qrs_config.default.php` to `qrs_config.php`.
 
 Then configure the database access, backend (currently only `pgsql-smart` is available), and the prefix of the path.
 
+Development
+-----------
+
+Please install the required libraries for development with `npm install`
+
+Before every commit, git will automatically run `npm run jsx`, but you can do so yourself during testing.
+The project uses `nativejsx`
+
 License and Credits
 -------------------
 
