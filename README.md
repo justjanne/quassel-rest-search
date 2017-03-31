@@ -12,7 +12,7 @@ Setting up search backends
 First, add a new column to the backlog table:
 
 ```sql
-ALTER TABLE public.backlog ADD COLUMN tsv tsvector;
+ALTER TABLE backlog ADD COLUMN tsv tsvector;
 ```
 
 Second, add the two new indices:
@@ -42,7 +42,7 @@ CREATE TRIGGER tsvectorupdate
 
 Fourth, populate the `tsv` column:
 ```sql
-UPDATE public.backlog SET public.backlog.messageid = public.backlog.messageid;
+UPDATE backlog SET backlog.messageid = backlog.messageid;
 ```
 
 Setting up the search
