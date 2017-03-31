@@ -2,8 +2,9 @@ class HistoryElement {
     constructor(query) {
         this.query = query;
         this.render();
-        this.elem.addEventListener('click', () => {
-            window.location.href = '#' + encodeURIComponent(this.query);
+        this.elem.addEventListener('mousedown', event => {
+            statehandler.replace(this.query);
+            event.preventDefault();
         });
     }
     render() {
@@ -18,7 +19,7 @@ class HistoryElement {
             return $$a;
         }.call(this);
     }
-    selected(value) {
-        this.elem.classList.toggle('selected', value);
+    focus(focus) {
+        this.elem.classList.toggle('focus', focus);
     }
 }

@@ -16,7 +16,10 @@ class Buffer extends Component {
             <div className="buffer">
                 <div className="title">
                     <h2>{this.network} – {this.name}</h2>
-                    <button onClick={() => this.selected()}/>
+                    <button onClick={() => this.focus()}>
+                        <span className="open">{translation.buffer.open}</span>
+                        <span className="close">{translation.buffer.close}</span>
+                    </button>
                 </div>
                 {this.insertContainer = (
                     <div className="container">
@@ -31,12 +34,12 @@ class Buffer extends Component {
         /* load data */
     }
 
-    selected(isSelected) {
-        if (isSelected === undefined)
-            isSelected = !this.elem.classList.contains("selected");
+    focus(focus) {
+        if (focus === undefined)
+            focus = !this.elem.classList.contains("focus");
 
-        this.elem.classList.toggle("selected", isSelected);
-        this.sendEvent("expanded", isSelected);
+        this.elem.classList.toggle("focus", focus);
+        this.sendEvent("focus", focus);
     }
 
     insert(context) {

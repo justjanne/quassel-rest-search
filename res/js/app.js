@@ -1,15 +1,16 @@
+const statehandler = new StateHandler();
+
 class App {
     constructor() {
         this.navigation = new Navigation();
-        this.urlBar = new UrlBar();
         this.buffers = [];
 
         this.loadingQuery = 0;
 
         this.render();
-        this.urlBar.addEventListener("search", (query) => this.search(query));
         this.navigation.addEventListener("search", (query) => this.search(query));
-        this.urlBar.init();
+        statehandler.addEventListener("update", (query) => this.search(query));
+        statehandler.init();
     }
 
     render() {
@@ -26,9 +27,11 @@ class App {
 
     search(query) {
         this.clear();
+        this.navigation.input.blur();
+        this.navigation.historyView.resetNavigation();
         this.navigation.historyView.add(new HistoryElement(query));
         this.navigation.input.value = query;
-        this.urlBar.set(query);
+        statehandler.replace(query);
 
         if (query.trim() === "")
             return;
@@ -58,7 +61,7 @@ class App {
     clearAll() {
         this.clear();
         this.navigation.historyView.clear();
-        this.urlBar.clear();
+        statehandler.clear();
     }
 
     insert(buffer) {

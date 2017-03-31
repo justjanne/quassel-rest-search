@@ -55,24 +55,29 @@ class HistoryView {
     }
     navigateBefore() {
         if (this.elements[this.index])
-            this.elements[this.index].selected(false);
+            this.elements[this.index].focus(false);
         this.index++;
         this.index %= this.elements.length;
         if (this.elements[this.index])
-            this.elements[this.index].selected(true);
+            this.elements[this.index].focus(true);
         console.log(this.index);
     }
     navigateLater() {
         if (this.elements[this.index])
-            this.elements[this.index].selected(false);
+            this.elements[this.index].focus(false);
         this.index--;
         if (this.index < 0)
             this.index = -1;
         else
             this.index %= this.elements.length;
         if (this.elements[this.index])
-            this.elements[this.index].selected(true);
+            this.elements[this.index].focus(true);
         console.log(this.index);
+    }
+    resetNavigation() {
+        if (this.elements[this.index])
+            this.elements[this.index].focus(false);
+        this.index = -1;
     }
     truncate() {
         while (this.elements.length > HISTORY_MAX_LENGTH)

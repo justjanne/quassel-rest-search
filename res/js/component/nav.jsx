@@ -19,10 +19,13 @@ class Navigation extends Component {
                         <div className="searchBar">
                             <p className="icon">search</p>
                             {this.input = (
-                                <input className="search" placeholder={translation.search} type="text"
+                                <input className="search" placeholder={translation.search} type="search"
                                        autoComplete="off"
                                        onFocus={() => this.elem.classList.add("focus")}
-                                       onBlur={() => this.elem.classList.remove("focus")}
+                                       onBlur={() => {
+                                           this.elem.classList.remove("focus");
+                                           this.historyView.resetNavigation();
+                                       }}
                                        onKeyDown={(e) => this.inputKeyDown(e)}
                                 />
                             )}
@@ -49,12 +52,12 @@ class Navigation extends Component {
                 event.preventDefault();
                 break;
             case "Enter":
-                this.sendEvent("search", [this.historyView.index === -1 ? this.input.value : this.historyView.elements[this.historyView.index].query]);
-                this.input.blur();
+                statehandler.replace(this.historyView.index === -1 ? this.input.value : this.historyView.elements[this.historyView.index].query);
                 event.preventDefault();
                 break;
             case "Escape":
                 this.input.blur();
+                this.historyView.resetNavigation();
                 event.preventDefault();
                 break;
         }

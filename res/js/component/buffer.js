@@ -22,24 +22,32 @@ class Buffer extends Component {
             $$c.appendChild($$e);
             $$c.appendChildren(this.name);
             var $$g = document.createElement('button');
-            $$g.addEventListener('click', () => this.selected());
+            $$g.addEventListener('click', () => this.focus());
             $$b.appendChild($$g);
+            var $$h = document.createElement('span');
+            $$h.setAttribute('class', 'open');
+            $$g.appendChild($$h);
+            $$h.appendChildren(translation.buffer.open);
+            var $$j = document.createElement('span');
+            $$j.setAttribute('class', 'close');
+            $$g.appendChild($$j);
+            $$j.appendChildren(translation.buffer.close);
             $$a.appendChildren(this.insertContainer = function () {
-                var $$i = document.createElement('div');
-                $$i.setAttribute('class', 'container');
-                $$i.appendChildren((this.loadMoreBtn = new LoadMore(translation.results.show_more, this.loadMore)).elem);
-                return $$i;
+                var $$m = document.createElement('div');
+                $$m.setAttribute('class', 'container');
+                $$m.appendChildren((this.loadMoreBtn = new LoadMore(translation.results.show_more, this.loadMore)).elem);
+                return $$m;
             }.call(this));
             return $$a;
         }.call(this);
     }
     loadMore() {
     }
-    selected(isSelected) {
-        if (isSelected === undefined)
-            isSelected = !this.elem.classList.contains('selected');
-        this.elem.classList.toggle('selected', isSelected);
-        this.sendEvent('expanded', isSelected);
+    focus(focus) {
+        if (focus === undefined)
+            focus = !this.elem.classList.contains('focus');
+        this.elem.classList.toggle('focus', focus);
+        this.sendEvent('focus', focus);
     }
     insert(context) {
         this.insertContainer.insertBefore(context.elem, this.loadMoreBtn.elem);

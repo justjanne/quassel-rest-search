@@ -3,8 +3,9 @@ class HistoryElement {
         this.query = query;
 
         this.render();
-        this.elem.addEventListener("click", () => {
-            window.location.href = "#"+encodeURIComponent(this.query);
+        this.elem.addEventListener("mousedown", (event) => {
+            statehandler.replace(this.query);
+            event.preventDefault();
         });
     }
 
@@ -17,7 +18,7 @@ class HistoryElement {
         );
     }
 
-    selected(value) {
-        this.elem.classList.toggle("selected", value);
+    focus(focus) {
+        this.elem.classList.toggle("focus", focus);
     }
 }

@@ -31,10 +31,13 @@ class Navigation extends Component {
                 var $$h = document.createElement('input');
                 $$h.setAttribute('class', 'search');
                 $$h.setAttribute('placeholder', translation.search);
-                $$h.setAttribute('type', 'text');
+                $$h.setAttribute('type', 'search');
                 $$h.setAttribute('autoComplete', 'off');
                 $$h.addEventListener('focus', () => this.elem.classList.add('focus'));
-                $$h.addEventListener('blur', () => this.elem.classList.remove('focus'));
+                $$h.addEventListener('blur', () => {
+                    this.elem.classList.remove('focus');
+                    this.historyView.resetNavigation();
+                });
                 $$h.addEventListener('keydown', e => this.inputKeyDown(e));
                 return $$h;
             }.call(this));
@@ -63,12 +66,12 @@ class Navigation extends Component {
             event.preventDefault();
             break;
         case 'Enter':
-            this.sendEvent('search', [this.historyView.index === -1 ? this.input.value : this.historyView.elements[this.historyView.index].query]);
-            this.input.blur();
+            statehandler.replace(this.historyView.index === -1 ? this.input.value : this.historyView.elements[this.historyView.index].query);
             event.preventDefault();
             break;
         case 'Escape':
             this.input.blur();
+            this.historyView.resetNavigation();
             event.preventDefault();
             break;
         }

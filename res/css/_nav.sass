@@ -9,14 +9,15 @@
   z-index: 2
 
   .bar
-    background: #0271B3
+    background-color: #0271B3
     z-index: 1
     position: absolute
     top: 0
     left: 0
     right: 0
     box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24)
-    transition: background .15s
+    transition: background-color .15s
+    will-change: background-color
 
     .container
       max-width: 1136px
@@ -33,7 +34,6 @@
         display: flex
         position: relative
         border: none
-        transition: background .15s
         background: #358dc2
         border-radius: 2px
         padding: 0 0 0 72px
@@ -41,9 +41,10 @@
         flex-direction: row
         flex: 1
         box-shadow: 0 1px 1px rgba(0, 0, 0, .06)
+        transition: background-color .15s
 
         &:hover
-          background: rgba(255, 255, 255, .3)
+          background-color: rgba(255, 255, 255, .3)
 
         .icon
           display: inline-block
@@ -64,6 +65,9 @@
           line-height: 100%
           color: #ffffff
           font-size: 1rem
+          margin-right: 8px
+          -webkit-appearance: textfield
+          -webkit-box-sizing: content-box
 
           &::-moz-placeholder
             color: #ffffff
@@ -74,6 +78,9 @@
             color: #ffffff
             opacity: 1
             -webkit-font-smoothing: antialiased
+
+          &::-webkit-search-decoration, &::-webkit-search-cancel-button
+            display: none
 
       .actions
         display: flex
@@ -92,8 +99,8 @@
       text-align: center
       @include vendor-prefix('user-select', 'none')
 
-      &:hover:before
-        background-color: rgba(0, 0, 0, .12)
+      &:before
+        background-color: rgba(255, 255, 255, .12)
         bottom: 9px
         content: ' '
         left: 9px
@@ -104,6 +111,11 @@
         top: 9px
         z-index: -1
         border-radius: 50%
+        opacity: 0
+        transition: opacity 100ms
+
+      &:hover:before
+        opacity: 1
 
   .history
     top: 100%
@@ -132,7 +144,7 @@
         text-overflow: ellipsis
         white-space: nowrap
 
-        &:hover, &:focus, &.selected
+        &:hover, &:focus, &.focus
           background: rgba(0, 0, 0, 0.03)
 
         .icon

@@ -1,4 +1,8 @@
 {
+  "buffer": {
+    "open": "Open",
+    "close": "Close"
+  },
   "results": {
     "show_more": "Show More Results",
     "load_more": "Load More Results"
