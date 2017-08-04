@@ -42,7 +42,7 @@ CREATE TRIGGER tsvectorupdate
 
 Fourth, populate the `tsv` column:
 ```sql
-UPDATE backlog SET backlog.messageid = backlog.messageid;
+UPDATE backlog SET messageid = messageid;
 ```
 
 Setting up the search
