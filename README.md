@@ -19,13 +19,13 @@ Second, add the two new indices:
 
 ```sql
 CREATE INDEX backlog_tsv_idx
-  ON public.backlog
+  ON backlog
   USING gin(tsv);
 ```
 
 ```sql
 CREATE INDEX backlog_tsv_filtered_idx
-  ON public.backlog
+  ON backlog
   USING gin(tsv)
   WHERE (type & 23559) > 0;
 ```
@@ -35,7 +35,7 @@ Third, set up a trigger to populate the `tsv` column:
 ```sql
 CREATE TRIGGER tsvectorupdate
   BEFORE INSERT OR UPDATE
-  ON public.backlog
+  ON backlog
   FOR EACH ROW
   EXECUTE PROCEDURE tsvector_update_trigger('tsv', 'pg_catalog.english', 'message');
 ```
