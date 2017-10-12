@@ -39,7 +39,7 @@ class App {
         this.loadingQuery++;
         const queryId = this.loadingQuery;
         load("web/search/", {query: query}).then((result) => {
-            if (this.loadingQuery != queryId)
+            if (this.loadingQuery !== queryId)
                 return;
 
             this.buffers = result.map((buffer) => {

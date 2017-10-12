@@ -77,7 +77,6 @@ class Database
     public function find(string $query, int $since = null, int $before = null, string $buffer = null, string $network = null, string $sender = null, int $limitPerBuffer = 4): array
     {
         $truncatedLimit = max(min($limitPerBuffer, 10), 0);
-        $truncatedLimit = 20;
 
         $messages = $this->findInBufferMultiple($query, $since, $before, $buffer, $network, $sender, $truncatedLimit);
         $hasMore = $this->findInBufferMultipleCount($query, $since, $before, $buffer, $network, $sender, 0, $truncatedLimit);
