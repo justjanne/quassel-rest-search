@@ -4,7 +4,6 @@
     font-weight: 400;
     src: local("Material Icons"), local("MaterialIcons-Regular"), url(../icons/MaterialIcons-Regular.woff2) format("woff2"), url(../icons/MaterialIcons-Regular.woff) format("woff");
 }
-
 .icon {
     font-family: "Material Icons", sans-serif;
     font-weight: normal;
@@ -35,7 +34,6 @@
     font-weight: 400;
     src: local("Roboto"), local("Roboto-Regular"), url("../fonts/roboto-v15-latin-ext_cyrillic_greek-ext_cyrillic-ext_latin_greek_vietnamese-regular.woff2") format("woff2"), url("../fonts/roboto-v15-latin-ext_cyrillic_greek-ext_cyrillic-ext_latin_greek_vietnamese-regular.woff") format("woff");
 }
-
 @font-face {
     font-family: "Roboto";
     font-style: normal;
@@ -748,10 +746,13 @@ body {
 }
 
 .results .buffer .container .context .message time {
-    width: 132px;
+    width: 128px;
     display: inline-block;
     text-align: right;
     flex-shrink: 0;
+    font-family: monospace;
+    font-size: 90%;
+    color: #444;
 }
 
 @media (max-width: 800px) {
@@ -801,26 +802,20 @@ body {
     }
 }
 
-.results .buffer .container .context .message .container .preview {
-    flex: 50%;
-    min-width: 0;
-    overflow: hidden;
-}
-
 @media (max-width: 800px) {
-    .results .buffer .container .context .message .container .preview {
+    .results .buffer .container .context .message .container .sender {
         display: none;
     }
 }
 
-.results .buffer .container .context .message .container .preview .irc_highlight {
-    background-color: rgba(251, 246, 167, 0.5);
+.results .buffer .container .context .message .container .content {
+    flex-grow: 1;
+    overflow: hidden;
 }
 
-.results .buffer .container .context .message .container .content {
-    flex: 50%;
-    min-width: 0;
-    overflow: hidden;
+.results .buffer .container .context .message .container .content .irc_highlight {
+    background-color: rgba(251, 246, 167, 0.5);
+    color: #212121 !important;
 }
 
 @media (max-width: 800px) {

@@ -24,7 +24,7 @@ class StateHandler extends Component {
         const oldState = this.state;
         this.state = decodeURIComponent(window.location.hash.substr(1));
 
-        if (this.state !== oldState)
+        if (this.state !== oldState && this.state !== "")
             this.sendEvent("update", [this.state]);
     }
 

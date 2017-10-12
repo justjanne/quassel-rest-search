@@ -48,6 +48,8 @@ class MircColorHandler {
                 elem.dataset['irc_foreground'] = state.foreground;
             if (state.background !== null)
                 elem.dataset['irc_background'] = state.background;
+            if (state.highlight)
+                elem.classList.add('irc_highlight');
             return elem;
         };
         let apply = function (lastTag, str, i, normalCount, nodes) {
@@ -65,7 +67,8 @@ class MircColorHandler {
                 italic: false,
                 underline: false,
                 foreground: null,
-                background: null
+                background: null,
+                highlight: false,
             };
             let lastTag = fromState(state);
             let nodes = [];
@@ -126,7 +129,7 @@ class MircColorHandler {
                     case CODE_SWAP: {
                         apply(lastTag, str, i, normalCount, nodes);
                         normalCount = 0;
-                        if (state.foreground != null) {
+                        if (state.foreground !== null) {
                             state.foreground = state.background;
                             state.background = state.foreground;
                             lastTag = fromState(state);
@@ -144,6 +147,28 @@ class MircColorHandler {
                         lastTag = fromState(state);
                     }
                         break;
+                    case '<': {
+                        const start_tag = '<b>';
+                        const end_tag = '</b>';
+                        if (str.substr(i, start_tag.length) === start_tag) {
+                            apply(lastTag, str, i, normalCount, nodes);
+                            normalCount = 0;
+                            state.highlight = true;
+                            lastTag = fromState(state);
+
+                            i += start_tag.length - 1;
+                        } else if (str.substr(i, end_tag.length) === end_tag) {
+                            apply(lastTag, str, i, normalCount, nodes);
+                            normalCount = 0;
+                            state.highlight = false;
+                            lastTag = fromState(state);
+
+                            i += end_tag.length - 1;
+                        } else {
+                            normalCount++;
+                        }
+                    }
+                        break;
                     default: {
                         normalCount++;
                     }
@@ -154,33 +179,5 @@ class MircColorHandler {
             return nodes;
         };
         return formatString(text);
-    }
-
-    static highlight(text) {
-        let nodes = [];
-        let highlight = false;
-        let patternStart = '<b>';
-        let patternEnd = '</b>';
-        let pattern = patternStart;
-        let groupStart = 0;
-        let addFragment = function () {
-            const groupEnd = index === -1 ? text.length : index;
-            if (groupStart == groupEnd)
-                return;
-
-            const span = document.createElement('span');
-            if (highlight) span.classList.add("irc_highlight");
-            span.appendChildren(text.substr(groupStart, groupEnd - groupStart));
-            nodes.push(span);
-        };
-        let index = -1;
-        while ((index = text.indexOf(pattern, groupStart)) < text.length && index > 0) {
-            addFragment();
-            groupStart = index + pattern.length;
-            pattern = highlight ? patternStart : patternEnd;
-            highlight = !highlight;
-        }
-        addFragment();
-        return nodes;
     }
 }

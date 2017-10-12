@@ -12,7 +12,7 @@ class Message {
             $$a.setAttribute('class', 'message');
             var $$b = document.createElement('time');
             $$a.appendChild($$b);
-            $$b.appendChildren(new Date(this.time.replace(' ', 'T') + 'Z').toLocaleString());
+            $$b.appendChildren(new Date(this.time.replace(' ', 'T') + 'Z').toUTCString());
             var $$d = document.createElement('div');
             $$d.setAttribute('class', 'container');
             $$a.appendChild($$d);

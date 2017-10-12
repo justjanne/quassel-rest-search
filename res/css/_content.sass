@@ -216,10 +216,13 @@
             border-bottom: none
 
           time
-            width: 132px
+            width: 128px
             display: inline-block
             text-align: right
             flex-shrink: 0
+            font-family: monospace
+            font-size: 90%
+            color: #444
 
             @media(max-width: 800px)
               position: absolute
@@ -255,21 +258,16 @@
                   content: ': '
                   margin-right: 8px
 
-            .preview
-              flex: 50%
-              min-width: 0
-              overflow: hidden
-
               @media(max-width: 800px)
                 display: none
 
+            .content
+              flex-grow: 1
+              overflow: hidden
+
               .irc_highlight
                 background-color: rgba(251, 246, 167, 0.5)
-
-            .content
-              flex: 50%
-              min-width: 0
-              overflow: hidden
+                color: #212121 !important
 
               @media(max-width: 800px)
                 display: inline

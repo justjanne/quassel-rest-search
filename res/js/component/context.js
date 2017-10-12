@@ -1,6 +1,6 @@
 class Context {
-    constructor(preview, beforeList = [], afterList = []) {
-        this.preview = preview;
+    constructor(message, beforeList = [], afterList = []) {
+        this.message = message;
         this.beforeList = beforeList;
         this.afterList = afterList;
         this.render();
@@ -18,7 +18,7 @@ class Context {
                 $$c.appendChildren((this.loadBeforeBtn = new LoadMore(translation.context.load_earlier, this.loadBefore)).elem);
                 return $$c;
             }.call(this));
-            $$a.appendChildren(this.preview.elem);
+            $$a.appendChildren(this.message.elem);
             $$a.appendChildren(this.containerAfter = function () {
                 var $$g = document.createElement('div');
                 $$g.setAttribute('class', 'container after');

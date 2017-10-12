@@ -33,8 +33,7 @@ class PostgresSmartBackend implements Backend
               tmp.messageid,
               sender.sender,
               tmp.time,
-              replace(replace(tmp.message, '<', '&lt;'), '>', '&gt;') AS message,
-              ts_headline(replace(replace(tmp.message, '<', '&lt;'), '>', '&gt;'), query) AS preview
+              ts_headline(replace(replace(tmp.message, '<', '&lt;'), '>', '&gt;'), query, 'HighlightAll=TRUE') AS message
             FROM
               (SELECT
                  backlog.messageid,
@@ -44,7 +43,16 @@ class PostgresSmartBackend implements Backend
                  backlog.senderid,
                  backlog.time,
                  backlog.message,
-                 query,
+                 (
+                   (ts_rank(tsv, query, :config_normalization) ^ :weight_content) *
+                   ((CASE
+                     WHEN type IN (1, 4) THEN 1.0
+                     WHEN type IN (2, 1024, 2048, 4096, 16384) THEN 0.75
+                     WHEN type IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.5
+                     WHEN type IN (8, 16, 8192, 131072) THEN 0.25
+                     ELSE 0.1 END) ^ :weight_type) *
+                   ((EXTRACT(EPOCH FROM time) / EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)) ^ :weight_time)
+                 ) AS rank_value,
                  rank() OVER (
                    PARTITION BY backlog.bufferid
                    ORDER BY (
@@ -57,7 +65,8 @@ class PostgresSmartBackend implements Backend
                        ELSE 0.1 END) ^ :weight_type) *
                      ((EXTRACT(EPOCH FROM time) / EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)) ^ :weight_time)
                    ) DESC
-                 ) AS rank
+                 ) AS rank,
+                 query
                FROM backlog
                JOIN buffer ON backlog.bufferid = buffer.bufferid,
                  phraseto_tsquery_multilang(:query) query
@@ -71,7 +80,8 @@ class PostgresSmartBackend implements Backend
               JOIN network ON tmp.networkid = network.networkid
             WHERE tmp.rank <= :limit
               AND (:ignore_network::BOOLEAN OR network.networkname ~* :network)
-              AND (:ignore_sender::BOOLEAN OR sender.sender ~* :sender);
+              AND (:ignore_sender::BOOLEAN OR sender.sender ~* :sender)
+            ORDER BY tmp.rank_value DESC;
         ");
     }
 
@@ -105,8 +115,7 @@ class PostgresSmartBackend implements Backend
               tmp.messageid,
               sender.sender,
               tmp.time,
-              replace(replace(tmp.message, '<', '&lt;'), '>', '&gt;') AS message,
-              ts_headline(replace(replace(tmp.message, '<', '&lt;'), '>', '&gt;'), query) AS preview
+              ts_headline(replace(replace(tmp.message, '<', '&lt;'), '>', '&gt;'), query, 'HighlightAll=TRUE') AS message
             FROM
               (SELECT
                  backlog.messageid,
@@ -114,6 +123,16 @@ class PostgresSmartBackend implements Backend
                  backlog.senderid,
                  backlog.time,
                  backlog.message,
+                 (
+                   (ts_rank(tsv, query, :config_normalization) ^ :weight_content) *
+                   ((CASE
+                     WHEN type IN (1, 4) THEN 1.0
+                     WHEN type IN (2, 1024, 2048, 4096, 16384) THEN 0.75
+                     WHEN type IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.5
+                     WHEN type IN (8, 16, 8192, 131072) THEN 0.25
+                     ELSE 0.1 END) ^ :weight_type) *
+                   ((EXTRACT(EPOCH FROM time) / EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)) ^ :weight_time)
+                 ) AS rank_value,
                  query
                FROM backlog
                JOIN buffer ON backlog.bufferid = buffer.bufferid,
@@ -123,19 +142,10 @@ class PostgresSmartBackend implements Backend
                  AND (:ignore_since::BOOLEAN OR backlog.time > :since::TIMESTAMP)
                  AND (:ignore_before::BOOLEAN OR backlog.time < :before::TIMESTAMP)
                  AND backlog.tsv @@ query AND backlog.type & 23559 > 0
-               ORDER BY (
-                 (ts_rank(tsv, query, :config_normalization) ^ :weight_content) *
-                 ((CASE
-                   WHEN type IN (1, 4) THEN 1.0
-                   WHEN type IN (2, 1024, 2048, 4096, 16384) THEN 0.75
-                   WHEN type IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.5
-                   WHEN type IN (8, 16, 8192, 131072) THEN 0.25
-                   ELSE 0.1 END) ^ :weight_type) *
-                 ((EXTRACT(EPOCH FROM time) / EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)) ^ :weight_time)
-               ) DESC
               ) tmp
-              JOIN sender ON tmp.senderid = sender.senderid
-              WHERE (:ignore_sender::BOOLEAN OR sender.sender ~* :sender)
+            JOIN sender ON tmp.senderid = sender.senderid
+            WHERE (:ignore_sender::BOOLEAN OR sender.sender ~* :sender)
+            ORDER BY tmp.rank_value DESC
             LIMIT :limit
             OFFSET :offset;
         ");

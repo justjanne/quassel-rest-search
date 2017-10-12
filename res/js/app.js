@@ -44,7 +44,7 @@ class App {
 
             this.buffers = result.map((buffer) => {
                 return new Buffer(buffer.bufferid, buffer.buffername, buffer.networkname, buffer.hasmore, buffer.messages.map((msg) => {
-                    return new Context(new MessagePreview(msg.messageid, msg.time, msg.sender, msg.message, msg.preview));
+                    return new Context(new Message(msg.messageid, msg.time, msg.sender, msg.message));
                 }));
             });
             this.buffers.forEach((buffer) => this.insert(buffer));

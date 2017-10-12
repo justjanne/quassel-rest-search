@@ -1,6 +1,6 @@
 class Context {
-    constructor(preview, beforeList = [], afterList = []) {
-        this.preview = preview;
+    constructor(message, beforeList = [], afterList = []) {
+        this.message = message;
         this.beforeList = beforeList;
         this.afterList = afterList;
 
@@ -18,7 +18,7 @@ class Context {
                         {(this.loadBeforeBtn = new LoadMore(translation.context.load_earlier, this.loadBefore)).elem}
                     </div>
                 )}
-                {this.preview.elem}
+                {this.message.elem}
                 {this.containerAfter = (
                     <div className="container after">
                         {(this.loadAfterBtn = new LoadMore(translation.context.load_later, this.loadAfter)).elem}

@@ -21,7 +21,6 @@ class HistoryView {
             return $$a;
         }.call(this);
     }
-
     insert(items) {
         if (!(items instanceof Array))
             return this.insert([items]);
