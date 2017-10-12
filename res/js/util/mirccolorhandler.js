@@ -73,28 +73,28 @@ class MircColorHandler {
             for (let i = 0; i < str.length; i++) {
                 const character = str.charAt(i);
                 switch (character) {
-                case CODE_BOLD: {
+                    case CODE_BOLD: {
                         apply(lastTag, str, i, normalCount, nodes);
                         normalCount = 0;
                         state.bold = !state.bold;
                         lastTag = fromState(state);
                     }
-                    break;
-                case CODE_ITALIC: {
+                        break;
+                    case CODE_ITALIC: {
                         apply(lastTag, str, i, normalCount, nodes);
                         normalCount = 0;
                         state.italic = !state.italic;
                         lastTag = fromState(state);
                     }
-                    break;
-                case CODE_UNDERLINE: {
+                        break;
+                    case CODE_UNDERLINE: {
                         apply(lastTag, str, i, normalCount, nodes);
                         normalCount = 0;
                         state.underline = !state.underline;
                         lastTag = fromState(state);
                     }
-                    break;
-                case CODE_COLOR: {
+                        break;
+                    case CODE_COLOR: {
                         apply(lastTag, str, i, normalCount, nodes);
                         normalCount = 0;
                         let foregroundStart = i + 1;
@@ -122,8 +122,8 @@ class MircColorHandler {
                             lastTag = fromState(state);
                         }
                     }
-                    break;
-                case CODE_SWAP: {
+                        break;
+                    case CODE_SWAP: {
                         apply(lastTag, str, i, normalCount, nodes);
                         normalCount = 0;
                         if (state.foreground != null) {
@@ -132,8 +132,8 @@ class MircColorHandler {
                             lastTag = fromState(state);
                         }
                     }
-                    break;
-                case CODE_RESET: {
+                        break;
+                    case CODE_RESET: {
                         apply(lastTag, str, i, normalCount, nodes);
                         normalCount = 0;
                         state.bold = false;
@@ -143,11 +143,11 @@ class MircColorHandler {
                         state.background = null;
                         lastTag = fromState(state);
                     }
-                    break;
-                default: {
+                        break;
+                    default: {
                         normalCount++;
                     }
-                    break;
+                        break;
                 }
             }
             apply(lastTag, str, str.length, normalCount, nodes);
@@ -155,6 +155,7 @@ class MircColorHandler {
         };
         return formatString(text);
     }
+
     static highlight(text) {
         let nodes = [];
         let highlight = false;

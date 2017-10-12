@@ -1,5 +1,5 @@
 class Buffer extends Component {
-    constructor(id, name, network, contextList = []) {
+    constructor(id, name, network, hasMore, contextList = []) {
         super();
 
         this.id = id;
@@ -9,6 +9,7 @@ class Buffer extends Component {
 
         this.render();
         this.contextList.forEach((context) => this.insert(context));
+        this.loadMoreBtn.setVisible(hasMore);
     }
 
     render() {
@@ -21,11 +22,16 @@ class Buffer extends Component {
                         <span className="close">{translation.buffer.close}</span>
                     </button>
                 </div>
-                {this.insertContainer = (
-                    <div className="container">
-                        {(this.loadMoreBtn = new LoadMore(translation.results.show_more, this.loadMore)).elem}
-                    </div>
-                )}
+                <div className="container">
+                    {this.insertContainerFirst = (
+                        <div className="primary"/>
+                    )}
+                    {this.insertContainer = (
+                        <div className="secondary">
+                        </div>
+                    )}
+                    {(this.loadMoreBtn = new LoadMore(translation.results.show_more, this.loadMore)).elem}
+                </div>
             </div>
         );
     }
@@ -43,6 +49,7 @@ class Buffer extends Component {
     }
 
     insert(context) {
-        this.insertContainer.insertBefore(context.elem, this.loadMoreBtn.elem);
+        let container = (this.insertContainerFirst.childElementCount < 4 ? this.insertContainerFirst : this.insertContainer);
+        container.appendChild(context.elem);
     }
 }

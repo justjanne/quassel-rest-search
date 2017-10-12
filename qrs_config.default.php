@@ -1,14 +1,14 @@
 <?php
-define('db_host', 'example.com');
-define('db_port', 5432);
-define('db_name', 'quassel');
+define('qrs_db_host', 'example.com');
+define('qrs_db_port', 5432);
+define('qrs_db_name', 'quassel');
 
 //Only change this if you know what you are doing
-define('db_connector', null);
+define('qrs_db_connector', null);
 
-define('db_user', 'quassel');
-define('db_pass', 'password');
+define('qrs_db_user', 'quassel');
+define('qrs_db_pass', 'password');
 
-define('backend', 'pgsql-smart');
+define('qrs_backend', 'pgsql-smart');
 
-define('path_prefix', '');
+define('qrs_path_prefix', '');

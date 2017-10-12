@@ -7,7 +7,7 @@ class HistoryView {
             return new HistoryElement(query);
         });
         this.render();
-        this.elements.reverse().forEach(elem => this.insert(elem));
+        this.insert(this.elements);
     }
     render() {
         return this.elem = function () {
@@ -21,13 +21,17 @@ class HistoryView {
             return $$a;
         }.call(this);
     }
-    insert(item) {
-        this.list.insertBefore(item.elem, this.list.firstChild);
-        if (this.noHistory.elem.parentNode === this.list)
+
+    insert(items) {
+        if (!(items instanceof Array))
+            return this.insert([items]);
+        const anchor = this.list.firstChild;
+        items.forEach(item => this.list.insertBefore(item.elem, anchor));
+        if (items.length && this.noHistory.elem.parentNode === this.list)
             this.list.removeChild(this.noHistory.elem);
     }
     add(item) {
-        if (item.query == '')
+        if (item.query === '')
             return;
         const idx = this.elements.map(item => item.query).indexOf(item.query);
         if (idx !== -1) {

@@ -3,8 +3,10 @@ class HistoryElement {
         this.query = query;
         this.render();
         this.elem.addEventListener('mousedown', event => {
-            statehandler.replace(this.query);
-            event.preventDefault();
+            if (event.buttons === 0 || event.buttons === 1) {
+                statehandler.replace(this.query);
+                event.preventDefault();
+            }
         });
     }
     render() {

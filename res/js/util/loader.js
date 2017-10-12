@@ -1,4 +1,4 @@
-function load(url, data=null) {
+function load(url, data = null) {
     return new Promise((resolve, reject) => {
         const encodeData = (data) => {
             const result = [];
@@ -11,7 +11,7 @@ function load(url, data=null) {
         };
 
         const request = new XMLHttpRequest();
-        const method = data===null ? "GET" : "POST";
+        const method = data === null ? "GET" : "POST";
         request.onreadystatechange = () => {
             if (request.readyState == 4) {
                 if (request.status >= 200 && request.status < 300) {
@@ -26,7 +26,7 @@ function load(url, data=null) {
             }
         };
         request.open(method, url, true);
-        if (data!==null) {
+        if (data !== null) {
             request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             request.send(encodeData(data));
         } else {

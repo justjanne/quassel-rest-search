@@ -1,5 +1,5 @@
 class Buffer extends Component {
-    constructor(id, name, network, contextList = []) {
+    constructor(id, name, network, hasMore, contextList = []) {
         super();
         this.id = id;
         this.name = name;
@@ -7,6 +7,7 @@ class Buffer extends Component {
         this.contextList = contextList;
         this.render();
         this.contextList.forEach(context => this.insert(context));
+        this.loadMoreBtn.setVisible(hasMore);
     }
     render() {
         return this.elem = function () {
@@ -32,12 +33,20 @@ class Buffer extends Component {
             $$j.setAttribute('class', 'close');
             $$g.appendChild($$j);
             $$j.appendChildren(translation.buffer.close);
-            $$a.appendChildren(this.insertContainer = function () {
-                var $$m = document.createElement('div');
-                $$m.setAttribute('class', 'container');
-                $$m.appendChildren((this.loadMoreBtn = new LoadMore(translation.results.show_more, this.loadMore)).elem);
-                return $$m;
+            var $$l = document.createElement('div');
+            $$l.setAttribute('class', 'container');
+            $$a.appendChild($$l);
+            $$l.appendChildren(this.insertContainerFirst = function () {
+                var $$n = document.createElement('div');
+                $$n.setAttribute('class', 'primary');
+                return $$n;
             }.call(this));
+            $$l.appendChildren(this.insertContainer = function () {
+                var $$p = document.createElement('div');
+                $$p.setAttribute('class', 'secondary');
+                return $$p;
+            }.call(this));
+            $$l.appendChildren((this.loadMoreBtn = new LoadMore(translation.results.show_more, this.loadMore)).elem);
             return $$a;
         }.call(this);
     }
@@ -50,6 +59,7 @@ class Buffer extends Component {
         this.sendEvent('focus', focus);
     }
     insert(context) {
-        this.insertContainer.insertBefore(context.elem, this.loadMoreBtn.elem);
+        let container = this.insertContainerFirst.childElementCount < 4 ? this.insertContainerFirst : this.insertContainer;
+        container.appendChild(context.elem);
     }
 }

@@ -1,5 +1,5 @@
 class Context {
-    constructor(preview, beforeList=[], afterList=[]) {
+    constructor(preview, beforeList = [], afterList = []) {
         this.preview = preview;
         this.beforeList = beforeList;
         this.afterList = afterList;

@@ -23,4 +23,9 @@ class Component {
             listener.apply(null, argv);
         })
     }
+
+    setVisible(value) {
+        if (this.elem)
+            this.elem.classList.toggle("hidden", !value);
+    }
 }

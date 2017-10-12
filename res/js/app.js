@@ -15,10 +15,10 @@ class App {
 
     render() {
         const wrapper = document.createElement("div");
-            wrapper.appendChild(this.navigation.elem);
-            const results = document.createElement("div");
-                results.classList.add("results");
-            wrapper.appendChild(results);
+        wrapper.appendChild(this.navigation.elem);
+        const results = document.createElement("div");
+        results.classList.add("results");
+        wrapper.appendChild(results);
         this.elem = wrapper;
         this.resultContainer = results;
 
@@ -43,7 +43,7 @@ class App {
                 return;
 
             this.buffers = result.map((buffer) => {
-                return new Buffer(buffer.bufferid, buffer.buffername, buffer.networkname, buffer.messages.map((msg) => {
+                return new Buffer(buffer.bufferid, buffer.buffername, buffer.networkname, buffer.hasmore, buffer.messages.map((msg) => {
                     return new Context(new MessagePreview(msg.messageid, msg.time, msg.sender, msg.message, msg.preview));
                 }));
             });

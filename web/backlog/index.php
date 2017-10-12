@@ -3,9 +3,9 @@
 namespace QuasselRestSearch;
 
 require_once '../../qrs_config.php';
-require_once '../../backend/Database.php';
-require_once '../../backend/helper/RendererHelper.php';
-require_once '../../backend/helper/SessionHelper.php';
+require_once '../../database/Database.php';
+require_once '../../database/helper/RendererHelper.php';
+require_once '../../database/helper/SessionHelper.php';
 
 $session = SessionHelper::getInstance();
 $config = Config::createFromGlobals();

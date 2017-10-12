@@ -11,12 +11,12 @@ class StateHandler extends Component {
     }
 
     replace(value) {
-        history.replaceState(null, null, "#"+encodeURIComponent(value));
+        history.replaceState(null, null, "#" + encodeURIComponent(value));
         this.update();
     }
 
     push(value) {
-        history.pushState(null, null, "#"+encodeURIComponent(value));
+        history.pushState(null, null, "#" + encodeURIComponent(value));
         this.update();
     }
 

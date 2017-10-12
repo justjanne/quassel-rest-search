@@ -2,12 +2,14 @@
 
 namespace QuasselRestSearch;
 
-class ViewHelper {
+class ViewHelper
+{
     protected $template_dir;
     protected $translation;
     protected $vars = [];
 
-    public function __construct($translation, $vars = null) {
+    public function __construct($translation, $vars = null)
+    {
         $this->translation = $translation;
         $this->setPath('../../templates/');
         if ($vars !== null) {
@@ -15,11 +17,13 @@ class ViewHelper {
         }
     }
 
-    public function setPath(string $path) {
+    public function setPath(string $path)
+    {
         $this->template_dir = realpath(dirname(__FILE__) . '/' . $path);
     }
 
-    public function render($template_file) {
+    public function render($template_file)
+    {
         $translation = $this->translation;
         $t = function ($path) use ($translation) {
             $arr = explode(".", $path);
@@ -38,11 +42,13 @@ class ViewHelper {
         }
     }
 
-    public function __get($name) {
+    public function __get($name)
+    {
         return $this->vars[$name];
     }
 
-    public function __set($name, $value) {
+    public function __set($name, $value)
+    {
         $this->vars[$name] = $value;
     }
 }

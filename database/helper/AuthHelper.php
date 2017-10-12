@@ -3,8 +3,10 @@
 namespace QuasselRestSearch;
 
 
-class AuthHelper {
-    public static function initialAuthenticateUser($plainPassword, $dbHashedPassword, $hashVersion) {
+class AuthHelper
+{
+    public static function initialAuthenticateUser($plainPassword, $dbHashedPassword, $hashVersion)
+    {
         switch ($hashVersion) {
             case null:
             case 0:
@@ -19,7 +21,8 @@ class AuthHelper {
         }
     }
 
-    public static function initialCheckHashedPasswordSha1($plainPassword, $dbHashedPassword) {
+    public static function initialCheckHashedPasswordSha1($plainPassword, $dbHashedPassword)
+    {
         $calculatedPasswordHash = hash("sha1", $plainPassword);
 
         if ($calculatedPasswordHash == $dbHashedPassword) {
@@ -29,7 +32,8 @@ class AuthHelper {
         return false;
     }
 
-    public static function initialCheckHashedPasswordSha2_512($plainPassword, $dbHashedPassword) {
+    public static function initialCheckHashedPasswordSha2_512($plainPassword, $dbHashedPassword)
+    {
         $dbHashedPasswordArray = explode(":", $dbHashedPassword);
 
         if (count($dbHashedPasswordArray) == 2) {
@@ -42,7 +46,8 @@ class AuthHelper {
         return false;
     }
 
-    public static function parseAuthHeader($authHeader) : array {
+    public static function parseAuthHeader($authHeader): array
+    {
         $arr = explode(':', base64_decode($authHeader));
         if (count($arr) != 2) {
             throw new \Exception("Can’t parse authentication header");
@@ -54,7 +59,8 @@ class AuthHelper {
         }
     }
 
-    public static function generateAuthHeader(string $password, string $username) : string {
+    public static function generateAuthHeader(string $password, string $username): string
+    {
         return base64_encode(base64_encode($username) . ":" . base64_encode($password));
     }
 }
