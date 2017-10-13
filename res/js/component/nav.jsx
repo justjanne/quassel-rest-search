@@ -27,6 +27,7 @@ class Navigation extends Component {
                                            this.historyView.resetNavigation();
                                        }}
                                        onKeyDown={(e) => this.inputKeyDown(e)}
+                                       tabIndex="0"
                                 />
                             )}
                         </div>

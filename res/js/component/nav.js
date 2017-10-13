@@ -39,6 +39,7 @@ class Navigation extends Component {
                     this.historyView.resetNavigation();
                 });
                 $$h.addEventListener('keydown', e => this.inputKeyDown(e));
+                $$h.setAttribute('tabIndex', '0');
                 return $$h;
             }.call(this));
             var $$i = document.createElement('div');
