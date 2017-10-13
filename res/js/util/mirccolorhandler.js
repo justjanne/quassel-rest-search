@@ -50,8 +50,11 @@ class MircColorHandler {
                 elem.classList.add('irc_highlight');
             return elem;
         };
+        const unescape = function (str) {
+            return str.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+        };
         const apply = function (lastTag, str, i, normalCount, nodes) {
-            const s = str.substr(i - normalCount, normalCount);
+            const s = unescape(str.substr(i - normalCount, normalCount));
             if (normalCount === 0)
                 return;
             if (lastTag.tagName === 'A')

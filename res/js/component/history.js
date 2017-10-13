@@ -63,7 +63,6 @@ class HistoryView {
         this.index %= this.elements.length;
         if (this.elements[this.index])
             this.elements[this.index].focus(true);
-        console.log(this.index);
     }
     navigateLater() {
         if (this.elements[this.index])
@@ -75,7 +74,6 @@ class HistoryView {
             this.index %= this.elements.length;
         if (this.elements[this.index])
             this.elements[this.index].focus(true);
-        console.log(this.index);
     }
     resetNavigation() {
         if (this.elements[this.index])
@@ -84,6 +82,6 @@ class HistoryView {
     }
     truncate() {
         while (this.elements.length > HISTORY_MAX_LENGTH)
-            this.list.removeChild(this.elements.shift().elem);
+            this.list.removeChild(this.elements.pop().elem);
     }
 }
