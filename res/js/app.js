@@ -83,5 +83,6 @@ class App {
     }
 }
 
+moment.locale(navigator.languages || navigator.language);
 const app = new App();
 document.body.insertBefore(app.elem, document.body.firstChild);

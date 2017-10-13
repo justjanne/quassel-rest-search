@@ -753,12 +753,12 @@ body {
 }
 
 .results .buffer .container .context .message time {
-    width: 128px;
+    width: 136px;
     display: inline-block;
     text-align: right;
     flex-shrink: 0;
     font-family: monospace;
-    font-size: 90%;
+    font-size: 85%;
     color: #444;
 }
 

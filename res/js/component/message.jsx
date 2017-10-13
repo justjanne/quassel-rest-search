@@ -11,7 +11,7 @@ class Message {
     render() {
         return this.elem = (
             <div className="message">
-                <time>{new Date(this.time.replace(" ", "T") + "Z").toUTCString()}</time>
+                <time>{moment(new Date(this.time.replace(" ", "T") + "Z")).format('L LT')}</time>
                 <div className="container">
                     <div className="sender" data-sendercolor={SenderColorHandler.nickToColor(this.getNick())}>
                         {this.getNick()}
