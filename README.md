@@ -12,20 +12,20 @@ Setting up search backends
 First, add a new column to the backlog table:
 
 ```sql
-ALTER TABLE public.backlog ADD COLUMN tsv tsvector;
+ALTER TABLE backlog ADD COLUMN tsv tsvector;
 ```
 
 Second, add the two new indices:
 
 ```sql
 CREATE INDEX backlog_tsv_idx
-  ON public.backlog
+  ON backlog
   USING gin(tsv);
 ```
 
 ```sql
 CREATE INDEX backlog_tsv_filtered_idx
-  ON public.backlog
+  ON backlog
   USING gin(tsv)
   WHERE (type & 23559) > 0;
 ```
@@ -35,14 +35,14 @@ Third, set up a trigger to populate the `tsv` column:
 ```sql
 CREATE TRIGGER tsvectorupdate
   BEFORE INSERT OR UPDATE
-  ON public.backlog
+  ON backlog
   FOR EACH ROW
   EXECUTE PROCEDURE tsvector_update_trigger('tsv', 'pg_catalog.english', 'message');
 ```
 
 Fourth, populate the `tsv` column:
 ```sql
-UPDATE public.backlog SET public.backlog.messageid = public.backlog.messageid;
+UPDATE backlog SET backlog.messageid = backlog.messageid;
 ```
 
 Setting up the search
