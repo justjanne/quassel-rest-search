@@ -15,10 +15,9 @@
     "error_unavailable": "No search history available"
   },
   "login": {
-    "description": "You have to login to access this page",
     "username": "Username",
     "password": "Password",
-    "submit": "Login",
+    "submit": "Log In",
     "message": {
       "success_logout": "You have successfully logged out.",
       "error_invalid": "Invalid username/password combination.",

@@ -6,9 +6,9 @@
 
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="theme-color" content="#fff"/>
-    <meta name="msapplication-navbutton-color" content="#fff">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
+    <meta name="theme-color" content="#0a70c0"/>
+    <meta name="msapplication-navbutton-color" content="#0a70c0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#0a70c0">
 
     <link rel="icon" type="image/png" href="favicon.png">
 
@@ -16,11 +16,12 @@
     <link rel="stylesheet" href="res/css/icons.css">
 </head>
 <body>
-
-<h1><?php $t('title'); ?></h1>
-<h2><?php $t('login.description'); ?></h2>
+<div class="header">
+    <h1><?php $t('title'); ?></h1>
+</div>
 
 <form method="post" action="login.php?action=login">
+    <h2><?php $t('login.description'); ?></h2>
     <?php if ($vars['message']): ?>
         <p class="message <?php echo $vars['type']; ?>"><?php echo $t($vars['message']); ?></p>
     <?php endif; ?>
@@ -29,5 +30,6 @@
     <input type="submit" value="<?php $t('login.submit'); ?>">
 </form>
 
+<div class="footer"></div>
 </body>
 </html>

@@ -1,30 +1,111 @@
-body {
-    font-family: 'Open Sans', Helvetica Neue, Helvetica, Arial, arial, sans-serif;
+@font-face {
+    font-family: "Material Icons";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Material Icons"), local("MaterialIcons-Regular"), url(../icons/MaterialIcons-Regular.woff2) format("woff2"), url(../icons/MaterialIcons-Regular.woff) format("woff");
+}
+
+.icon {
+    font-family: "Material Icons", sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    /* Support for all WebKit browsers. */
     -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+    /* Support for IE. */
+    font-feature-settings: "liga";
 }
 
-body > :first-child {
-    margin-top: 8rem;
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Roboto"), local("Roboto-Regular"), url("../fonts/roboto-v15-latin-ext_cyrillic_greek-ext_cyrillic-ext_latin_greek_vietnamese-regular.woff2") format("woff2"), url("../fonts/roboto-v15-latin-ext_cyrillic_greek-ext_cyrillic-ext_latin_greek_vietnamese-regular.woff") format("woff");
 }
 
-body > :last-child {
-    margin-bottom: 2rem;
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 700;
+    src: local("Roboto Bold"), local("Roboto-Bold"), url("../fonts/roboto-v15-latin-ext_cyrillic_greek-ext_cyrillic-ext_latin_greek_vietnamese-700.woff2") format("woff2"), url("../fonts/roboto-v15-latin-ext_cyrillic_greek-ext_cyrillic-ext_latin_greek_vietnamese-700.woff") format("woff");
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: #F2F2F2;
+    font-family: "Roboto", sans-serif;
+    font-size: 81.25%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+}
+
+body .header, body .footer {
+    flex-grow: 1;
+}
+
+*:focus {
+    outline: none;
+}
+
+::-moz-focus-inner {
+    border: 0;
 }
 
 form {
-    background-color: #f7f7f7;
-    margin: 0 auto 25px;
-    border-radius: 2px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-    width: 16rem;
-    padding: 1.5rem 2rem;
+    background: #fff;
+    max-width: 390px;
+    padding: 20px 48px;
+    margin: 0 auto;
+    color: #212121;
+    box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+}
+
+@media (max-width: 320px) {
+    form {
+        padding: 8px 16px;
+        margin: initial;
+    }
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+}
+
+.header:before {
+    content: "";
+    flex-grow: 1;
 }
 
 h1 {
     color: #555;
-    font-size: 42px;
+    font-size: 32px;
     font-weight: 300;
-    margin: 0 0 15px;
+    margin: 5px 0 15px;
+    line-height: 1.5;
     text-align: center;
 }
 
@@ -32,7 +113,8 @@ h2 {
     color: #555;
     font-size: 18px;
     font-weight: 400;
-    margin-bottom: 20px;
+    margin: 5px 0 15px;
+    line-height: 1.5;
     text-align: center;
 }
 
@@ -57,30 +139,47 @@ input[type=text], input[type=password] {
     position: relative;
 }
 
-input[type=submit] {
-    min-width: 46px;
+input[type="submit"] {
+    display: inline-block;
+    position: relative;
+    border: 0 none;
+    white-space: nowrap;
     text-align: center;
-    font-size: 14px;
-    font-weight: 700;
-    height: 36px;
-    padding: 0 8px;
-    line-height: 36px;
+    font: inherit;
+    text-transform: uppercase;
+    text-decoration: none;
+    outline: 0 none;
     border-radius: 3px;
-    transition: all 0.218s;
+    cursor: pointer;
+    padding: 8px 16px;
+    font-weight: 500;
+    line-height: 20px;
+    font-size: 14px;
+    user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
-    user-select: none;
-    cursor: default;
-    border: 1px solid #3079ed;
+    -blink-user-select: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 0;
+    min-width: 88px;
+    transition: background-size 500ms cubic-bezier(0.98, 0.005, 0.79, 1.005), background-color 500ms cubic-bezier(0.98, 0.005, 0.79, 1.005), color 500ms cubic-bezier(0.98, 0.005, 0.79, 1.005), box-shadow 300ms;
+    background-color: #0a70c0;
+    background-image: radial-gradient(circle, #105a94 10%, transparent 10.001%, transparent);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
     color: #fff;
-    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
-    background-color: #4d90fe;
-    background-image: linear-gradient(top, #4d90fe, #4787ed);
     width: 100%;
-    display: block;
-    z-index: 1;
-    position: relative;
-    box-sizing: border-box;
+    margin: 20px 0 15px;
+}
+
+input[type="submit"]:hover, input[type="submit"]:focus {
+    background-color: #0a70c0;
+    background-size: 1200%;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.21), 0 3px 1px -2px rgba(0, 0, 0, 0.18), 0 1px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+input[type="submit"]:active {
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
 }
 
 form .message {
@@ -92,12 +191,4 @@ form .message.error {
     color: #b71c1c;
 }
 
-@media (max-width: 800px) {
-    body > :first-child {
-        margin-top: 1rem;
-    }
-
-    body > :last-child {
-        margin-bottom: 1rem;
-    }
-}
+/*# sourceMappingURL=login.css.map */

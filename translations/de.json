@@ -15,7 +15,6 @@
     "error_unavailable": "Keine vorherigen Suchbegriffe vorhanden"
   },
   "login": {
-    "description": "Sie müssen sich einloggen, um diese Seite zu nutzen",
     "username": "Benutzername",
     "password": "Passwort",
     "submit": "Anmelden",
