@@ -53,7 +53,6 @@ class Buffer extends Component {
         this.loadMoreBtn.addEventListener('click', () => this.loadMore());
         return this.elem;
     }
-
     count() {
         return this.contextList.length;
     }
@@ -72,7 +71,6 @@ class Buffer extends Component {
             window.scrollTo(0, targetPosition > bottomVisible - 56 ? fullyVisible : targetPosition);
         }
     }
-
     load(resultSet) {
         resultSet.results.map(msg => new Context(new Message(msg.messageid, msg.time, msg.sender, msg.message))).forEach(context => {
             this.contextList.push(context);
@@ -85,7 +83,6 @@ class Buffer extends Component {
         let container = this.insertContainerFirst.childElementCount < 4 ? this.insertContainerFirst : this.insertContainer;
         container.appendChild(context.elem);
     }
-
     setLoading(value) {
         this.loading = value;
     }

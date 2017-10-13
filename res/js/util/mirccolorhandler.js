@@ -6,6 +6,7 @@ class MircColorHandler {
         const CODE_UNDERLINE = '\x1F';
         const CODE_SWAP = '\x16';
         const CODE_RESET = '\x0F';
+        const urlRegex = /\b((?:(?:mailto:|(?:[+.-]?\w)+:\/\/)|www(?=\.\S+\.))(?:(?:[,.;@:]?[-\w]+)+\.?|\[[0-9a-f:.]+])(?::\d+)?(?:\/(?:[,.;:]*[\w~@/?&=+$()!%#*-])*)?)(?:>|[,.;:"]*\b|$)/gi;
         const readNumber = function (str, start, end) {
             if (start >= end || start >= str.length)
                 return -1;
@@ -33,11 +34,8 @@ class MircColorHandler {
             }
             return i + start;
         };
-        const unescape = function (str) {
-            return str.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-        };
         const fromState = function (state) {
-            const elem = document.createElement('span');
+            const elem = document.createElement((state.url) ? 'a' : 'span');
             if (state.bold)
                 elem.classList.add('irc_bold');
             if (state.italic)
@@ -52,13 +50,25 @@ class MircColorHandler {
                 elem.classList.add('irc_highlight');
             return elem;
         };
-        let apply = function (lastTag, str, i, normalCount, nodes) {
-            const s = unescape(str.substr(i - normalCount, normalCount));
+        const apply = function (lastTag, str, i, normalCount, nodes) {
+            const s = str.substr(i - normalCount, normalCount);
             if (normalCount === 0)
                 return;
+            if (lastTag.tagName === 'A')
+                lastTag.href = s;
             lastTag.appendChild(document.createTextNode(s));
             nodes.push(lastTag);
         };
+        const urlStart = [];
+        const urlEnd = [];
+        let m;
+        do {
+            if (m) {
+                urlStart.push(m.index);
+                urlEnd.push(m.index + m[0].length);
+            }
+            m = urlRegex.exec(text);
+        } while (m);
         const formatString = function (str) {
             if (!str)
                 return document.createTextNode('');
@@ -69,12 +79,25 @@ class MircColorHandler {
                 foreground: null,
                 background: null,
                 highlight: false,
+                url: false
             };
             let lastTag = fromState(state);
             let nodes = [];
             let normalCount = 0;
             for (let i = 0; i < str.length; i++) {
                 const character = str.charAt(i);
+                if (urlEnd.includes(i)) {
+                    apply(lastTag, str, i, normalCount, nodes);
+                    normalCount = 0;
+                    state.url = false;
+                    lastTag = fromState(state);
+                }
+                if (urlStart.includes(i)) {
+                    apply(lastTag, str, i, normalCount, nodes);
+                    normalCount = 0;
+                    state.url = true;
+                    lastTag = fromState(state);
+                }
                 switch (character) {
                     case CODE_BOLD: {
                         apply(lastTag, str, i, normalCount, nodes);

@@ -809,12 +809,6 @@ body {
     }
 }
 
-@media (max-width: 800px) {
-    .results .buffer .container .context .message .container .sender {
-        display: none;
-    }
-}
-
 .results .buffer .container .context .message .container .content {
     flex-grow: 1;
     overflow: hidden;
