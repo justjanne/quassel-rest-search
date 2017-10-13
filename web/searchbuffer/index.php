@@ -25,6 +25,7 @@ if (!$backend->authenticate($session->username ?: '', $session->password ?: ''))
         param('query', ""),
         param('since'),
         param('before'),
+        param('sender'),
         param('buffer', 0),
         param('offset', 0),
         param('limit', 20)

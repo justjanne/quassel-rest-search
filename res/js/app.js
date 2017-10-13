@@ -38,7 +38,7 @@ class App {
 
         this.loadingQuery++;
         const queryId = this.loadingQuery;
-        load("web/search/", {query: query}).then((result) => {
+        load("web/search/", {query: statehandler.state}).then((result) => {
             if (this.loadingQuery !== queryId)
                 return;
 
@@ -66,6 +66,20 @@ class App {
 
     insert(buffer) {
         this.resultContainer.appendChild(buffer.elem);
+        buffer.addEventListener("loadMore", () => this.bufferLoadMore(buffer))
+    }
+
+    bufferLoadMore(buffer) {
+        if (buffer.loading)
+            return;
+
+        buffer.setLoading(true);
+        const offset = buffer.count();
+        console.log(offset);
+        load("web/searchbuffer/", {query: statehandler.state, buffer: buffer.id, offset: offset}).then((result) => {
+            buffer.load(result);
+            buffer.setLoading(false);
+        });
     }
 }
 

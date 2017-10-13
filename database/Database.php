@@ -195,11 +195,11 @@ class Database
         $stmt->execute();
         return [
             'results' => $stmt->fetchAll(\PDO::FETCH_ASSOC),
-            'hasmore' => $this->findInBufferCount($query, $since, $before, $bufferid, $offset, $limit)
+            'hasmore' => $this->findInBufferCount($query, $since, $before, $sender, $bufferid, $offset, $limit)
         ];
     }
 
-    public function findInBufferCount(string $query, int $since = null, int $before = null, string $sender = null, int $bufferid, int $offset = 0, int $limit = 4): array
+    public function findInBufferCount(string $query, int $since = null, int $before = null, string $sender = null, int $bufferid, int $offset = 0, int $limit = 4): bool
     {
         $truncatedLimit = max(min($limit, 50), 0);
         $ignore_since = $since === null;
@@ -223,7 +223,7 @@ class Database
         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
 
         $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt->fetchColumn();
     }
 
     public function context(int $anchor, int $buffer, int $loadBefore, int $loadAfter): array

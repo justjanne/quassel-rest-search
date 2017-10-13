@@ -93,7 +93,7 @@ class PostgresSmartBackend implements Backend
         return $this->db->prepare("
             SELECT
               backlog.bufferid,
-              COUNT(backlog.messageid) > (:limit::INT + :offset::INT) AS hasmore
+              COUNT(*) > (:limit::INT + :offset::INT) AS hasmore
             FROM
               backlog
               JOIN buffer ON backlog.bufferid = buffer.bufferid
@@ -115,9 +115,6 @@ class PostgresSmartBackend implements Backend
     {
         return $this->db->prepare("
             SELECT
-              matching_messages.bufferid,
-              matching_messages.buffername,
-              network.networkname,
               matching_messages.messageid,
               matching_messages.time,
               sender.sender,
@@ -150,14 +147,12 @@ class PostgresSmartBackend implements Backend
                  AND buffer.bufferid = :bufferid
                  AND (:ignore_since::BOOLEAN OR backlog.time > :since::TIMESTAMP)
                  AND (:ignore_before::BOOLEAN OR backlog.time < :before::TIMESTAMP)
-                 AND (:ignore_buffer::BOOLEAN OR buffer.buffername ~* :buffer)
                  AND backlog.type & 23559 > 0
                  AND backlog.tsv @@ query
               ) matching_messages
               JOIN sender ON matching_messages.senderid = sender.senderid
               JOIN network ON matching_messages.networkid = network.networkid
-            WHERE (:ignore_network::BOOLEAN OR network.networkname ~* :network)
-              AND (:ignore_sender::BOOLEAN OR sender.sender ~* :sender)
+            WHERE (:ignore_sender::BOOLEAN OR sender.sender ~* :sender)
             ORDER BY matching_messages.rank_value DESC
             LIMIT :limit
             OFFSET :offset
@@ -168,8 +163,7 @@ class PostgresSmartBackend implements Backend
     {
         return $this->db->prepare("
             SELECT
-              backlog.bufferid,
-              COUNT(backlog.messageid) > (:limit::INT + :offset::INT) AS hasmore
+              COUNT(*) > (:limit::INT + :offset::INT) AS hasmore
             FROM
               backlog
               JOIN buffer ON backlog.bufferid = buffer.bufferid

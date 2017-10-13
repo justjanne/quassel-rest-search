@@ -705,10 +705,30 @@ body {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
-    position: sticky;
-    bottom: 0;
     box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
     transition: height 400ms;
+    position: relative;
+}
+
+.results .buffer .container .context {
+    position: relative;
+}
+
+.results .buffer .container .context.active {
+    padding: 0;
+    margin: 1rem -1rem;
+}
+
+.results .buffer .container .context:before {
+    bottom: 0;
+    box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+    content: "";
+    display: block;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .results .buffer .container .context:not(.focus) > .before, .results .buffer .container .context:not(.focus) > .after {
@@ -726,19 +746,6 @@ body {
     border-bottom: 1px solid #e5e5e5;
     color: #212121;
     background: #fff;
-    position: relative;
-}
-
-.results .buffer .container .context .message:before {
-    bottom: 0;
-    box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
-    content: "";
-    display: block;
-    left: 0;
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-    top: 0;
 }
 
 .results .buffer .container .context .message:last-child {

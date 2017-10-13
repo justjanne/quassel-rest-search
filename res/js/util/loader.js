@@ -7,13 +7,13 @@ function load(url, data = null) {
                     result.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]));
                 }
             }
-            return result.join("");
+            return result.join("&");
         };
 
         const request = new XMLHttpRequest();
         const method = data === null ? "GET" : "POST";
         request.onreadystatechange = () => {
-            if (request.readyState == 4) {
+            if (request.readyState === 4) {
                 if (request.status >= 200 && request.status < 300) {
                     try {
                         resolve(JSON.parse(request.responseText));
