@@ -7,10 +7,12 @@ require_once 'Backend.php';
 class SQLiteSmartBackend implements Backend
 {
     private $db;
+    private $options;
 
-    function __construct(\PDO $db)
+    function __construct(\PDO $db, array $options)
     {
         $this->db = $db;
+        $this->options = $options;
     }
 
     public function findUser(): \PDOStatement

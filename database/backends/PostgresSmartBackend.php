@@ -7,11 +7,13 @@ require_once 'Backend.php';
 class PostgresSmartBackend implements Backend
 {
     private $db;
+    private $options;
 
-    function __construct(\PDO $db)
+    function __construct(\PDO $db, array $options)
     {
         $this->db = $db;
         $this->db->exec("SET statement_timeout = 5000;");
+        $this->options = $options;
     }
 
     public function findUser(): \PDOStatement
@@ -23,8 +25,14 @@ class PostgresSmartBackend implements Backend
         ");
     }
 
+    private function tsQueryFunction(): string
+    {
+        return array_key_exists('tsqueryfunction', $this->options) ? $this->options['tsqueryfunction'] : "plainto_tsquery('english', :query)";
+    }
+
     public function findInBuffers(): \PDOStatement
     {
+        $tsQueryFunction = $this->tsQueryFunction();
         return $this->db->prepare("
             SELECT
               ranked_messages.bufferid,
@@ -70,7 +78,7 @@ class PostgresSmartBackend implements Backend
                   FROM
                     backlog
                     JOIN buffer ON backlog.bufferid = buffer.bufferid
-                    , phraseto_tsquery_multilang(:query) query
+                    , $tsQueryFunction query
                   WHERE buffer.userid = :userid
                     AND (:ignore_since::BOOLEAN OR backlog.time > :since::TIMESTAMP)
                     AND (:ignore_before::BOOLEAN OR backlog.time < :before::TIMESTAMP)
@@ -90,6 +98,7 @@ class PostgresSmartBackend implements Backend
 
     public function findInBuffersCount(): \PDOStatement
     {
+        $tsQueryFunction = $this->tsQueryFunction();
         return $this->db->prepare("
             SELECT
               backlog.bufferid,
@@ -99,7 +108,7 @@ class PostgresSmartBackend implements Backend
               JOIN buffer ON backlog.bufferid = buffer.bufferid
               JOIN sender ON backlog.senderid = sender.senderid
               JOIN network ON buffer.networkid = network.networkid
-              , phraseto_tsquery_multilang(:query) query
+              , $tsQueryFunction query
             WHERE buffer.userid = :userid
               AND (:ignore_since::BOOLEAN OR backlog.time > :since::TIMESTAMP)
               AND (:ignore_before::BOOLEAN OR backlog.time < :before::TIMESTAMP)
@@ -113,6 +122,7 @@ class PostgresSmartBackend implements Backend
 
     public function findInBuffer(): \PDOStatement
     {
+        $tsQueryFunction = $this->tsQueryFunction();
         return $this->db->prepare("
             SELECT
               matching_messages.messageid,
@@ -142,7 +152,7 @@ class PostgresSmartBackend implements Backend
                FROM
                  backlog
                  JOIN buffer ON backlog.bufferid = buffer.bufferid
-                 , phraseto_tsquery_multilang(:query) query
+                 , $tsQueryFunction query
                WHERE buffer.userid = :userid
                  AND buffer.bufferid = :bufferid
                  AND (:ignore_since::BOOLEAN OR backlog.time > :since::TIMESTAMP)
@@ -161,6 +171,7 @@ class PostgresSmartBackend implements Backend
 
     public function findInBufferCount(): \PDOStatement
     {
+        $tsQueryFunction = $this->tsQueryFunction();
         return $this->db->prepare("
             SELECT
               COUNT(*) > (:limit::INT + :offset::INT) AS hasmore
@@ -168,7 +179,7 @@ class PostgresSmartBackend implements Backend
               backlog
               JOIN buffer ON backlog.bufferid = buffer.bufferid
               JOIN sender ON backlog.senderid = sender.senderid
-              , phraseto_tsquery_multilang(:query) query
+              , $tsQueryFunction query
             WHERE buffer.userid = :userid
               AND backlog.bufferid = :bufferid
               AND (:ignore_since::BOOLEAN OR backlog.time > :since::TIMESTAMP)

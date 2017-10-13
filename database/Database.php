@@ -15,19 +15,19 @@ class Database
 
     private $backend;
 
-    private function __construct(string $database_connector, string $username, string $password, string $type)
+    private function __construct(string $database_connector, string $username, string $password, string $type, array $options)
     {
-        $this->backend = BackendFactory::create($type, new \PDO($database_connector, $username, $password));
+        $this->backend = BackendFactory::create($type, new \PDO($database_connector, $username, $password), $options);
     }
 
     public static function createFromConfig(Config $config): Database
     {
-        return Database::createFromOptions($config->database_connector, $config->username, $config->password, $config->backend);
+        return Database::createFromOptions($config->database_connector, $config->username, $config->password, $config->backend, $config->database_options);
     }
 
-    public static function createFromOptions(string $database_connector, string $username, string $password, string $type): Database
+    public static function createFromOptions(string $database_connector, string $username, string $password, string $type, array $options): Database
     {
-        return new Database($database_connector, $username, $password, $type);
+        return new Database($database_connector, $username, $password, $type, $options);
     }
 
     public function authenticateFromHeader(string $header): bool

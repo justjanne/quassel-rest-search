@@ -57,8 +57,12 @@ class MircColorHandler {
             const s = unescape(str.substr(i - normalCount, normalCount));
             if (normalCount === 0)
                 return;
-            if (lastTag.tagName === 'A')
-                lastTag.href = s;
+            if (lastTag.tagName === 'A') {
+                if (s.indexOf('://') !== -1)
+                    lastTag.href = s;
+                else
+                    lastTag.href = "http://" + s;
+            }
             lastTag.appendChild(document.createTextNode(s));
             nodes.push(lastTag);
         };

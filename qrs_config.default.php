@@ -9,6 +9,8 @@ define('qrs_db_connector', null);
 define('qrs_db_user', 'quassel');
 define('qrs_db_pass', 'password');
 
+define('qrs_db_option_tsqueryfunction', "plainto_tsquery('english', :query)");
+
 define('qrs_backend', 'pgsql-smart');
 
 define('qrs_path_prefix', '');
