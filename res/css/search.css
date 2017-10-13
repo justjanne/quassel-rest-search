@@ -77,7 +77,7 @@ body {
 }
 
 .nav .bar {
-    background-color: #0271B3;
+    background-color: #0a70c0;
     z-index: 1;
     position: absolute;
     top: 0;
@@ -107,7 +107,7 @@ body {
     display: flex;
     position: relative;
     border: none;
-    background: #358dc2;
+    background: #348bcf;
     border-radius: 2px;
     padding: 0 0 0 72px;
     color: #ffffff;
