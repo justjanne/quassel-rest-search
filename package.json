@@ -1,0 +1,22 @@
+{
+  "name": "quassel-rest-search",
+  "version": "3.0.0",
+  "description": "This is a websearch frontend for a quassel database.",
+  "scripts": {
+    "jsx": "node_modules/nativejsx/bin/nativejsx res/js/**/*.jsx",
+    "dep": "cp node_modules/nativejsx/dist/nativejsx-prototypes.js res/js/util/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/justjanne/quassel-rest-search.git"
+  },
+  "author": "Janne Koschinski",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/justjanne/quassel-rest-search/issues"
+  },
+  "homepage": "https://github.com/justjanne/quassel-rest-search#readme",
+  "dependencies": {
+    "nativejsx": "^4.1.0"
+  }
+}

@@ -3,17 +3,17 @@
 namespace QuasselRestSearch;
 
 require_once '../../qrs_config.php';
-require_once '../../backend/Database.php';
-require_once '../../backend/helper/RendererHelper.php';
-require_once '../../backend/helper/SessionHelper.php';
+require_once '../../database/Database.php';
+require_once '../../database/helper/RendererHelper.php';
+require_once '../../database/helper/SessionHelper.php';
 
 $config = Config::createFromGlobals();
 $renderer = new RendererHelper($config);
-$backend = Backend::createFromConfig($config);
+$backend = Database::createFromConfig($config);
 
 try {
     $backend->authenticateFromHeader($_SERVER['HTTP_AUTHORIZATION'] ?: "");
-    $renderer->renderJson($backend->findInBuffer($_GET['query'] ?: "", $_GET['since'] ?: null, $_GET['before'] ?: null, $_GET['buffer'] ?: 0, $_GET['offset'] ?: 0, $_GET['limit'] ?: 20));
+    $renderer->renderJson($backend->findInBuffer($_REQUEST['query'] ?: "", $_REQUEST['since'] ?: null, $_REQUEST['before'] ?: null, $_REQUEST['buffer'] ?: 0, $_REQUEST['offset'] ?: 0, $_REQUEST['limit'] ?: 20));
 } catch (\Exception $e) {
     $renderer->renderJson(["error" => $e->getMessage()]);
 }

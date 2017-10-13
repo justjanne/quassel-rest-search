@@ -1,0 +1,5 @@
+class HighlightHandler {
+    render(text) {
+
+    }
+}

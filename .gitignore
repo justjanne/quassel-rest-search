@@ -1,3 +1,4 @@
-.idea
-*.iml
-qrs_config.php
+/.idea
+/*.iml
+/node_modules
+/qrs_config.php

@@ -3,18 +3,31 @@
 namespace QuasselRestSearch;
 
 require_once '../../qrs_config.php';
-require_once '../../backend/Database.php';
-require_once '../../backend/helper/RendererHelper.php';
-require_once '../../backend/helper/SessionHelper.php';
+require_once '../../database/Database.php';
+require_once '../../database/helper/RendererHelper.php';
+require_once '../../database/helper/SessionHelper.php';
 
 $session = SessionHelper::getInstance();
 $config = Config::createFromGlobals();
 $renderer = new RendererHelper($config);
-$backend = Backend::createFromConfig($config);
+$backend = Database::createFromConfig($config);
+
+function param(string $key, $default = null)
+{
+    return array_key_exists($key, $_REQUEST) ? $_REQUEST[$key] : $default;
+}
 
 if (!$backend->authenticate($session->username ?: '', $session->password ?: '')) {
     $session->destroy();
     $renderer->renderJsonError(false);
 } else {
-    $renderer->renderJson($backend->find($_GET['query'] ?: "", $_GET['since'] ?: null, $_GET['before'] ?: null, $_GET['buffer'] ?: null, $_GET['network'] ?: null, 4));
+    $renderer->renderJson($backend->find(
+        param('query', ""),
+        param('since'),
+        param('before'),
+        param('buffer'),
+        param('network'),
+        param('sender'),
+        param('limit', 4)
+    ));
 }

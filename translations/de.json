@@ -1,24 +1,28 @@
 {
+  "buffer": {
+    "open": "Öffnen",
+    "close": "Schließen"
+  },
   "results": {
-    "show_more": "Show More Results",
-    "load_more": "Load More Results"
+    "show_more": "Mehr Suchergebnisse anzeigen",
+    "load_more": "Mehr Suchergebnisse laden"
   },
   "context": {
-    "load_later": "Load Later Context",
-    "load_earlier": "Load Earlier Context"
+    "load_later": "Ältere Nachrichten Laden",
+    "load_earlier": "Neuere Nachrichten Laden"
   },
   "history": {
-    "error_unavailable": "No search history available"
+    "error_unavailable": "Keine vorherigen Suchbegriffe vorhanden"
   },
   "login": {
-    "description": "You have to login to access this page",
+    "description": "Sie müssen sich einloggen, um diese Seite zu nutzen",
     "username": "Benutzername",
     "password": "Passwort",
     "submit": "Anmelden",
     "message": {
-      "success_logout": "You have successfully logged out.",
-      "error_invalid": "Invalid username/password combination.",
-      "error_unauthed": "You need to be logged in to access this page."
+      "success_logout": "Sie haben sich erfolgreich abgemeldet.",
+      "error_invalid": "Falsche Benutzername/Passwort Kombination",
+      "error_unauthed": "Sie müssen angemeldet sein, um diese Seite zu nutzen."
     }
   },
   "search": "Suchen",

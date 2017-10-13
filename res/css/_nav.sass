@@ -1,0 +1,195 @@
+@import "util"
+
+.nav
+  position: fixed
+  left: 0
+  right: 0
+  top: 0
+  height: 56px
+  z-index: 2
+
+  .bar
+    background-color: #0271B3
+    z-index: 1
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24)
+    transition: background-color .15s
+    will-change: background-color
+
+    .container
+      max-width: 1136px
+      margin: 0 auto
+      padding: 0 2rem
+      display: flex
+
+      @media(max-width: 800px)
+        padding: 0 0 0 8px
+
+      .searchBar
+        margin: 8px auto
+        height: 40px
+        display: flex
+        position: relative
+        border: none
+        background: #358dc2
+        border-radius: 2px
+        padding: 0 0 0 72px
+        color: #ffffff
+        flex-direction: row
+        flex: 1
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .06)
+        transition: background-color .15s
+
+        &:hover
+          background-color: rgba(255, 255, 255, .3)
+
+        .icon
+          display: inline-block
+          width: 72px
+          height: 40px
+          position: absolute
+          text-align: center
+          line-height: 40px
+          left: 0
+          top: 0
+
+        .search
+          display: inline-block
+          flex-grow: 1
+          flex-shrink: 1
+          background: none
+          border: none
+          line-height: 100%
+          color: #ffffff
+          font-size: 1rem
+          margin-right: 8px
+          -webkit-appearance: textfield
+          -webkit-box-sizing: content-box
+
+          &::-moz-placeholder
+            color: #ffffff
+            opacity: 1
+            -moz-osx-font-smoothing: grayscale
+
+          &::-webkit-input-placeholder
+            color: #ffffff
+            opacity: 1
+            -webkit-font-smoothing: antialiased
+
+          &::-webkit-search-decoration, &::-webkit-search-cancel-button
+            display: none
+
+      .actions
+        display: flex
+        align-items: center
+        justify-content: flex-end
+
+    a
+      height: 56px
+      width: 56px
+      position: relative
+      padding: 16px 13px
+      cursor: pointer
+      color: #fff
+      transition: all .15s
+      text-decoration: none
+      text-align: center
+      @include vendor-prefix('user-select', 'none')
+
+      &:before
+        background-color: rgba(255, 255, 255, .12)
+        bottom: 9px
+        content: ' '
+        left: 9px
+        margin: auto
+        padding: 4px
+        position: absolute
+        right: 9px
+        top: 9px
+        z-index: -1
+        border-radius: 50%
+        opacity: 0
+        transition: opacity 100ms
+
+      &:hover:before
+        opacity: 1
+
+  .history
+    top: 100%
+    max-width: 1136px
+    margin: auto
+    padding: 0 2rem
+    transform: translateY(-200%)
+    transition: transform 400ms
+    position: relative
+
+    @media(max-width: 800px)
+      padding: 0
+
+    ul
+      list-style-type: none
+      margin: 0
+      padding: 6px 0
+      background: #fff
+      box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24)
+
+      li
+        cursor: pointer
+        line-height: 36px
+        overflow: hidden
+        padding: 0 24px
+        text-overflow: ellipsis
+        white-space: nowrap
+
+        &:hover, &:focus, &.focus
+          background: rgba(0, 0, 0, 0.03)
+
+        .icon
+          border-radius: 12px
+          height: 24px
+          margin-right: 24px
+          vertical-align: middle
+          width: 24px
+          display: inline-block
+          background-size: cover
+          opacity: 0.6
+
+      p
+        cursor: default
+        line-height: 36px
+        overflow: hidden
+        padding: 0 24px
+        text-overflow: ellipsis
+        white-space: nowrap
+        font-style: italic
+        color: #646464
+
+  &.focus
+    .bar
+      background: #f2f2f2
+
+      .container
+
+        .searchBar
+          background: #ffffff
+
+          .search
+            color: #333333
+
+            &::-moz-placeholder
+              color: #757575
+
+            &::-webkit-input-placeholder
+              color: #757575
+
+        .icon
+          color: #757575
+
+    .history
+      transform: translateY(0)
+
+    & + .results
+      opacity: 0
