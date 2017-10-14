@@ -74,7 +74,7 @@ class Database
         $stmt->bindValue(':weight_time', 12, PDO::PARAM_INT);
     }
 
-    public function find(string $query, int $since = null, int $before = null, string $buffer = null, string $network = null, string $sender = null, int $limitPerBuffer = 4): array
+    public function find(string $query, string $since = null, string $before = null, string $buffer = null, string $network = null, string $sender = null, int $limitPerBuffer = 4): array
     {
         $truncatedLimit = max(min($limitPerBuffer, 10), 0);
 
@@ -104,7 +104,7 @@ class Database
         return array_values($buffermap);
     }
 
-    public function findInBufferMultiple(string $query, int $since = null, int $before = null, string $buffer = null, string $network = null, string $sender = null, int $limit = 4): array
+    public function findInBufferMultiple(string $query, string $since = null, string $before = null, string $buffer = null, string $network = null, string $sender = null, int $limit = 4): array
     {
         $ignore_since = $since === null;
         $ignore_before = $before === null;
@@ -134,7 +134,7 @@ class Database
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function findInBufferMultipleCount(string $query, int $since = null, int $before = null, string $buffer = null, string $network = null, string $sender = null, int $offset = 0, int $limit = 4): array
+    public function findInBufferMultipleCount(string $query, string $since = null, string $before = null, string $buffer = null, string $network = null, string $sender = null, int $offset = 0, int $limit = 4): array
     {
         $truncatedLimit = max(min($limit, 50), 0);
         $ignore_since = $since === null;
@@ -168,7 +168,7 @@ class Database
         return $result;
     }
 
-    public function findInBuffer(string $query, int $since = null, int $before = null, string $sender = null, int $bufferid, int $offset = 0, int $limit = 20): array
+    public function findInBuffer(string $query, string $since = null, string $before = null, string $sender = null, int $bufferid, int $offset = 0, int $limit = 20): array
     {
         $truncatedLimit = max(min($limit, 50), 0);
         $ignore_since = $since === null;
@@ -199,7 +199,7 @@ class Database
         ];
     }
 
-    public function findInBufferCount(string $query, int $since = null, int $before = null, string $sender = null, int $bufferid, int $offset = 0, int $limit = 4): bool
+    public function findInBufferCount(string $query, string $since = null, string $before = null, string $sender = null, int $bufferid, int $offset = 0, int $limit = 4): bool
     {
         $truncatedLimit = max(min($limit, 50), 0);
         $ignore_since = $since === null;
