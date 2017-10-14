@@ -34,7 +34,8 @@ class StateHandler extends Component {
 
     parse(overrides = {}) {
         const options = {};
-        function split(str, sep, n) {
+
+        function splitWithLimit(str, sep, n) {
             const out = [];
             let lastIndex = 0;
             let index;
@@ -47,10 +48,9 @@ class StateHandler extends Component {
         }
 
         let query = [];
-        const words = this.state.match(/"[^"]+"|\S+/g);
+        const words = this.state.match(/\S+"[^"]+"|\S+/g);
         words.forEach((word) => {
-            const parts = split(word, ":", 2);
-            console.log(parts);
+            const parts = splitWithLimit(word, ":", 2);
             if ([
                     "sender",
                     "buffer",
