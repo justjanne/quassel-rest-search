@@ -47,7 +47,7 @@ class StateHandler extends Component {
         }
 
         let query = [];
-        const words = this.state.split(" ");
+        const words = this.state.match(/"[^"]+"|\S+/g);
         words.forEach((word) => {
             const parts = split(word, ":", 2);
             console.log(parts);
