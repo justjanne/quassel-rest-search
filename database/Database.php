@@ -97,7 +97,7 @@ class Database
         }
 
         foreach ($hasMore as $hasMoreResult) {
-            if (!is_null($buffermap[$hasMoreResult['bufferid']]))
+            if (array_key_exists($hasMoreResult['bufferid'], $buffermap))
                 $buffermap[$hasMoreResult['bufferid']]['hasmore'] = $hasMoreResult['hasmore'];
         }
 
