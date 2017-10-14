@@ -25,7 +25,6 @@ class Buffer extends Component {
                 <div className="title">
                     <h2>{this.network} – {this.name}</h2>
                     <button onClick={() => this.focus()}>
-                        <span className="open">{translation.buffer.open}</span>
                         <span className="close">{translation.buffer.close}</span>
                     </button>
                 </div>

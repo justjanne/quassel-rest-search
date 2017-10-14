@@ -30,27 +30,23 @@ class Buffer extends Component {
             $$g.addEventListener('click', () => this.focus());
             $$b.appendChild($$g);
             var $$h = document.createElement('span');
-            $$h.setAttribute('class', 'open');
+            $$h.setAttribute('class', 'close');
             $$g.appendChild($$h);
-            $$h.appendChildren(translation.buffer.open);
-            var $$j = document.createElement('span');
-            $$j.setAttribute('class', 'close');
-            $$g.appendChild($$j);
-            $$j.appendChildren(translation.buffer.close);
-            var $$l = document.createElement('div');
-            $$l.setAttribute('class', 'container');
-            $$a.appendChild($$l);
-            $$l.appendChildren(this.insertContainerFirst = function () {
+            $$h.appendChildren(translation.buffer.close);
+            var $$j = document.createElement('div');
+            $$j.setAttribute('class', 'container');
+            $$a.appendChild($$j);
+            $$j.appendChildren(this.insertContainerFirst = function () {
+                var $$l = document.createElement('div');
+                $$l.setAttribute('class', 'primary');
+                return $$l;
+            }.call(this));
+            $$j.appendChildren(this.insertContainer = function () {
                 var $$n = document.createElement('div');
-                $$n.setAttribute('class', 'primary');
+                $$n.setAttribute('class', 'secondary');
                 return $$n;
             }.call(this));
-            $$l.appendChildren(this.insertContainer = function () {
-                var $$p = document.createElement('div');
-                $$p.setAttribute('class', 'secondary');
-                return $$p;
-            }.call(this));
-            $$l.appendChildren((this.loadMoreBtn = new LoadMore(translation.results.show_more)).elem);
+            $$j.appendChildren((this.loadMoreBtn = new LoadMore(translation.results.show_more)).elem);
             return $$a;
         }.call(this);
         this.loadMoreBtn.addEventListener('click', () => this.loadMore());

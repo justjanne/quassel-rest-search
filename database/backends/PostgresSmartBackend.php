@@ -75,7 +75,7 @@ class PostgresSmartBackend implements Backend
                         WHEN TYPE IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.5
                         WHEN TYPE IN (8, 16, 8192, 131072) THEN 0.25
                         ELSE 0.1 END) ^ :weight_type) *
-                      ((EXTRACT(EPOCH FROM TIME) / EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)) ^ :weight_time)
+                      ((1 / (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - EXTRACT(EPOCH FROM TIME))) ^ :weight_time)
                     ) AS rank_value
                   FROM
                     backlog
@@ -149,7 +149,7 @@ class PostgresSmartBackend implements Backend
                      WHEN TYPE IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.5
                      WHEN TYPE IN (8, 16, 8192, 131072) THEN 0.25
                      ELSE 0.1 END) ^ :weight_type) *
-                   ((EXTRACT(EPOCH FROM TIME) / EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)) ^ :weight_time)
+                   ((1 / (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - EXTRACT(EPOCH FROM TIME))) ^ :weight_time)
                  ) AS rank_value
                FROM
                  backlog

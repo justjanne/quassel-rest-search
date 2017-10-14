@@ -67,11 +67,11 @@ class Database
 
     private function apply_config(\PDOStatement $stmt)
     {
-        $stmt->bindValue(':config_normalization', 0, PDO::PARAM_INT);
+        $stmt->bindValue(':config_normalization', 32, PDO::PARAM_INT);
 
-        $stmt->bindValue(':weight_content', 1, PDO::PARAM_INT);
-        $stmt->bindValue(':weight_type', 1, PDO::PARAM_INT);
-        $stmt->bindValue(':weight_time', 12, PDO::PARAM_INT);
+        $stmt->bindValue(':weight_content', 14, PDO::PARAM_INT);
+        $stmt->bindValue(':weight_type', 16, PDO::PARAM_INT);
+        $stmt->bindValue(':weight_time', 1, PDO::PARAM_INT);
     }
 
     public function find(string $query, string $since = null, string $before = null, string $buffer = null, string $network = null, string $sender = null, int $limitPerBuffer = 4): array
