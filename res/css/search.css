@@ -550,8 +550,8 @@ body {
 .results .buffer .container > .inline-button:before {
     content: "";
     display: inline-block;
-    height: 20px;
-    width: 20px;
+    height: 24px;
+    width: 24px;
     background-image: url(../icons/dots-horizontal.svg);
     background-size: cover;
     vertical-align: top;
