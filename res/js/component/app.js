@@ -1,5 +1,4 @@
 const statehandler = new StateHandler();
-
 class App {
     constructor() {
         this.navigation = new Navigation();
@@ -14,7 +13,6 @@ class App {
         });
         statehandler.init();
     }
-
     render() {
         this.elem = function () {
             var $$a = document.createElement('div');
@@ -28,7 +26,6 @@ class App {
         }.call(this);
         this.buffers.forEach(buffer => this.insert(buffer));
     }
-
     search(query, sender, buffer, network, before, since) {
         this.clear();
         this.navigation.input.blur();
@@ -51,25 +48,21 @@ class App {
             this.buffers.forEach(buffer => this.insert(buffer));
         });
     }
-
     clear() {
         while (this.buffers.length) {
             const buffer = this.buffers.pop();
             this.resultContainer.removeChild(buffer.elem);
         }
     }
-
     clearAll() {
         this.clear();
         this.navigation.historyView.clear();
         statehandler.clear();
     }
-
     insert(buffer) {
         this.resultContainer.appendChild(buffer.elem);
         buffer.addEventListener('loadMore', () => this.bufferLoadMore(buffer));
     }
-
     bufferLoadMore(buffer) {
         if (buffer.loading)
             return;
@@ -85,7 +78,6 @@ class App {
         });
     }
 }
-
 moment.locale(navigator.languages || navigator.language);
 const app = new App();
 document.body.insertBefore(app.elem, document.body.firstChild);
