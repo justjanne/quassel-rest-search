@@ -33,11 +33,24 @@ class StateHandler extends Component {
     }
 
     parse(options = {}) {
+        function split(str, sep, n) {
+            const out = [];
+            let lastIndex = 0;
+            let index;
+            while (n-- > 1 && (index = str.indexOf(sep, lastIndex)) >= 0) {
+                out.push(str.slice(lastIndex, index));
+                lastIndex = index + sep.length;
+            }
+            out.push(str.slice(lastIndex));
+            return out;
+        }
+
         let query = [];
         const words = this.state.split(" ");
         words.forEach((word) => {
-            const parts = word.split(":");
-            if (parts.length === 2 && [
+            const parts = split(word, ":", 2);
+            console.log(parts);
+            if ([
                     "sender",
                     "buffer",
                     "network",
