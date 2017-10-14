@@ -45,7 +45,9 @@
 body {
   background: #F2F2F2;
   font-family: "Roboto", sans-serif;
-  font-size: 81.25%; }
+    font-size: 81.25%;
+    padding-top: 56px;
+}
 
 *:focus {
   outline: none; }
@@ -106,7 +108,9 @@ body {
           text-align: center;
           line-height: 40px;
           left: 0;
-          top: 0; }
+            top: 0;
+            cursor: pointer;
+        }
         .nav .bar .container .searchBar .search {
           display: inline-block;
           flex-grow: 1;
@@ -224,6 +228,16 @@ body {
     transform: translateY(0); }
   .nav.focus + .results {
     opacity: 0; }
+
+.search-options {
+    margin: 0 auto;
+    padding: 6px 0;
+    background: #fff;
+    box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+    max-width: 1072px;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
 
 [data-sendercolor="0"] {
   color: #e90d7f; }
@@ -380,7 +394,7 @@ body {
 
 .results {
   max-width: 1136px;
-  padding: 56px 2rem 4rem 2rem;
+    padding: 2rem 2rem 4rem 2rem;
   margin: 0 auto;
   transition: opacity 400ms; }
 @media(max-width: 800px) {
@@ -512,28 +526,37 @@ body {
       display: none; }
     .results .buffer.focus .title button .close {
       display: initial; }
-    .results .buffer.focus .container > .inline-button {
-      height: 48px; }
     .results .buffer .container {
       font-size: 13px; }
       .results .buffer .container > .inline-button {
-        height: 0;
         overflow: hidden;
-        background: #f5f5f5;
-        font-size: 16px;
-        line-height: 48px;
-        color: #717171;
-        text-align: center;
-        font-style: italic;
+          font-size: 14px;
+          line-height: 24px;
+          padding: 7px 24px;
+          border-bottom: 1px solid #e5e5e5;
+          color: #555;
+          background: #f0f0f0;
         cursor: pointer;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         -o-user-select: none;
         user-select: none;
-        box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
         transition: height 400ms;
-        position: relative; }
+          position: relative;
+          box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+      }
+
+.results .buffer .container > .inline-button:before {
+    content: "";
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    background-image: url(../icons/dots-horizontal.svg);
+    background-size: cover;
+    vertical-align: top;
+    margin-right: 16px;
+}
       .results .buffer .container .context {
         position: relative; }
         .results .buffer .container .context.active {

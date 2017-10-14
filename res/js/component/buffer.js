@@ -8,7 +8,9 @@ class Buffer extends Component {
         this.render();
         this.contextList.forEach(context => this.insert(context));
         this.loadMoreBtn.setVisible(hasMore);
+        this.hasMore = hasMore;
         this.loading = false;
+        this.neverLoaded = true;
     }
     render() {
         this.elem = function () {
@@ -57,7 +59,12 @@ class Buffer extends Component {
         return this.contextList.length;
     }
     loadMore() {
-        this.sendEvent('loadMore', []);
+        console.log(this.neverLoaded);
+        console.log(this.hasMore);
+        if (this.elem.classList.contains('focus') || this.hasMore && this.neverLoaded) {
+            this.sendEvent('loadMore', []);
+        }
+        this.focus(true);
     }
     focus(focus) {
         if (focus === undefined)
@@ -82,6 +89,7 @@ class Buffer extends Component {
     insert(context) {
         let container = this.insertContainerFirst.childElementCount < 4 ? this.insertContainerFirst : this.insertContainer;
         container.appendChild(context.elem);
+        this.neverLoaded = false;
     }
     setLoading(value) {
         this.loading = value;

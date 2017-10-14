@@ -14,7 +14,7 @@ $backend = Database::createFromConfig($config);
 
 function param(string $key, $default = null)
 {
-    return array_key_exists($key, $_REQUEST) ? $_REQUEST[$key] : $default;
+    return array_key_exists($key, $_REQUEST) ? ($_REQUEST[$key] !== "" ? $_REQUEST[$key] : $default) : $default;
 }
 
 if (!$backend->authenticate($session->username ?: '', $session->password ?: '')) {

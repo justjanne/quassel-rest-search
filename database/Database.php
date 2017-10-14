@@ -126,8 +126,8 @@ class Database
         $stmt->bindValue(':sender', !$ignore_sender ? (string)$sender : "", PDO::PARAM_STR);
         $stmt->bindParam(':ignore_since', $ignore_since, PDO::PARAM_INT);
         $stmt->bindParam(':ignore_before', $ignore_before, PDO::PARAM_INT);
-        $stmt->bindParam(':ignore_buffer', $ignore_network, PDO::PARAM_INT);
-        $stmt->bindParam(':ignore_network', $ignore_buffer, PDO::PARAM_INT);
+        $stmt->bindParam(':ignore_buffer', $ignore_buffer, PDO::PARAM_INT);
+        $stmt->bindParam(':ignore_network', $ignore_network, PDO::PARAM_INT);
         $stmt->bindParam(':ignore_sender', $ignore_sender, PDO::PARAM_INT);
 
         $stmt->execute();
@@ -155,8 +155,8 @@ class Database
         $stmt->bindValue(':sender', !$ignore_sender ? (string)$sender : "", PDO::PARAM_STR);
         $stmt->bindParam(':ignore_since', $ignore_since, PDO::PARAM_INT);
         $stmt->bindParam(':ignore_before', $ignore_before, PDO::PARAM_INT);
-        $stmt->bindParam(':ignore_buffer', $ignore_network, PDO::PARAM_INT);
-        $stmt->bindParam(':ignore_network', $ignore_buffer, PDO::PARAM_INT);
+        $stmt->bindParam(':ignore_buffer', $ignore_buffer, PDO::PARAM_INT);
+        $stmt->bindParam(':ignore_network', $ignore_network, PDO::PARAM_INT);
         $stmt->bindParam(':ignore_sender', $ignore_sender, PDO::PARAM_INT);
 
         $stmt->bindParam(':limit', $truncatedLimit, PDO::PARAM_INT);

@@ -26,8 +26,8 @@ function load(url, data = null) {
             }
         };
         request.open(method, url, true);
+        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         if (data !== null) {
-            request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             request.send(encodeData(data));
         } else {
             request.send();

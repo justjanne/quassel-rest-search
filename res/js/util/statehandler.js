@@ -32,6 +32,29 @@ class StateHandler extends Component {
             this.sendEvent("update", [this.state]);
     }
 
+    parse(options = {}) {
+        let query = [];
+        const words = this.state.split(" ");
+        words.forEach((word) => {
+            const parts = word.split(":");
+            if (parts.length === 2 && [
+                    "sender",
+                    "buffer",
+                    "network",
+                    "before",
+                    "since"
+                ].includes(parts[0])) {
+                options[parts[0]] = parts[1];
+            } else {
+                query.push(word);
+            }
+        });
+        return {
+            ...options,
+            query: query.join(" ")
+        }
+    }
+
     clear() {
         this.replace("");
     }

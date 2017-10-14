@@ -8,37 +8,38 @@ class App {
         this.loadingQuery = 0;
 
         this.render();
-        this.navigation.addEventListener("search", (query) => this.search(query));
-        statehandler.addEventListener("update", (query) => this.search(query));
+        this.navigation.addEventListener("search", (query) => {
+            this.search(query)
+        });
+        statehandler.addEventListener("update", (query) => {
+            this.search(query)
+        });
         statehandler.init();
     }
 
     render() {
-        const wrapper = document.createElement("div");
-        wrapper.appendChild(this.navigation.elem);
-        const results = document.createElement("div");
-        results.classList.add("results");
-        wrapper.appendChild(results);
-        this.elem = wrapper;
-        this.resultContainer = results;
+        this.elem = <div>
+            {this.navigation.elem}
+            {this.resultContainer = <div className="results"/>}
+        </div>;
 
         this.buffers.forEach((buffer) => this.insert(buffer));
     }
 
-    search(query) {
+    search(query, sender, buffer, network, before, since) {
         this.clear();
         this.navigation.input.blur();
         this.navigation.historyView.resetNavigation();
         this.navigation.historyView.add(new HistoryElement(query));
         this.navigation.input.value = query;
-        statehandler.replace(query);
+        statehandler.replace(query, sender, buffer, network, before, since);
 
         if (query.trim() === "")
             return;
 
         this.loadingQuery++;
         const queryId = this.loadingQuery;
-        load("web/search/", {query: statehandler.state}).then((result) => {
+        load("web/search/", statehandler.parse()).then((result) => {
             if (this.loadingQuery !== queryId)
                 return;
 
@@ -76,7 +77,7 @@ class App {
         buffer.setLoading(true);
         const offset = buffer.count();
         console.log(offset);
-        load("web/searchbuffer/", {query: statehandler.state, buffer: buffer.id, offset: offset}).then((result) => {
+        load("web/searchbuffer/", statehandler.parse({buffer: buffer.id, offset: offset})).then((result) => {
             buffer.load(result);
             buffer.setLoading(false);
         });
