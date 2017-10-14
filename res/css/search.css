@@ -407,6 +407,10 @@ body {
     margin-top: 0;
     margin-bottom: 20px;
     position: relative; }
+
+.results .buffer.focus:not(.hasmore) .inline-button {
+    display: none;
+}
     .results .buffer .title {
       border-bottom: 1px solid transparent;
       border-top: 1px solid transparent;

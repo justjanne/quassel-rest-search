@@ -37,14 +37,16 @@ class PostgresSmartBackend implements Backend
             SELECT
               ranked_messages.bufferid,
               ranked_messages.buffername,
-              network.networkname,
+              ranked_messages.networkname,
               ranked_messages.messageid,
               ranked_messages.time,
-              sender.sender,
+              ranked_messages.sender,
               ts_headline(replace(replace(ranked_messages.message, '<', '&lt;'), '>', '&gt;'), query, 'HighlightAll=TRUE') AS message
             FROM
               (SELECT
                  matching_messages.*,
+                 network.networkname,
+                 sender.sender,
                  rank()
                  OVER (
                    PARTITION BY matching_messages.bufferid
@@ -78,7 +80,7 @@ class PostgresSmartBackend implements Backend
                   FROM
                     backlog
                     JOIN buffer ON backlog.bufferid = buffer.bufferid
-                    , $tsQueryFunction query
+                    , phraseto_tsquery_multilang(:query) query
                   WHERE buffer.userid = :userid
                     AND (:ignore_since::BOOLEAN OR backlog.time > :since::TIMESTAMP)
                     AND (:ignore_before::BOOLEAN OR backlog.time < :before::TIMESTAMP)
@@ -86,12 +88,12 @@ class PostgresSmartBackend implements Backend
                     AND backlog.type & 23559 > 0
                     AND backlog.tsv @@ query
                  ) matching_messages
+                JOIN sender ON matching_messages.senderid = sender.senderid
+                JOIN network ON matching_messages.networkid = network.networkid
+                WHERE (:ignore_network::BOOLEAN OR network.networkname ~* :network)
+                  AND (:ignore_sender::BOOLEAN OR sender.sender ~* :sender)
               ) ranked_messages
-              JOIN sender ON ranked_messages.senderid = sender.senderid
-              JOIN network ON ranked_messages.networkid = network.networkid
             WHERE ranked_messages.rank <= :limit
-              AND (:ignore_network::BOOLEAN OR network.networkname ~* :network)
-              AND (:ignore_sender::BOOLEAN OR sender.sender ~* :sender)
             ORDER BY ranked_messages.max_rank_value DESC, ranked_messages.rank_value DESC
         ");
     }

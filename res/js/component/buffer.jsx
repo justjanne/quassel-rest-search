@@ -2,6 +2,8 @@ class Buffer extends Component {
     constructor(id, name, network, hasMore, contextList = []) {
         super();
 
+        console.log(id + ":" + name + ":" + hasMore);
+
         this.id = id;
         this.name = name;
         this.network = network;
@@ -9,11 +11,12 @@ class Buffer extends Component {
 
         this.render();
         this.contextList.forEach((context) => this.insert(context));
-        this.loadMoreBtn.setVisible(hasMore);
 
         this.hasMore = hasMore;
         this.loading = false;
         this.neverLoaded = true;
+
+        this.loadMoreBtn.setVisible(hasMore);
     }
 
     render() {
@@ -78,7 +81,7 @@ class Buffer extends Component {
                 this.insert(context)
             });
         this.hasMore = resultSet.hasmore;
-        this.loadMoreBtn.setVisible(this.hasMore);
+        this.elem.classList.toggle('hasmore', this.hasMore);
     }
 
     insert(context) {
