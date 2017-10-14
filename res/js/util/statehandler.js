@@ -32,7 +32,8 @@ class StateHandler extends Component {
             this.sendEvent("update", [this.state]);
     }
 
-    parse(options = {}) {
+    parse(overrides = {}) {
+        const options = {};
         function split(str, sep, n) {
             const out = [];
             let lastIndex = 0;
@@ -64,6 +65,7 @@ class StateHandler extends Component {
         });
         return {
             ...options,
+            ...overrides,
             query: query.join(" ")
         }
     }
