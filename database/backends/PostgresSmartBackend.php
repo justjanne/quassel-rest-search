@@ -80,7 +80,7 @@ class PostgresSmartBackend implements Backend
                   FROM
                     backlog
                     JOIN buffer ON backlog.bufferid = buffer.bufferid
-                    , phraseto_tsquery_multilang(:query) query
+                    , $tsQueryFunction query
                   WHERE buffer.userid = :userid
                     AND (:ignore_since::BOOLEAN OR backlog.time > :since::TIMESTAMP)
                     AND (:ignore_before::BOOLEAN OR backlog.time < :before::TIMESTAMP)
