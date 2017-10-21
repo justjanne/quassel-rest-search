@@ -59,6 +59,7 @@ class MircColorHandler {
                 return;
             if (lastTag.tagName === 'A') {
                 lastTag.target = '_blank';
+                lastTag.rel = 'noopener'
                 if (s.indexOf('://') !== -1)
                     lastTag.href = s;
                 else
