@@ -2,33 +2,45 @@ class MircColorHandler {
     static render(text) {
         const CODE_BOLD = '\x02';
         const CODE_COLOR = '\x03';
+        const CODE_HEXCOLOR = '\x04';
         const CODE_ITALIC = '\x1D';
         const CODE_UNDERLINE = '\x1F';
+        const CODE_STRIKETHROUGH = '\x1E';
+        const CODE_MONOSPACE = '\x11';
         const CODE_SWAP = '\x16';
         const CODE_RESET = '\x0F';
+
         const urlRegex = /\b((?:(?:mailto:|(?:[+.-]?\w)+:\/\/)|www(?=\.\S+\.))(?:(?:[,.;@:]?[-\w]+)+\.?|\[[0-9a-f:.]+])(?::\d+)?(?:\/(?:[,.;:]*[\w~@/?&=+$()!%#*-])*)?)(?:>|[,.;:"]*\b|$)/gi;
         const readNumber = function (str, start, end) {
             if (start >= end || start >= str.length)
                 return -1;
             else
-                return parseInt(str.substr(start, end), 10);
+                return parseInt(str.substr(start, end - start), 10);
         };
         const findEndOfNumber = function (str, start) {
-            const validCharCodes = [
-                '0',
-                '1',
-                '2',
-                '3',
-                '4',
-                '5',
-                '6',
-                '7',
-                '8',
-                '9'
-            ];
+            const validCharCodes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
             let i;
             let tmp = str.substr(start, 2);
             for (i = 0; i < 2 && i < tmp.length; i++) {
+                if (validCharCodes.indexOf(tmp.charAt(i)) === -1)
+                    break;
+            }
+            return i + start;
+        };
+        const readHexNumber = function (str, start, end) {
+            if (start >= end || start >= str.length)
+                return -1;
+            else
+                return parseInt(str.substr(start, end - start), 16);
+        };
+        const findEndOfHexNumber = function (str, start) {
+            const validCharCodes = [
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'a', 'b', 'c', 'd', 'e', 'f', 'A', 'B', 'C', 'D', 'E', 'F'
+            ];
+            let i;
+            let tmp = str.substr(start, 6);
+            for (i = 0; i < 6 && i < tmp.length; i++) {
                 if (validCharCodes.indexOf(tmp.charAt(i)) === -1)
                     break;
             }
@@ -42,10 +54,16 @@ class MircColorHandler {
                 elem.classList.add('irc_italic');
             if (state.underline)
                 elem.classList.add('irc_underline');
+            if (state.strikethrough)
+                elem.classList.add('irc_strikethrough');
+            if (state.monospace)
+                elem.classList.add('irc_monospace');
             if (state.foreground !== null)
                 elem.dataset['irc_foreground'] = state.foreground;
             if (state.background !== null)
                 elem.dataset['irc_background'] = state.background;
+            if (state.hexforeground !== null)
+                elem.style.color = '#' + ("000000" + state.hexforeground.toString(16)).substr(-6);
             if (state.highlight)
                 elem.classList.add('irc_highlight');
             return elem;
@@ -85,7 +103,10 @@ class MircColorHandler {
                 bold: false,
                 italic: false,
                 underline: false,
+                strikethrough: false,
+                monospace: false,
                 foreground: null,
+                hexforeground: null,
                 background: null,
                 highlight: false,
                 url: false
@@ -129,6 +150,20 @@ class MircColorHandler {
                         lastTag = fromState(state);
                     }
                         break;
+                    case CODE_STRIKETHROUGH: {
+                        apply(lastTag, str, i, normalCount, nodes);
+                        normalCount = 0;
+                        state.strikethrough = !state.strikethrough;
+                        lastTag = fromState(state);
+                    }
+                        break;
+                    case CODE_MONOSPACE: {
+                        apply(lastTag, str, i, normalCount, nodes);
+                        normalCount = 0;
+                        state.monospace = !state.monospace;
+                        lastTag = fromState(state);
+                    }
+                        break;
                     case CODE_COLOR: {
                         apply(lastTag, str, i, normalCount, nodes);
                         normalCount = 0;
@@ -147,13 +182,41 @@ class MircColorHandler {
                                 if (background === -1)
                                     background = state.background;
                             }
-                            state.foreground = foreground === -1 ? null : foreground;
+                            if (foreground === -1) {
+                                state.foreground = null;
+                                state.hexforeground = null;
+                            } else {
+                                state.foreground = foreground;
+                                state.hexforeground = null;
+                            }
                             state.background = background === -1 ? null : background;
                             lastTag = fromState(state);
                             i = (backgroundEnd === -1 ? foregroundEnd : backgroundEnd) - 1;
                         } else if (state.foreground !== null) {
                             state.foreground = null;
                             state.background = null;
+                            lastTag = fromState(state);
+                        }
+                    }
+                        break;
+                    case CODE_HEXCOLOR: {
+                        apply(lastTag, str, i, normalCount, nodes);
+                        normalCount = 0;
+                        let foregroundStart = i + 1;
+                        let foregroundEnd = findEndOfHexNumber(str, foregroundStart);
+                        if (foregroundEnd > foregroundStart) {
+                            let foreground = readHexNumber(str, foregroundStart, foregroundEnd);
+                            if (foreground === -1) {
+                                state.hexforeground = null;
+                                state.foreground = null;
+                            } else {
+                                state.hexforeground = foreground;
+                                state.foreground = null;
+                            }
+                            lastTag = fromState(state);
+                            i = foregroundEnd - 1;
+                        } else if (state.hexforeground !== null) {
+                            state.hexforeground = null;
                             lastTag = fromState(state);
                         }
                     }
