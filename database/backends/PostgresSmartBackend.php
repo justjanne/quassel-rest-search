@@ -68,13 +68,13 @@ class PostgresSmartBackend implements Backend
                     backlog.message,
                     query,
                     (
-                      (ts_rank(tsv, query, :config_normalization) ^ :weight_content) *
+                      (ts_rank_cd(tsv, query, :config_normalization) ^ :weight_content) *
                       ((CASE
                         WHEN TYPE IN (1, 4) THEN 1.0
-                        WHEN TYPE IN (2, 1024, 2048, 4096, 16384) THEN 0.75
-                        WHEN TYPE IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.5
-                        WHEN TYPE IN (8, 16, 8192, 131072) THEN 0.25
-                        ELSE 0.1 END) ^ :weight_type) *
+                        WHEN TYPE IN (2, 1024, 2048, 4096, 16384) THEN 0.8
+                        WHEN TYPE IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.6
+                        WHEN TYPE IN (8, 16, 8192, 131072) THEN 0.4
+                        ELSE 0.2 END) ^ :weight_type) *
                       ((1 / (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - EXTRACT(EPOCH FROM TIME))) ^ :weight_time)
                     ) AS rank_value
                   FROM
@@ -142,13 +142,13 @@ class PostgresSmartBackend implements Backend
                  backlog.message,
                  query,
                  (
-                   (ts_rank(tsv, query, :config_normalization) ^ :weight_content) *
+                   (ts_rank_cd(tsv, query, :config_normalization) ^ :weight_content) *
                    ((CASE
                      WHEN TYPE IN (1, 4) THEN 1.0
-                     WHEN TYPE IN (2, 1024, 2048, 4096, 16384) THEN 0.75
-                     WHEN TYPE IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.5
-                     WHEN TYPE IN (8, 16, 8192, 131072) THEN 0.25
-                     ELSE 0.1 END) ^ :weight_type) *
+                     WHEN TYPE IN (2, 1024, 2048, 4096, 16384) THEN 0.8
+                     WHEN TYPE IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.6
+                     WHEN TYPE IN (8, 16, 8192, 131072) THEN 0.4
+                     ELSE 0.2 END) ^ :weight_type) *
                    ((1 / (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - EXTRACT(EPOCH FROM TIME))) ^ :weight_time)
                  ) AS rank_value
                FROM

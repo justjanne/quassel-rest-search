@@ -67,7 +67,7 @@ class Database
 
     private function apply_config(\PDOStatement $stmt)
     {
-        $stmt->bindValue(':config_normalization', 32, PDO::PARAM_INT);
+        $stmt->bindValue(':config_normalization', 4, PDO::PARAM_INT);
 
         $stmt->bindValue(':weight_content', 14, PDO::PARAM_INT);
         $stmt->bindValue(':weight_type', 16, PDO::PARAM_INT);
