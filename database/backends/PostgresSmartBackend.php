@@ -12,7 +12,8 @@ class PostgresSmartBackend implements Backend
     function __construct(\PDO $db, array $options)
     {
         $this->db = $db;
-        $this->db->exec("SET statement_timeout = 5000;");
+        $timeout = $options["timeout"];
+        $this->db->exec("SET statement_timeout = $timeout;");
         $this->options = $options;
     }
 
