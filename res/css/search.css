@@ -1092,15 +1092,12 @@ body {
           display: none; }
         .results .buffer .container .context .message {
           display: flex;
-          line-height: 24px;
+          line-height: 20px;
           padding: 12px 24px;
           border-bottom: 1px solid #e5e5e5;
           color: #212121;
           background: #fff;
           position: relative; }
-          @media (max-width: 800px) {
-            .results .buffer .container .context .message {
-              line-height: 1rem; } }
           .results .buffer .container .context .message > .more {
             height: 56px;
             width: 56px;
