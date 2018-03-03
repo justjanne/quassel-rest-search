@@ -139,8 +139,8 @@ class App {
             after: 4,
             before: 4
         })).then((result) => {
-            const before = result.filter((msg) => msg.id < context.anchorBefore);
-            const after = result.filter((msg) => msg.id > context.anchorAfter);
+            const before = result.filter((msg) => msg.messageid < context.anchorBefore);
+            const after = result.filter((msg) => msg.messageid > context.anchorAfter);
 
             context.loadBefore(before.map((msg) => new Message(msg.messageid, msg.time, msg.sender, msg.message)));
             context.loadAfter(after.map((msg) => new Message(msg.messageid, msg.time, msg.sender, msg.message)));

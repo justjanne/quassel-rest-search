@@ -37,7 +37,7 @@ class Context extends Component {
         if (focus === undefined)
             focus = !this.elem.classList.contains('focus');
         if (this.anchorBefore === this.message.id && this.anchorAfter === this.message.id) {
-            this.triggerloadInitial();
+            this.triggerLoadInitial();
         }
         this.elem.classList.toggle('focus', focus);
         this.sendEvent('focus', focus);
@@ -57,7 +57,7 @@ class Context extends Component {
     triggerLoadAfter() {
         this.sendEvent('loadAfter', [this]);
     }
-    triggerloadInitial() {
+    triggerLoadInitial() {
         this.sendEvent('loadInitial', [this]);
     }
     loadBefore(elements) {
