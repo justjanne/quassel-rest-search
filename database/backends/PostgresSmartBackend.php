@@ -209,7 +209,7 @@ class PostgresSmartBackend implements Backend
               JOIN network ON buffer.networkid = network.networkid
             WHERE buffer.userid = :userid
               AND backlog.bufferid = :bufferid
-              AND backlog.messageid >= :anchor
+              AND backlog.messageid > :anchor
             ORDER BY backlog.messageid ASC
             LIMIT :limit;
         ");

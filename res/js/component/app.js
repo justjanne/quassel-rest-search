@@ -4,6 +4,9 @@ class App {
         this.navigation = new Navigation();
         this.buffers = [];
         this.loadingQuery = 0;
+        if (Storage.exists('language')) {
+            moment.locale(Storage.get('language'));
+        }
         this.render();
         this.navigation.addEventListener('search', query => {
             this.search(query);
@@ -42,7 +45,7 @@ class App {
                 return;
             this.buffers = result.map(buffer => {
                 return new Buffer(buffer.bufferid, buffer.buffername, buffer.networkname, buffer.hasmore, buffer.messages.map(msg => {
-                    return new Context(new Message(msg.messageid, msg.time, msg.sender, msg.message));
+                    return new Context(new Message(msg.messageid, msg.time, msg.sender, msg.message, true));
                 }));
             });
             this.buffers.forEach(buffer => this.insert(buffer));
@@ -62,6 +65,12 @@ class App {
     insert(buffer) {
         this.resultContainer.appendChild(buffer.elem);
         buffer.addEventListener('loadMore', () => this.bufferLoadMore(buffer));
+        buffer.addEventListener('loadBefore', (context, initialLoad) => {
+            this.contextLoadBefore(buffer, context, initialLoad);
+        });
+        buffer.addEventListener('loadAfter', (context, initialLoad) => {
+            this.contextLoadAfter(buffer, context, initialLoad);
+        });
     }
     bufferLoadMore(buffer) {
         if (buffer.loading)
@@ -77,7 +86,36 @@ class App {
             buffer.setLoading(false);
         });
     }
+    contextLoadBefore(buffer, context, initialLoad) {
+        if (context.loading && initialLoad !== true)
+            return;
+        context.setLoading(true);
+        const amount = initialLoad ? 4 : 10;
+        load('web/backlog/', statehandler.parse({
+            buffer: buffer.id,
+            anchor: context.anchorBefore,
+            after: 0,
+            before: amount
+        })).then(result => {
+            context.loadBefore(result.map(msg => new Message(msg.messageid, msg.time, msg.sender, msg.message)));
+            context.setLoading(false);
+        });
+    }
+    contextLoadAfter(buffer, context, initialLoad) {
+        if (context.loading && initialLoad !== true)
+            return;
+        context.setLoading(true);
+        const amount = initialLoad ? 4 : 10;
+        load('web/backlog/', statehandler.parse({
+            buffer: buffer.id,
+            anchor: context.anchorAfter,
+            after: amount,
+            before: 0
+        })).then(result => {
+            context.loadAfter(result.map(msg => new Message(msg.messageid, msg.time, msg.sender, msg.message)));
+            context.setLoading(false);
+        });
+    }
 }
-moment.locale(navigator.languages || navigator.language);
 const app = new App();
 document.body.insertBefore(app.elem, document.body.firstChild);

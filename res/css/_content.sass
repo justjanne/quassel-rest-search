@@ -85,7 +85,7 @@
         padding: 6px 16px
         font-size: 13px
         line-height: 1.846
-        -moz-user-select: none
+        @include vendor-prefix('user-select', 'none')
         text-decoration: none
         box-sizing: border-box
         font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
@@ -187,13 +187,12 @@
       .context
         position: relative
 
-        .container
-        .before
-        .after
-
-        &.active
+        &.focus
           padding: 0
           margin: 1rem -1rem
+
+          @media(max-width: 800px)
+            margin: 1rem 0
 
         &:before
           bottom: 0
@@ -205,6 +204,9 @@
           position: absolute
           right: 0
           top: 0
+
+        > .container > .inline-button
+          box-shadow: none
 
         &:not(.focus)
           > .before, > .after
@@ -220,9 +222,39 @@
           border-bottom: 1px solid #e5e5e5
           color: #212121
           background: #fff
+          position: relative
 
-          &:last-child
-            border-bottom: none
+          > .more
+            height: 56px
+            width: 56px
+            position: relative
+            padding: 16px 13px
+            cursor: pointer
+            color: #555
+            transition: all .15s
+            text-decoration: none
+            text-align: center
+            margin-right: -24px
+            margin-top: -12px
+            @include vendor-prefix('user-select', 'none')
+
+            &:before
+              background-color: rgba(255, 255, 255, .12)
+              bottom: 9px
+              content: ' '
+              left: 9px
+              margin: auto
+              padding: 4px
+              position: absolute
+              right: 9px
+              top: 9px
+              z-index: -1
+              border-radius: 50%
+              opacity: 0
+              transition: opacity 100ms
+
+            &:hover:before
+              opacity: 1
 
           time
             width: 136px
@@ -260,6 +292,10 @@
               overflow: hidden
               text-overflow: ellipsis
 
+              .invisible
+                font-size: 0
+                opacity: 0
+
               @media(max-width: 800px)
                 width: initial
                 padding: 0
@@ -278,4 +314,5 @@
                 color: #212121 !important
 
               @media(max-width: 800px)
+                vertical-align: top
                 display: inline

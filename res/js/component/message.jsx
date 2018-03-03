@@ -1,27 +1,43 @@
-class Message {
-    constructor(id, time, sender, content) {
+class Message extends Component {
+    constructor(id, time, sender, content, isAnchor) {
+        super();
+
         this.id = id;
         this.time = time;
         this.sender = sender;
         this.content = content;
+        this.isAnchor = isAnchor;
 
         this.render();
     }
 
     render() {
         return this.elem = (
-            <div className="message">
-                <time>{moment(new Date(this.time.replace(" ", "T") + "Z")).format('L LT')}</time>
-                <div className="container">
-                    <div className="sender" data-sendercolor={SenderColorHandler.nickToColor(this.getNick())}>
+            <span className="message">
+                <span><time>{this.formatTime()}</time></span>
+                <span className="container">
+                    <span className="sender" data-sendercolor={SenderColorHandler.nickToColor(this.getNick())}>
+                        <span className="invisible"> &lt;</span>
                         {this.getNick()}
-                    </div>
-                    <div className="content">
+                        <span className="invisible">&gt; </span>
+                    </span>
+                    <span className="content">
                         {MircColorHandler.render(this.content)}
-                    </div>
-                </div>
-            </div>
+                    </span>
+                </span>
+                {this.isAnchor ? (
+                    <a className="more icon" onClick={() => this.sendEvent("focus", [])}>list</a>
+                ) : null}
+            </span>
         );
+    }
+
+    formatTime() {
+        const dateFormat = Storage.exists('dateformat') ? Storage.get('dateformat') : 'L';
+        const timeFormat = Storage.exists('timeformat') ? Storage.get('timeformat') : 'LT';
+        const dateTimeFormat = dateFormat + " " + timeFormat;
+
+        return moment(new Date(this.time.replace(" ", "T") + "Z")).format(dateTimeFormat);
     }
 
     getNick() {

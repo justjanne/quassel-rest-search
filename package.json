@@ -4,7 +4,8 @@
   "description": "This is a websearch frontend for a quassel database.",
   "scripts": {
     "jsx": "node_modules/nativejsx/bin/nativejsx res/js/**/*.jsx",
-    "dep": "cp node_modules/nativejsx/dist/nativejsx-prototypes.js res/js/util/"
+    "dep": "cp node_modules/nativejsx/dist/nativejsx-prototypes.js res/js/util/",
+    "sass": "node_modules/node-sass/bin/node-sass res/css/login.sass -o res/css/ && node_modules/node-sass/bin/node-sass res/css/search.sass -o res/css/"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,8 @@
     "url": "https://github.com/justjanne/quassel-rest-search/issues"
   },
   "homepage": "https://github.com/justjanne/quassel-rest-search#readme",
-  "dependencies": {
-    "nativejsx": "^4.1.0"
+  "devDependencies": {
+    "nativejsx": "https://github.com/j3l11234/nativejsx/archive/4.2.0.2.tar.gz",
+    "node-sass": "^4.7.2"
   }
 }
