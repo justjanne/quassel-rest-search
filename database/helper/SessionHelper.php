@@ -11,6 +11,8 @@ class SessionHelper
 
     private function __construct()
     {
+        ini_set('session.gc_maxlifetime', 7200);
+        session_set_cookie_params(7200);
     }
 
 
