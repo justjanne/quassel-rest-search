@@ -1184,4 +1184,6 @@ body {
               @media (max-width: 800px) {
                 .results .buffer .container .context .message .container .content {
                   vertical-align: top;
-                  display: inline; } }
+                  display: inline; }
+                  .results .buffer .container .context .message .container .content span {
+                    vertical-align: top; } }
