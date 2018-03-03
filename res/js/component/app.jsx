@@ -72,11 +72,14 @@ class App {
     insert(buffer) {
         this.resultContainer.appendChild(buffer.elem);
         buffer.addEventListener("loadMore", () => this.bufferLoadMore(buffer));
-        buffer.addEventListener("loadBefore", (context, initialLoad) => {
-            this.contextLoadBefore(buffer, context, initialLoad);
+        buffer.addEventListener("loadBefore", (context) => {
+            this.contextLoadBefore(buffer, context);
         });
-        buffer.addEventListener("loadAfter", (context, initialLoad) => {
-            this.contextLoadAfter(buffer, context, initialLoad);
+        buffer.addEventListener("loadAfter", (context) => {
+            this.contextLoadAfter(buffer, context);
+        });
+        buffer.addEventListener("loadInitial", (context) => {
+            this.contextLoadInitial(buffer, context);
         });
     }
 
@@ -93,36 +96,54 @@ class App {
         });
     }
 
-    contextLoadBefore(buffer, context, initialLoad) {
-        if (context.loading && initialLoad !== true)
+    contextLoadBefore(buffer, context) {
+        if (context.loading )
             return;
 
         context.setLoading(true);
-        const amount = initialLoad ? 4 : 10;
         load("web/backlog/", statehandler.parse({
             buffer: buffer.id,
             anchor: context.anchorBefore,
             after: 0,
-            before: amount
+            before: 10
         })).then((result) => {
             context.loadBefore(result.map((msg) => new Message(msg.messageid, msg.time, msg.sender, msg.message)));
             context.setLoading(false);
         });
     }
 
-    contextLoadAfter(buffer, context, initialLoad) {
-        if (context.loading && initialLoad !== true)
+    contextLoadAfter(buffer, context) {
+        if (context.loading)
             return;
 
         context.setLoading(true);
-        const amount = initialLoad ? 4 : 10;
         load("web/backlog/", statehandler.parse({
             buffer: buffer.id,
             anchor: context.anchorAfter,
-            after: amount,
+            after: 10,
             before: 0
         })).then((result) => {
             context.loadAfter(result.map((msg) => new Message(msg.messageid, msg.time, msg.sender, msg.message)));
+            context.setLoading(false);
+        });
+    }
+
+    contextLoadInitial(buffer, context) {
+        if (context.loading)
+            return;
+
+        context.setLoading(true);
+        load("web/backlog/", statehandler.parse({
+            buffer: buffer.id,
+            anchor: context.anchorAfter,
+            after: 4,
+            before: 4
+        })).then((result) => {
+            const before = result.filter((msg) => msg.id < context.anchorBefore);
+            const after = result.filter((msg) => msg.id > context.anchorAfter);
+
+            context.loadBefore(before.map((msg) => new Message(msg.messageid, msg.time, msg.sender, msg.message)));
+            context.loadAfter(after.map((msg) => new Message(msg.messageid, msg.time, msg.sender, msg.message)));
             context.setLoading(false);
         });
     }

@@ -84,11 +84,14 @@ class Buffer extends Component {
     insert(context) {
         let container = (this.insertContainerFirst.childElementCount < 4 ? this.insertContainerFirst : this.insertContainer);
         container.appendChild(context.elem);
-        context.addEventListener("loadBefore", (context, initialLoad) => {
-            this.sendEvent("loadBefore", [context, initialLoad])
+        context.addEventListener("loadBefore", (context) => {
+            this.sendEvent("loadBefore", [context])
         });
-        context.addEventListener("loadAfter", (context, initialLoad) => {
-            this.sendEvent("loadAfter", [context, initialLoad])
+        context.addEventListener("loadAfter", (context) => {
+            this.sendEvent("loadAfter", [context])
+        });
+        context.addEventListener("loadInitial", (context) => {
+            this.sendEvent("loadInitial", [context])
         });
         this.neverLoaded = false;
     }
