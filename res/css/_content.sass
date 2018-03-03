@@ -321,3 +321,24 @@
 
                 span
                   vertical-align: top
+          &.action
+            .sender, .content
+              font-style: italic
+
+            .sender
+              &:before
+                content: ' -*- '
+                color: #1a237e
+
+            .content
+              color: #1a237e
+
+          &.notice
+            .content, .sender
+              color: #916409
+
+            .sender
+              &:before
+                content: '['
+              &:after
+                content: ']'

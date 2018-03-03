@@ -1,8 +1,9 @@
 class Message extends Component {
-    constructor(id, time, sender, content, isAnchor) {
+    constructor(id, type, time, sender, content, isAnchor) {
         super();
 
         this.id = id;
+        this.type = type;
         this.time = time;
         this.sender = sender;
         this.content = content;
@@ -12,8 +13,14 @@ class Message extends Component {
     }
 
     render() {
+        const classes = ["message"];
+        if ((this.type & 0x00000002) !== 0)
+            classes.push("notice");
+        if ((this.type & 0x00000004) !== 0)
+            classes.push("action");
+
         return this.elem = (
-            <span className="message">
+            <span className={classes.join(" ")}>
                 <span><time>{this.formatTime()}</time></span>
                 <span className="container">
                     <span className="sender" data-sendercolor={SenderColorHandler.nickToColor(this.getNick())}>

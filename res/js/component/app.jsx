@@ -49,7 +49,7 @@ class App {
 
             this.buffers = result.map((buffer) => {
                 return new Buffer(buffer.bufferid, buffer.buffername, buffer.networkname, buffer.hasmore, buffer.messages.map((msg) => {
-                    return new Context(new Message(msg.messageid, msg.time, msg.sender, msg.message, true));
+                    return new Context(new Message(msg.messageid, msg.type, msg.time, msg.sender, msg.message, true));
                 }));
             });
             this.buffers.forEach((buffer) => this.insert(buffer));
@@ -107,7 +107,7 @@ class App {
             after: 0,
             before: 10
         })).then((result) => {
-            context.loadBefore(result.map((msg) => new Message(msg.messageid, msg.time, msg.sender, msg.message)));
+            context.loadBefore(result.map((msg) => new Message(msg.messageid, msg.type, msg.time, msg.sender, msg.message)));
             context.setLoading(false);
         });
     }
@@ -123,7 +123,7 @@ class App {
             after: 10,
             before: 0
         })).then((result) => {
-            context.loadAfter(result.map((msg) => new Message(msg.messageid, msg.time, msg.sender, msg.message)));
+            context.loadAfter(result.map((msg) => new Message(msg.messageid, msg.type, msg.time, msg.sender, msg.message)));
             context.setLoading(false);
         });
     }
@@ -142,8 +142,8 @@ class App {
             const before = result.filter((msg) => msg.messageid < context.anchorBefore);
             const after = result.filter((msg) => msg.messageid > context.anchorAfter);
 
-            context.loadBefore(before.map((msg) => new Message(msg.messageid, msg.time, msg.sender, msg.message)));
-            context.loadAfter(after.map((msg) => new Message(msg.messageid, msg.time, msg.sender, msg.message)));
+            context.loadBefore(before.map((msg) => new Message(msg.messageid, msg.type, msg.time, msg.sender, msg.message)));
+            context.loadAfter(after.map((msg) => new Message(msg.messageid, msg.type, msg.time, msg.sender, msg.message)));
             context.setLoading(false);
         });
     }

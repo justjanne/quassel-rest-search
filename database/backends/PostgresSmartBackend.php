@@ -39,6 +39,7 @@ class PostgresSmartBackend implements Backend
               ranked_messages.buffername,
               ranked_messages.networkname,
               ranked_messages.messageid,
+              ranked_messages.type,
               ranked_messages.time,
               ranked_messages.sender,
               ts_headline(replace(replace(ranked_messages.message, '<', '&lt;'), '>', '&gt;'), query, 'HighlightAll=TRUE') AS message
@@ -64,6 +65,7 @@ class PostgresSmartBackend implements Backend
                     buffer.buffername,
                     buffer.networkid,
                     backlog.senderid,
+                    backlog.type,
                     backlog.time,
                     backlog.message,
                     query,
@@ -138,6 +140,7 @@ class PostgresSmartBackend implements Backend
                  buffer.buffername,
                  buffer.networkid,
                  backlog.senderid,
+                 backlog.type,
                  backlog.time,
                  backlog.message,
                  query,
@@ -199,6 +202,7 @@ class PostgresSmartBackend implements Backend
                    backlog.bufferid,
                    buffer.buffername,
                    sender.sender,
+                   backlog.type,
                    backlog.time,
                    network.networkname,
                    replace(replace(replace(backlog.message, '&', '&amp;'), '<', '&lt;'), '>', '&gt;') AS message
@@ -222,6 +226,7 @@ class PostgresSmartBackend implements Backend
                    backlog.bufferid,
                    buffer.buffername,
                    sender.sender,
+                   backlog.type,
                    backlog.time,
                    network.networkname,
                    replace(replace(replace(backlog.message, '&', '&amp;'), '<', '&lt;'), '>', '&gt;') AS message

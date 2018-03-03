@@ -1,7 +1,8 @@
 class Message extends Component {
-    constructor(id, time, sender, content, isAnchor) {
+    constructor(id, type, time, sender, content, isAnchor) {
         super();
         this.id = id;
+        this.type = type;
         this.time = time;
         this.sender = sender;
         this.content = content;
@@ -9,9 +10,14 @@ class Message extends Component {
         this.render();
     }
     render() {
+        const classes = ['message'];
+        if ((this.type & 2) !== 0)
+            classes.push('notice');
+        if ((this.type & 4) !== 0)
+            classes.push('action');
         return this.elem = function () {
             var $$a = document.createElement('span');
-            $$a.setAttribute('class', 'message');
+            $$a.setAttribute('class', classes.join(' '));
             var $$b = document.createElement('span');
             $$a.appendChild($$b);
             var $$c = document.createElement('time');

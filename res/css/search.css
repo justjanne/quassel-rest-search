@@ -1188,3 +1188,16 @@ body {
                   display: inline; }
                   .results .buffer .container .context .message .container .content span {
                     vertical-align: top; } }
+          .results .buffer .container .context .message.action .sender, .results .buffer .container .context .message.action .content {
+            font-style: italic; }
+          .results .buffer .container .context .message.action .sender:before {
+            content: ' -*- ';
+            color: #1a237e; }
+          .results .buffer .container .context .message.action .content {
+            color: #1a237e; }
+          .results .buffer .container .context .message.notice .content, .results .buffer .container .context .message.notice .sender {
+            color: #916409; }
+          .results .buffer .container .context .message.notice .sender:before {
+            content: '['; }
+          .results .buffer .container .context .message.notice .sender:after {
+            content: ']'; }
