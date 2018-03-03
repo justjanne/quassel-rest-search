@@ -25,8 +25,7 @@
   /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
-  font-feature-settings: 'liga';
-}
+  font-feature-settings: 'liga'; }
 
 @font-face {
   font-family: 'Roboto';
@@ -50,8 +49,7 @@ body {
   background: #F2F2F2;
   font-family: 'Roboto', sans-serif;
   font-size: 81.25%;
-  padding-top: 56px;
-}
+  padding-top: 56px; }
 
 *:focus {
   outline: none; }
@@ -85,12 +83,9 @@ body {
       margin: 0 auto;
       padding: 0 2rem;
       display: flex; }
-
-@media (max-width: 800px) {
-  .nav .bar .container {
-    padding: 0 0 0 8px;
-  }
-}
+      @media (max-width: 800px) {
+        .nav .bar .container {
+          padding: 0 0 0 8px; } }
       .nav .bar .container .searchBar {
         margin: 8px auto;
         height: 40px;
@@ -104,8 +99,7 @@ body {
         flex-direction: row;
         flex: 1;
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
-        transition: background-color .15s;
-      }
+        transition: background-color .15s; }
         .nav .bar .container .searchBar:hover {
           background-color: rgba(255, 255, 255, 0.3); }
         .nav .bar .container .searchBar .icon {
@@ -117,8 +111,7 @@ body {
           line-height: 40px;
           left: 0;
           top: 0;
-          cursor: pointer;
-        }
+          cursor: pointer; }
         .nav .bar .container .searchBar .search {
           display: inline-block;
           flex-grow: 1;
@@ -184,12 +177,9 @@ body {
     transform: translateY(-200%);
     transition: transform 400ms;
     position: relative; }
-
-@media (max-width: 800px) {
-  .nav .history {
-    padding: 0;
-  }
-}
+    @media (max-width: 800px) {
+      .nav .history {
+        padding: 0; } }
     .nav .history ul {
       list-style-type: none;
       margin: 0;
@@ -247,8 +237,7 @@ body {
   box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
   max-width: 1072px;
   overflow-x: scroll;
-  white-space: nowrap;
-}
+  white-space: nowrap; }
 
 [data-sendercolor="0"] {
   color: #e90d7f; }
@@ -308,810 +297,625 @@ body {
   text-decoration: underline; }
 
 .irc_strikethrough {
-  text-decoration: line-through;
-}
+  text-decoration: line-through; }
 
 .irc_strikethrough.irc_underline {
-  text-decoration: line-through underline;
-}
+  text-decoration: line-through underline; }
 
 .irc_monospace {
-  font-family: 'Roboto Mono', 'Source Code Pro', monospace;
-}
+  font-family: 'Roboto Mono', 'Source Code Pro', monospace; }
 
 [data-irc_foreground="00"] {
   color: #ffffff; }
 
 [data-irc_background="00"] {
-  background-color: #ffffff;
-}
+  background-color: #ffffff; }
 
 [data-irc_foreground="01"] {
   color: #000000; }
 
 [data-irc_background="01"] {
-  background-color: #000000;
-}
+  background-color: #000000; }
 
 [data-irc_foreground="02"] {
   color: #000080; }
 
 [data-irc_background="02"] {
-  background-color: #000080;
-}
+  background-color: #000080; }
 
 [data-irc_foreground="03"] {
   color: #008000; }
 
 [data-irc_background="03"] {
-  background-color: #008000;
-}
+  background-color: #008000; }
 
 [data-irc_foreground="04"] {
   color: #ff0000; }
 
 [data-irc_background="04"] {
-  background-color: #ff0000;
-}
+  background-color: #ff0000; }
 
 [data-irc_foreground="05"] {
   color: #800000; }
 
 [data-irc_background="05"] {
-  background-color: #800000;
-}
+  background-color: #800000; }
 
 [data-irc_foreground="06"] {
   color: #800080; }
 
 [data-irc_background="06"] {
-  background-color: #800080;
-}
+  background-color: #800080; }
 
 [data-irc_foreground="07"] {
   color: #ffa500; }
 
 [data-irc_background="07"] {
-  background-color: #ffa500;
-}
+  background-color: #ffa500; }
 
 [data-irc_foreground="08"] {
   color: #ffff00; }
 
 [data-irc_background="08"] {
-  background-color: #ffff00;
-}
+  background-color: #ffff00; }
 
 [data-irc_foreground="09"] {
   color: #00ff00; }
 
 [data-irc_background="09"] {
-  background-color: #00ff00;
-}
+  background-color: #00ff00; }
 
 [data-irc_foreground="10"] {
   color: #008080; }
 
 [data-irc_background="10"] {
-  background-color: #008080;
-}
+  background-color: #008080; }
 
 [data-irc_foreground="11"] {
   color: #00ffff; }
 
 [data-irc_background="11"] {
-  background-color: #00ffff;
-}
+  background-color: #00ffff; }
 
 [data-irc_foreground="12"] {
   color: #4169e1; }
 
 [data-irc_background="12"] {
-  background-color: #4169e1;
-}
+  background-color: #4169e1; }
 
 [data-irc_foreground="13"] {
   color: #ff00ff; }
 
 [data-irc_background="13"] {
-  background-color: #ff00ff;
-}
+  background-color: #ff00ff; }
 
 [data-irc_foreground="14"] {
   color: #808080; }
 
 [data-irc_background="14"] {
-  background-color: #808080;
-}
+  background-color: #808080; }
 
 [data-irc_foreground="15"] {
   color: #c0c0c0; }
 
 [data-irc_background="15"] {
-  background-color: #c0c0c0;
-}
+  background-color: #c0c0c0; }
 
 [data-irc_foreground="16"] {
-  color: #470000;
-}
+  color: #470000; }
 
 [data-irc_background="16"] {
-  background-color: #470000;
-}
+  background-color: #470000; }
 
 [data-irc_foreground="17"] {
-  color: #472100;
-}
+  color: #472100; }
 
 [data-irc_background="17"] {
-  background-color: #472100;
-}
+  background-color: #472100; }
 
 [data-irc_foreground="18"] {
-  color: #474700;
-}
+  color: #474700; }
 
 [data-irc_background="18"] {
-  background-color: #474700;
-}
+  background-color: #474700; }
 
 [data-irc_foreground="19"] {
-  color: #324700;
-}
+  color: #324700; }
 
 [data-irc_background="19"] {
-  background-color: #324700;
-}
+  background-color: #324700; }
 
 [data-irc_foreground="20"] {
-  color: #004700;
-}
+  color: #004700; }
 
 [data-irc_background="20"] {
-  background-color: #004700;
-}
+  background-color: #004700; }
 
 [data-irc_foreground="21"] {
-  color: #00472c;
-}
+  color: #00472c; }
 
 [data-irc_background="21"] {
-  background-color: #00472c;
-}
+  background-color: #00472c; }
 
 [data-irc_foreground="22"] {
-  color: #004747;
-}
+  color: #004747; }
 
 [data-irc_background="22"] {
-  background-color: #004747;
-}
+  background-color: #004747; }
 
 [data-irc_foreground="23"] {
-  color: #002747;
-}
+  color: #002747; }
 
 [data-irc_background="23"] {
-  background-color: #002747;
-}
+  background-color: #002747; }
 
 [data-irc_foreground="24"] {
-  color: #000047;
-}
+  color: #000047; }
 
 [data-irc_background="24"] {
-  background-color: #000047;
-}
+  background-color: #000047; }
 
 [data-irc_foreground="25"] {
-  color: #2e0047;
-}
+  color: #2e0047; }
 
 [data-irc_background="25"] {
-  background-color: #2e0047;
-}
+  background-color: #2e0047; }
 
 [data-irc_foreground="26"] {
-  color: #470047;
-}
+  color: #470047; }
 
 [data-irc_background="26"] {
-  background-color: #470047;
-}
+  background-color: #470047; }
 
 [data-irc_foreground="27"] {
-  color: #47002a;
-}
+  color: #47002a; }
 
 [data-irc_background="27"] {
-  background-color: #47002a;
-}
+  background-color: #47002a; }
 
 [data-irc_foreground="28"] {
-  color: #740000;
-}
+  color: #740000; }
 
 [data-irc_background="28"] {
-  background-color: #740000;
-}
+  background-color: #740000; }
 
 [data-irc_foreground="29"] {
-  color: #743a00;
-}
+  color: #743a00; }
 
 [data-irc_background="29"] {
-  background-color: #743a00;
-}
+  background-color: #743a00; }
 
 [data-irc_foreground="30"] {
-  color: #747400;
-}
+  color: #747400; }
 
 [data-irc_background="30"] {
-  background-color: #747400;
-}
+  background-color: #747400; }
 
 [data-irc_foreground="31"] {
-  color: #517400;
-}
+  color: #517400; }
 
 [data-irc_background="31"] {
-  background-color: #517400;
-}
+  background-color: #517400; }
 
 [data-irc_foreground="32"] {
-  color: #007400;
-}
+  color: #007400; }
 
 [data-irc_background="32"] {
-  background-color: #007400;
-}
+  background-color: #007400; }
 
 [data-irc_foreground="33"] {
-  color: #007449;
-}
+  color: #007449; }
 
 [data-irc_background="33"] {
-  background-color: #007449;
-}
+  background-color: #007449; }
 
 [data-irc_foreground="34"] {
-  color: #007474;
-}
+  color: #007474; }
 
 [data-irc_background="34"] {
-  background-color: #007474;
-}
+  background-color: #007474; }
 
 [data-irc_foreground="35"] {
-  color: #004074;
-}
+  color: #004074; }
 
 [data-irc_background="35"] {
-  background-color: #004074;
-}
+  background-color: #004074; }
 
 [data-irc_foreground="36"] {
-  color: #000074;
-}
+  color: #000074; }
 
 [data-irc_background="36"] {
-  background-color: #000074;
-}
+  background-color: #000074; }
 
 [data-irc_foreground="37"] {
-  color: #4b0074;
-}
+  color: #4b0074; }
 
 [data-irc_background="37"] {
-  background-color: #4b0074;
-}
+  background-color: #4b0074; }
 
 [data-irc_foreground="38"] {
-  color: #740074;
-}
+  color: #740074; }
 
 [data-irc_background="38"] {
-  background-color: #740074;
-}
+  background-color: #740074; }
 
 [data-irc_foreground="39"] {
-  color: #740045;
-}
+  color: #740045; }
 
 [data-irc_background="39"] {
-  background-color: #740045;
-}
+  background-color: #740045; }
 
 [data-irc_foreground="40"] {
-  color: #b50000;
-}
+  color: #b50000; }
 
 [data-irc_background="40"] {
-  background-color: #b50000;
-}
+  background-color: #b50000; }
 
 [data-irc_foreground="41"] {
-  color: #b56300;
-}
+  color: #b56300; }
 
 [data-irc_background="41"] {
-  background-color: #b56300;
-}
+  background-color: #b56300; }
 
 [data-irc_foreground="42"] {
-  color: #b5b500;
-}
+  color: #b5b500; }
 
 [data-irc_background="42"] {
-  background-color: #b5b500;
-}
+  background-color: #b5b500; }
 
 [data-irc_foreground="43"] {
-  color: #7db500;
-}
+  color: #7db500; }
 
 [data-irc_background="43"] {
-  background-color: #7db500;
-}
+  background-color: #7db500; }
 
 [data-irc_foreground="44"] {
-  color: #00b500;
-}
+  color: #00b500; }
 
 [data-irc_background="44"] {
-  background-color: #00b500;
-}
+  background-color: #00b500; }
 
 [data-irc_foreground="45"] {
-  color: #00b571;
-}
+  color: #00b571; }
 
 [data-irc_background="45"] {
-  background-color: #00b571;
-}
+  background-color: #00b571; }
 
 [data-irc_foreground="46"] {
-  color: #00b5b5;
-}
+  color: #00b5b5; }
 
 [data-irc_background="46"] {
-  background-color: #00b5b5;
-}
+  background-color: #00b5b5; }
 
 [data-irc_foreground="47"] {
-  color: #0063b5;
-}
+  color: #0063b5; }
 
 [data-irc_background="47"] {
-  background-color: #0063b5;
-}
+  background-color: #0063b5; }
 
 [data-irc_foreground="48"] {
-  color: #0000b5;
-}
+  color: #0000b5; }
 
 [data-irc_background="48"] {
-  background-color: #0000b5;
-}
+  background-color: #0000b5; }
 
 [data-irc_foreground="49"] {
-  color: #7500b5;
-}
+  color: #7500b5; }
 
 [data-irc_background="49"] {
-  background-color: #7500b5;
-}
+  background-color: #7500b5; }
 
 [data-irc_foreground="50"] {
-  color: #b500b5;
-}
+  color: #b500b5; }
 
 [data-irc_background="50"] {
-  background-color: #b500b5;
-}
+  background-color: #b500b5; }
 
 [data-irc_foreground="51"] {
-  color: #b5006b;
-}
+  color: #b5006b; }
 
 [data-irc_background="51"] {
-  background-color: #b5006b;
-}
+  background-color: #b5006b; }
 
 [data-irc_foreground="52"] {
-  color: #ff0000;
-}
+  color: #ff0000; }
 
 [data-irc_background="52"] {
   background-color: #ff0000; }
 
 [data-irc_foreground="53"] {
-  color: #ff8c00;
-}
+  color: #ff8c00; }
 
 [data-irc_background="53"] {
-  background-color: #ff8c00;
-}
+  background-color: #ff8c00; }
 
 [data-irc_foreground="54"] {
-  color: #ffff00;
-}
+  color: #ffff00; }
 
 [data-irc_background="54"] {
   background-color: #ffff00; }
 
 [data-irc_foreground="55"] {
-  color: #b2ff00;
-}
+  color: #b2ff00; }
 
 [data-irc_background="55"] {
-  background-color: #b2ff00;
-}
+  background-color: #b2ff00; }
 
 [data-irc_foreground="56"] {
-  color: #00ff00;
-}
+  color: #00ff00; }
 
 [data-irc_background="56"] {
   background-color: #00ff00; }
 
 [data-irc_foreground="57"] {
-  color: #00ffa0;
-}
+  color: #00ffa0; }
 
 [data-irc_background="57"] {
-  background-color: #00ffa0;
-}
+  background-color: #00ffa0; }
 
 [data-irc_foreground="58"] {
-  color: #00ffff;
-}
+  color: #00ffff; }
 
 [data-irc_background="58"] {
   background-color: #00ffff; }
 
 [data-irc_foreground="59"] {
-  color: #008cff;
-}
+  color: #008cff; }
 
 [data-irc_background="59"] {
-  background-color: #008cff;
-}
+  background-color: #008cff; }
 
 [data-irc_foreground="60"] {
-  color: #0000ff;
-}
+  color: #0000ff; }
 
 [data-irc_background="60"] {
-  background-color: #0000ff;
-}
+  background-color: #0000ff; }
 
 [data-irc_foreground="61"] {
-  color: #a500ff;
-}
+  color: #a500ff; }
 
 [data-irc_background="61"] {
-  background-color: #a500ff;
-}
+  background-color: #a500ff; }
 
 [data-irc_foreground="62"] {
-  color: #ff00ff;
-}
+  color: #ff00ff; }
 
 [data-irc_background="62"] {
   background-color: #ff00ff; }
 
 [data-irc_foreground="63"] {
-  color: #ff0098;
-}
+  color: #ff0098; }
 
 [data-irc_background="63"] {
-  background-color: #ff0098;
-}
+  background-color: #ff0098; }
 
 [data-irc_foreground="64"] {
-  color: #ff5959;
-}
+  color: #ff5959; }
 
 [data-irc_background="64"] {
-  background-color: #ff5959;
-}
+  background-color: #ff5959; }
 
 [data-irc_foreground="65"] {
-  color: #ffb459;
-}
+  color: #ffb459; }
 
 [data-irc_background="65"] {
-  background-color: #ffb459;
-}
+  background-color: #ffb459; }
 
 [data-irc_foreground="66"] {
-  color: #ffff71;
-}
+  color: #ffff71; }
 
 [data-irc_background="66"] {
-  background-color: #ffff71;
-}
+  background-color: #ffff71; }
 
 [data-irc_foreground="67"] {
-  color: #cfff60;
-}
+  color: #cfff60; }
 
 [data-irc_background="67"] {
-  background-color: #cfff60;
-}
+  background-color: #cfff60; }
 
 [data-irc_foreground="68"] {
-  color: #6fff6f;
-}
+  color: #6fff6f; }
 
 [data-irc_background="68"] {
-  background-color: #6fff6f;
-}
+  background-color: #6fff6f; }
 
 [data-irc_foreground="69"] {
-  color: #65ffc9;
-}
+  color: #65ffc9; }
 
 [data-irc_background="69"] {
-  background-color: #65ffc9;
-}
+  background-color: #65ffc9; }
 
 [data-irc_foreground="70"] {
-  color: #6dffff;
-}
+  color: #6dffff; }
 
 [data-irc_background="70"] {
-  background-color: #6dffff;
-}
+  background-color: #6dffff; }
 
 [data-irc_foreground="71"] {
-  color: #59b4ff;
-}
+  color: #59b4ff; }
 
 [data-irc_background="71"] {
-  background-color: #59b4ff;
-}
+  background-color: #59b4ff; }
 
 [data-irc_foreground="72"] {
-  color: #5959ff;
-}
+  color: #5959ff; }
 
 [data-irc_background="72"] {
-  background-color: #5959ff;
-}
+  background-color: #5959ff; }
 
 [data-irc_foreground="73"] {
-  color: #c459ff;
-}
+  color: #c459ff; }
 
 [data-irc_background="73"] {
-  background-color: #c459ff;
-}
+  background-color: #c459ff; }
 
 [data-irc_foreground="74"] {
-  color: #ff66ff;
-}
+  color: #ff66ff; }
 
 [data-irc_background="74"] {
-  background-color: #ff66ff;
-}
+  background-color: #ff66ff; }
 
 [data-irc_foreground="75"] {
-  color: #ff59bc;
-}
+  color: #ff59bc; }
 
 [data-irc_background="75"] {
-  background-color: #ff59bc;
-}
+  background-color: #ff59bc; }
 
 [data-irc_foreground="76"] {
-  color: #ff9c9c;
-}
+  color: #ff9c9c; }
 
 [data-irc_background="76"] {
-  background-color: #ff9c9c;
-}
+  background-color: #ff9c9c; }
 
 [data-irc_foreground="77"] {
-  color: #ffd39c;
-}
+  color: #ffd39c; }
 
 [data-irc_background="77"] {
-  background-color: #ffd39c;
-}
+  background-color: #ffd39c; }
 
 [data-irc_foreground="78"] {
-  color: #ffff9c;
-}
+  color: #ffff9c; }
 
 [data-irc_background="78"] {
-  background-color: #ffff9c;
-}
+  background-color: #ffff9c; }
 
 [data-irc_foreground="79"] {
-  color: #e2ff9c;
-}
+  color: #e2ff9c; }
 
 [data-irc_background="79"] {
-  background-color: #e2ff9c;
-}
+  background-color: #e2ff9c; }
 
 [data-irc_foreground="80"] {
-  color: #9cff9c;
-}
+  color: #9cff9c; }
 
 [data-irc_background="80"] {
-  background-color: #9cff9c;
-}
+  background-color: #9cff9c; }
 
 [data-irc_foreground="81"] {
-  color: #9cffdb;
-}
+  color: #9cffdb; }
 
 [data-irc_background="81"] {
-  background-color: #9cffdb;
-}
+  background-color: #9cffdb; }
 
 [data-irc_foreground="82"] {
-  color: #9cffff;
-}
+  color: #9cffff; }
 
 [data-irc_background="82"] {
-  background-color: #9cffff;
-}
+  background-color: #9cffff; }
 
 [data-irc_foreground="83"] {
-  color: #9cd3ff;
-}
+  color: #9cd3ff; }
 
 [data-irc_background="83"] {
-  background-color: #9cd3ff;
-}
+  background-color: #9cd3ff; }
 
 [data-irc_foreground="84"] {
-  color: #9c9cff;
-}
+  color: #9c9cff; }
 
 [data-irc_background="84"] {
-  background-color: #9c9cff;
-}
+  background-color: #9c9cff; }
 
 [data-irc_foreground="85"] {
-  color: #dc9cff;
-}
+  color: #dc9cff; }
 
 [data-irc_background="85"] {
-  background-color: #dc9cff;
-}
+  background-color: #dc9cff; }
 
 [data-irc_foreground="86"] {
-  color: #ff9cff;
-}
+  color: #ff9cff; }
 
 [data-irc_background="86"] {
-  background-color: #ff9cff;
-}
+  background-color: #ff9cff; }
 
 [data-irc_foreground="87"] {
-  color: #ff94d3;
-}
+  color: #ff94d3; }
 
 [data-irc_background="87"] {
-  background-color: #ff94d3;
-}
+  background-color: #ff94d3; }
 
 [data-irc_foreground="88"] {
-  color: #000000;
-}
+  color: #000000; }
 
 [data-irc_background="88"] {
-  background-color: #000000;
-}
+  background-color: #000000; }
 
 [data-irc_foreground="89"] {
-  color: #131313;
-}
+  color: #131313; }
 
 [data-irc_background="89"] {
-  background-color: #131313;
-}
+  background-color: #131313; }
 
 [data-irc_foreground="90"] {
-  color: #282828;
-}
+  color: #282828; }
 
 [data-irc_background="90"] {
-  background-color: #282828;
-}
+  background-color: #282828; }
 
 [data-irc_foreground="91"] {
-  color: #363636;
-}
+  color: #363636; }
 
 [data-irc_background="91"] {
-  background-color: #363636;
-}
+  background-color: #363636; }
 
 [data-irc_foreground="92"] {
-  color: #4d4d4d;
-}
+  color: #4d4d4d; }
 
 [data-irc_background="92"] {
-  background-color: #4d4d4d;
-}
+  background-color: #4d4d4d; }
 
 [data-irc_foreground="93"] {
-  color: #656565;
-}
+  color: #656565; }
 
 [data-irc_background="93"] {
-  background-color: #656565;
-}
+  background-color: #656565; }
 
 [data-irc_foreground="94"] {
-  color: #818181;
-}
+  color: #818181; }
 
 [data-irc_background="94"] {
-  background-color: #818181;
-}
+  background-color: #818181; }
 
 [data-irc_foreground="95"] {
-  color: #9f9f9f;
-}
+  color: #9f9f9f; }
 
 [data-irc_background="95"] {
-  background-color: #9f9f9f;
-}
+  background-color: #9f9f9f; }
 
 [data-irc_foreground="96"] {
-  color: #bcbcbc;
-}
+  color: #bcbcbc; }
 
 [data-irc_background="96"] {
-  background-color: #bcbcbc;
-}
+  background-color: #bcbcbc; }
 
 [data-irc_foreground="97"] {
-  color: #e2e2e2;
-}
+  color: #e2e2e2; }
 
 [data-irc_background="97"] {
-  background-color: #e2e2e2;
-}
+  background-color: #e2e2e2; }
 
 [data-irc_foreground="98"] {
-  color: #ffffff;
-}
+  color: #ffffff; }
 
 [data-irc_background="98"] {
-  background-color: #ffffff;
-}
+  background-color: #ffffff; }
 
 .results {
   max-width: 1136px;
   padding: 2rem 2rem 4rem 2rem;
   margin: 0 auto;
   transition: opacity 400ms; }
-
-@media (max-width: 800px) {
-  .results {
-    padding-left: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-  }
-}
+  @media (max-width: 800px) {
+    .results {
+      padding-left: 0;
+      padding-right: 0;
+      padding-bottom: 0; } }
   .results .buffer {
     display: block;
     margin-top: 0;
     margin-bottom: 20px;
     position: relative; }
-
-.results .buffer.focus:not(.hasmore) .inline-button {
-  display: none;
-}
+    .results .buffer.focus:not(.hasmore) .inline-button {
+      display: none; }
     .results .buffer .title {
       border-bottom: 1px solid transparent;
       border-top: 1px solid transparent;
@@ -1133,13 +937,10 @@ body {
         background-color: #f2f2f2;
         position: absolute;
         z-index: -2; }
-
-@media (max-width: 800px) {
-  .results .buffer .title:before {
-    left: 0;
-    right: 0;
-  }
-}
+        @media (max-width: 800px) {
+          .results .buffer .title:before {
+            left: 0;
+            right: 0; } }
       .results .buffer .title:after {
         content: "";
         display: block;
@@ -1184,8 +985,7 @@ body {
         opacity: 0;
         pointer-events: none;
         cursor: none;
-        transition: opacity 0.4s 0.2s, background 0.4s;
-      }
+        transition: opacity 0.4s 0.2s, background 0.4s; }
         .results .buffer .title button:hover {
           background-color: rgba(0, 0, 0, 0.06); }
         .results .buffer .title button:after {
@@ -1200,8 +1000,7 @@ body {
           background-size: 1000% 1000%;
           opacity: 0;
           pointer-events: none;
-          transition: background .5s, opacity 1s;
-        }
+          transition: background .5s, opacity 1s; }
         .results .buffer .title button:active:after {
           background-size: 0 0;
           opacity: .2;
@@ -1223,29 +1022,21 @@ body {
     .results .buffer.focus:before {
       margin-bottom: -16px;
       background-color: #ddd; }
-
-@media (min-width: 800px) {
-  .results .buffer.focus:before {
-    margin-left: -16px;
-    margin-right: -16px;
-  }
-}
+      @media (min-width: 800px) {
+        .results .buffer.focus:before {
+          margin-left: -16px;
+          margin-right: -16px; } }
     .results .buffer.focus .title:after {
       background-color: #ddd; }
-
-@media (min-width: 800px) {
-  .results .buffer.focus .title:after {
-    margin-left: -16px;
-    margin-right: -16px;
-  }
-}
-
-.results .buffer.focus .title button {
-  opacity: 1;
-  display: inline-block;
-  cursor: pointer;
-  pointer-events: initial;
-}
+      @media (min-width: 800px) {
+        .results .buffer.focus .title:after {
+          margin-left: -16px;
+          margin-right: -16px; } }
+    .results .buffer.focus .title button {
+      opacity: 1;
+      display: inline-block;
+      cursor: pointer;
+      pointer-events: initial; }
     .results .buffer .container {
       font-size: 13px; }
       .results .buffer .container > .inline-button {
@@ -1264,32 +1055,25 @@ body {
         user-select: none;
         transition: height 400ms;
         position: relative;
-        box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
-      }
-
-.results .buffer .container > .inline-button:before {
-  content: "";
-  display: inline-block;
-  height: 24px;
-  width: 24px;
-  background-image: url(../icons/dots-horizontal.svg);
-  background-size: cover;
-  vertical-align: top;
-  margin-right: 16px;
-}
+        box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24); }
+        .results .buffer .container > .inline-button:before {
+          content: "";
+          display: inline-block;
+          height: 24px;
+          width: 24px;
+          background-image: url(../icons/dots-horizontal.svg);
+          background-size: cover;
+          vertical-align: top;
+          margin-right: 16px; }
       .results .buffer .container .context {
         display: block;
         position: relative; }
-
-.results .buffer .container .context.focus {
+        .results .buffer .container .context.focus {
           padding: 0;
           margin: 1rem -1rem; }
-
-@media (max-width: 800px) {
-  .results .buffer .container .context.focus {
-    margin: 1rem 0;
-  }
-}
+          @media (max-width: 800px) {
+            .results .buffer .container .context.focus {
+              margin: 1rem 0; } }
         .results .buffer .container .context:before {
           bottom: 0;
           box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
@@ -1300,10 +1084,8 @@ body {
           position: absolute;
           right: 0;
           top: 0; }
-
-.results .buffer .container .context > .container > .inline-button {
-  box-shadow: none;
-}
+        .results .buffer .container .context > .container > .inline-button {
+          box-shadow: none; }
         .results .buffer .container .context:not(.focus) > .before, .results .buffer .container .context:not(.focus) > .after {
           display: none; }
         .results .buffer .container .context:not(.focus) > .inline-button {
@@ -1315,47 +1097,40 @@ body {
           border-bottom: 1px solid #e5e5e5;
           color: #212121;
           background: #fff;
-          position: relative;
-        }
-
-.results .buffer .container .context .message > .more {
-  height: 56px;
-  width: 56px;
-  position: relative;
-  padding: 16px 13px;
-  cursor: pointer;
-  color: #555;
-  transition: all .15s;
-  text-decoration: none;
-  text-align: center;
-  margin-right: -24px;
-  margin-top: -12px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-}
-
-.results .buffer .container .context .message > .more:before {
-  background-color: rgba(255, 255, 255, 0.12);
-  bottom: 9px;
-  content: ' ';
-  left: 9px;
-  margin: auto;
-  padding: 4px;
-  position: absolute;
-  right: 9px;
-  top: 9px;
-  z-index: -1;
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 100ms;
-}
-
-.results .buffer .container .context .message > .more:hover:before {
-  opacity: 1;
-}
+          position: relative; }
+          .results .buffer .container .context .message > .more {
+            height: 56px;
+            width: 56px;
+            position: relative;
+            padding: 16px 13px;
+            cursor: pointer;
+            color: #555;
+            transition: all .15s;
+            text-decoration: none;
+            text-align: center;
+            margin-right: -24px;
+            margin-top: -12px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none; }
+            .results .buffer .container .context .message > .more:before {
+              background-color: rgba(255, 255, 255, 0.12);
+              bottom: 9px;
+              content: ' ';
+              left: 9px;
+              margin: auto;
+              padding: 4px;
+              position: absolute;
+              right: 9px;
+              top: 9px;
+              z-index: -1;
+              border-radius: 50%;
+              opacity: 0;
+              transition: opacity 100ms; }
+            .results .buffer .container .context .message > .more:hover:before {
+              opacity: 1; }
           .results .buffer .container .context .message time {
             width: 136px;
             display: inline-block;
@@ -1364,29 +1139,23 @@ body {
             font-family: monospace;
             font-size: 85%;
             color: #444; }
-
-@media (max-width: 800px) {
-  .results .buffer .container .context .message time {
-    position: absolute;
-    right: 8px;
-    bottom: 8px;
-    width: initial;
-    font-style: italic;
-    color: #777;
-  }
-}
+            @media (max-width: 800px) {
+              .results .buffer .container .context .message time {
+                position: absolute;
+                right: 8px;
+                bottom: 8px;
+                width: initial;
+                font-style: italic;
+                color: #777; } }
           .results .buffer .container .context .message .container {
             display: flex;
             flex-grow: 1;
             flex-shrink: 1;
             overflow: hidden; }
-
-@media (max-width: 800px) {
-  .results .buffer .container .context .message .container {
-    display: block;
-    padding-bottom: 16px;
-  }
-}
+            @media (max-width: 800px) {
+              .results .buffer .container .context .message .container {
+                display: block;
+                padding-bottom: 16px; } }
             .results .buffer .container .context .message .container .sender {
               width: 148px;
               display: inline-block;
@@ -1395,35 +1164,24 @@ body {
               flex-shrink: 0;
               overflow: hidden;
               text-overflow: ellipsis; }
-
-.results .buffer .container .context .message .container .sender .invisible {
-  font-size: 0;
-  opacity: 0;
-}
-
-@media (max-width: 800px) {
-  .results .buffer .container .context .message .container .sender {
-    width: initial;
-    padding: 0;
-  }
-}
-
-@media (max-width: 800px) {
-  .results .buffer .container .context .message .container .sender:after {
-    content: ': ';
-    margin-right: 8px;
-  }
-}
+              .results .buffer .container .context .message .container .sender .invisible {
+                font-size: 0;
+                opacity: 0; }
+              @media (max-width: 800px) {
+                .results .buffer .container .context .message .container .sender {
+                  width: initial;
+                  padding: 0; } }
+              @media (max-width: 800px) {
+                .results .buffer .container .context .message .container .sender:after {
+                  content: ': ';
+                  margin-right: 8px; } }
             .results .buffer .container .context .message .container .content {
               flex-grow: 1;
               overflow: hidden; }
               .results .buffer .container .context .message .container .content .irc_highlight {
                 background-color: rgba(251, 246, 167, 0.5);
                 color: #212121 !important; }
-
-@media (max-width: 800px) {
-  .results .buffer .container .context .message .container .content {
-    vertical-align: top;
-    display: inline;
-  }
-}
+              @media (max-width: 800px) {
+                .results .buffer .container .context .message .container .content {
+                  vertical-align: top;
+                  display: inline; } }

@@ -2,7 +2,8 @@ class LoadMore extends Component {
     constructor(text, eventListener) {
         super();
         this.render(text);
-        this.addEventListener('click', eventListener);
+        if (eventListener)
+            this.addEventListener('click', eventListener);
     }
     render(text) {
         return this.elem = function () {

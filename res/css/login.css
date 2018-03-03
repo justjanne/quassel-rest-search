@@ -1,11 +1,11 @@
 @font-face {
-    font-family: 'Material Icons';
+  font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
   src: local("Material Icons"), local("MaterialIcons-Regular"), url(../icons/MaterialIcons-Regular.woff2) format("woff2"), url(../icons/MaterialIcons-Regular.woff) format("woff"); }
 
 .icon {
-    font-family: 'Material Icons', sans-serif;
+  font-family: 'Material Icons', sans-serif;
   font-weight: normal;
   font-style: normal;
   font-size: 24px;
@@ -25,17 +25,16 @@
   /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
-    font-feature-settings: 'liga';
-}
+  font-feature-settings: 'liga'; }
 
 @font-face {
-    font-family: 'Roboto';
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
   src: local("Roboto"), local("Roboto-Regular"), url("../fonts/roboto-v15-latin-ext_cyrillic_greek-ext_cyrillic-ext_latin_greek_vietnamese-regular.woff2") format("woff2"), url("../fonts/roboto-v15-latin-ext_cyrillic_greek-ext_cyrillic-ext_latin_greek_vietnamese-regular.woff") format("woff"); }
 
 @font-face {
-    font-family: 'Roboto';
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 700;
   src: local("Roboto Bold"), local("Roboto-Bold"), url("../fonts/roboto-v15-latin-ext_cyrillic_greek-ext_cyrillic-ext_latin_greek_vietnamese-700.woff2") format("woff2"), url("../fonts/roboto-v15-latin-ext_cyrillic_greek-ext_cyrillic-ext_latin_greek_vietnamese-700.woff") format("woff"); }
@@ -48,15 +47,14 @@
 
 body {
   background: #F2F2F2;
-    font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 81.25%;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   position: relative;
-    padding-right: .9375rem;
-    padding-left: .9375rem;
-}
+  padding-right: .9375rem;
+  padding-left: .9375rem; }
   body .header, body .footer {
     flex-grow: 1; }
 
@@ -73,13 +71,10 @@ form {
   margin: 0 auto;
   color: #212121;
   box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24); }
-
-@media (max-width: 320px) {
+  @media (max-width: 320px) {
     form {
-        padding: 8px 16px;
-        margin: initial;
-    }
-}
+      padding: 8px 16px;
+      margin: initial; } }
 
 .header {
   display: flex;
@@ -105,11 +100,11 @@ h2 {
   text-align: center; }
 
 input[type=text], input[type=password] {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
   -moz-appearance: none;
-    -ms-appearance: none;
-    -o-appearance: none;
-    appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
   appearance: none;
   height: 36px;
   padding: 0 8px;
@@ -122,7 +117,7 @@ input[type=text], input[type=password] {
   color: #404040;
   width: 100%;
   display: block;
-    margin: 0 0 10px;
+  margin: 0 0 10px;
   z-index: 1;
   position: relative; }
 
@@ -142,15 +137,15 @@ input[type="submit"] {
   font-weight: 500;
   line-height: 20px;
   font-size: 14px;
-    -webkit-user-select: none;
+  -webkit-user-select: none;
   -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
   background-size: 0;
   min-width: 88px;
   transition: background-size 500ms cubic-bezier(0.98, 0.005, 0.79, 1.005), background-color 500ms cubic-bezier(0.98, 0.005, 0.79, 1.005), color 500ms cubic-bezier(0.98, 0.005, 0.79, 1.005), box-shadow 300ms;
-    background: #0a70c0 radial-gradient(circle, #105a94 10%, transparent 10.001%, transparent) no-repeat center center;
+  background: #0a70c0 radial-gradient(circle, #105a94 10%, transparent 10.001%, transparent) no-repeat center center;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
   color: #fff;
   width: 100%;
