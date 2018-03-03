@@ -45,6 +45,9 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent; }
 
+html {
+  background: #F2F2F2; }
+
 body {
   background: #F2F2F2;
   font-family: 'Roboto', sans-serif;
@@ -66,7 +69,8 @@ body {
 
 form {
   background: #fff;
-  max-width: 390px;
+  max-width: 320px;
+  width: 100%;
   padding: 20px 48px;
   margin: 0 auto;
   color: #212121;
@@ -74,7 +78,9 @@ form {
   @media (max-width: 320px) {
     form {
       padding: 8px 16px;
-      margin: initial; } }
+      margin: initial;
+      width: initial;
+      max-width: initial; } }
 
 .header {
   display: flex;
