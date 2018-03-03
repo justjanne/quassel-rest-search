@@ -19,8 +19,11 @@ class Message extends Component {
         if ((this.type & 0x00000004) !== 0)
             classes.push("action");
 
+        const content = MircColorHandler.render(this.content);
+
         return this.elem = (
             <span className={classes.join(" ")}>
+                <div className="hidden">{JSON.stringify(MircColorHandler.render(this.content))}</div>
                 <span><time>{this.formatTime()}</time></span>
                 <span className="container">
                     <span className="sender" data-sendercolor={SenderColorHandler.nickToColor(this.getNick())}>
@@ -29,7 +32,7 @@ class Message extends Component {
                         <span className="invisible">&gt; </span>
                     </span>
                     <span className="content">
-                        {MircColorHandler.render(this.content)}
+                        {content.length ? content : null}
                     </span>
                 </span>
                 {this.isAnchor ? (

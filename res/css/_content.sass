@@ -21,8 +21,9 @@
     position: relative
 
     &.focus:not(.hasmore)
-      .inline-button
-        display: none
+      > .container
+        > .inline-button
+          display: none
 
     .title
       border-bottom: 1px solid transparent
