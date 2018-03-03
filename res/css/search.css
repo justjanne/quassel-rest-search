@@ -1098,6 +1098,9 @@ body {
           color: #212121;
           background: #fff;
           position: relative; }
+          @media (max-width: 800px) {
+            .results .buffer .container .context .message {
+              line-height: 1rem; } }
           .results .buffer .container .context .message > .more {
             height: 56px;
             width: 56px;
