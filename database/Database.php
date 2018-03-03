@@ -249,7 +249,7 @@ class Database
 
     public function after(int $anchor, int $buffer, int $limit): array
     {
-        $truncatedLimit = max(min($limit + 1, 50), 1);
+        $truncatedLimit = max(min($limit, 50), 0);
 
         $stmt = $this->backend->loadAfter();
 

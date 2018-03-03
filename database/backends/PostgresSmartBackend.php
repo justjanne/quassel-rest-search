@@ -218,7 +218,7 @@ class PostgresSmartBackend implements Backend
     public function loadBefore(): \PDOStatement
     {
         return $this->db->prepare("
-            SELECT backlog.messageid,
+            SELECT * FROM (SELECT backlog.messageid,
                    backlog.bufferid,
                    buffer.buffername,
                    sender.sender,
@@ -234,7 +234,8 @@ class PostgresSmartBackend implements Backend
               AND backlog.bufferid = :bufferid
               AND backlog.messageid < :anchor
             ORDER BY backlog.messageid DESC
-            LIMIT :limit;
+            LIMIT :limit) t
+            ORDER BY messageid ASC;
         ");
     }
 }
