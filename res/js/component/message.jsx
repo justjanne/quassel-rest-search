@@ -28,6 +28,7 @@ class Message extends Component {
                 {this.isAnchor ? (
                     <a className="more icon" onClick={() => this.sendEvent("focus", [])}>list</a>
                 ) : null}
+                <br/>
             </span>
         );
     }

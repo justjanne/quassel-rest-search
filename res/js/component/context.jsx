@@ -21,19 +21,19 @@ class Context extends Component {
 
     render() {
         return this.elem = (
-            <div className="context">
+            <span className="context">
                 {this.containerBefore = (
-                    <div className="container before">
+                    <span className="container before">
                         {(this.loadBeforeBtn = new LoadMore(translation.context.load_earlier, () => this.triggerLoadBefore())).elem}
-                    </div>
+                    </span>
                 )}
                 {this.message.elem}
                 {this.containerAfter = (
-                    <div className="container after">
+                    <span className="container after">
                         {(this.loadAfterBtn = new LoadMore(translation.context.load_later, () => this.triggerLoadAfter())).elem}
-                    </div>
+                    </span>
                 )}
-            </div>
+            </span>
         );
     }
 

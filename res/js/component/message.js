@@ -47,6 +47,8 @@ class Message extends Component {
                 $$o.appendChild($$p);
                 return $$o;
             }.call(this) : null);
+            var $$q = document.createElement('br');
+            $$a.appendChild($$q);
             return $$a;
         }.call(this);
     }

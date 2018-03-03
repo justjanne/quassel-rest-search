@@ -15,17 +15,17 @@ class Context extends Component {
     }
     render() {
         return this.elem = function () {
-            var $$a = document.createElement('div');
+            var $$a = document.createElement('span');
             $$a.setAttribute('class', 'context');
             $$a.appendChildren(this.containerBefore = function () {
-                var $$c = document.createElement('div');
+                var $$c = document.createElement('span');
                 $$c.setAttribute('class', 'container before');
                 $$c.appendChildren((this.loadBeforeBtn = new LoadMore(translation.context.load_earlier, () => this.triggerLoadBefore())).elem);
                 return $$c;
             }.call(this));
             $$a.appendChildren(this.message.elem);
             $$a.appendChildren(this.containerAfter = function () {
-                var $$g = document.createElement('div');
+                var $$g = document.createElement('span');
                 $$g.setAttribute('class', 'container after');
                 $$g.appendChildren((this.loadAfterBtn = new LoadMore(translation.context.load_later, () => this.triggerLoadAfter())).elem);
                 return $$g;

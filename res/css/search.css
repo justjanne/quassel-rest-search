@@ -1278,6 +1278,7 @@ body {
   margin-right: 16px;
 }
       .results .buffer .container .context {
+        display: block;
         position: relative; }
 
 .results .buffer .container .context.focus {
