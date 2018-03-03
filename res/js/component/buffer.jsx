@@ -72,7 +72,7 @@ class Buffer extends Component {
 
     load(resultSet) {
         resultSet.results
-            .map((msg) => new Context(new Message(msg.messageid, msg.type, msg.time, msg.sender, msg.message)))
+            .map((msg) => new Context(new Message(msg.messageid, msg.type, msg.time, msg.sender, msg.message, true)))
             .forEach((context) => {
                 this.contextList.push(context);
                 this.insert(context)
