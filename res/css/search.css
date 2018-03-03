@@ -1173,11 +1173,12 @@ body {
               @media (max-width: 800px) {
                 .results .buffer .container .context .message .container .sender {
                   width: initial;
-                  padding: 0; } }
+                  padding: 0;
+                  display: inline;
+                  line-height: 1; } }
               @media (max-width: 800px) {
                 .results .buffer .container .context .message .container .sender:after {
-                  content: ': ';
-                  margin-right: 8px; } }
+                  content: ': '; } }
             .results .buffer .container .context .message .container .content {
               flex-grow: 1;
               overflow: hidden; }
