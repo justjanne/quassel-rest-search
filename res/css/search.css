@@ -913,7 +913,9 @@ body {
     display: block;
     margin-top: 0;
     margin-bottom: 20px;
-    position: relative; }
+    position: relative;
+    animation-duration: 0.6s;
+    animation-name: slidein; }
     .results .buffer.focus:not(.hasmore) > .container > .inline-button {
       display: none; }
     .results .buffer .title {
@@ -1071,7 +1073,9 @@ body {
         background-image: url(../icons/chevron-down.svg); }
       .results .buffer .container .context {
         display: block;
-        position: relative; }
+        position: relative;
+        animation-duration: 1s;
+        animation-name: slidein; }
         .results .buffer .container .context.focus {
           padding: 0;
           margin: 0.5rem -0.5rem; }
@@ -1205,3 +1209,11 @@ body {
             content: '['; }
           .results .buffer .container .context .message.notice .sender:after {
             content: ']'; }
+
+@keyframes slidein {
+  from {
+    margin-top: 1rem;
+    opacity: 0; }
+  to {
+    margin-top: 0;
+    opacity: 1; } }
