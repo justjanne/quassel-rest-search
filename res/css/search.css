@@ -952,7 +952,7 @@ body {
     height: 100%;
     margin: 4rem;
     animation-duration: 0.6s;
-    animation-name: slidein; }
+    animation-name: slidein_error; }
     .results .error img {
       max-width: 100%; }
     .results .error h1 {
@@ -1272,6 +1272,14 @@ body {
     opacity: 0; }
   to {
     margin-top: 0;
+    opacity: 1; } }
+
+@keyframes slidein_error {
+  from {
+    margin-top: 6rem;
+    opacity: 0; }
+  to {
+    margin-top: 4rem;
     opacity: 1; } }
 
 @keyframes slidein_msg_before {
