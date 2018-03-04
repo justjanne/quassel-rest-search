@@ -187,7 +187,7 @@
           vertical-align: top
           margin-right: 16px
 
-      &.before > .inline-button:before
+      &.before> .inline-button:before
         background-image: url(../icons/chevron-up.svg)
 
       &.after > .inline-button:before
@@ -199,6 +199,9 @@
         animation-duration: 1s
         animation-name: slidein
 
+        .container .inline-button:first-child:last-child
+          display: none
+
         &.focus
           padding: 0
           margin: 0.5rem -0.5rem
@@ -206,19 +209,15 @@
           @media(max-width: 800px)
             margin: 1rem 0
 
-        &:before
-          bottom: 0
-          box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24)
-          content: ''
-          display: block
-          left: 0
-          pointer-events: none
-          position: absolute
-          right: 0
-          top: 0
+          .container.before
+            .message, .inline-button
+              animation-name: slidein_msg_before
+              animation-duration: 400ms
 
-        > .container > .inline-button
-          box-shadow: none
+          .container.after
+            .message, .inline-button
+              animation-name: slidein_msg_after
+              animation-duration: 400ms
 
         &:not(.focus)
           > .before, > .after
@@ -235,6 +234,17 @@
           color: #212121
           background: #fff
           position: relative
+
+          &:before
+            bottom: 0
+            box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24)
+            content: ''
+            display: block
+            left: 0
+            pointer-events: none
+            position: absolute
+            right: 0
+            top: 0
 
           > .more
             height: 56px

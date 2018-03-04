@@ -1076,24 +1076,20 @@ body {
         position: relative;
         animation-duration: 1s;
         animation-name: slidein; }
+        .results .buffer .container .context .container .inline-button:first-child:last-child {
+          display: none; }
         .results .buffer .container .context.focus {
           padding: 0;
           margin: 0.5rem -0.5rem; }
           @media (max-width: 800px) {
             .results .buffer .container .context.focus {
               margin: 1rem 0; } }
-        .results .buffer .container .context:before {
-          bottom: 0;
-          box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
-          content: '';
-          display: block;
-          left: 0;
-          pointer-events: none;
-          position: absolute;
-          right: 0;
-          top: 0; }
-        .results .buffer .container .context > .container > .inline-button {
-          box-shadow: none; }
+          .results .buffer .container .context.focus .container.before .message, .results .buffer .container .context.focus .container.before .inline-button {
+            animation-name: slidein_msg_before;
+            animation-duration: 400ms; }
+          .results .buffer .container .context.focus .container.after .message, .results .buffer .container .context.focus .container.after .inline-button {
+            animation-name: slidein_msg_after;
+            animation-duration: 400ms; }
         .results .buffer .container .context:not(.focus) > .before, .results .buffer .container .context:not(.focus) > .after {
           display: none; }
         .results .buffer .container .context:not(.focus) > .inline-button {
@@ -1106,6 +1102,16 @@ body {
           color: #212121;
           background: #fff;
           position: relative; }
+          .results .buffer .container .context .message:before {
+            bottom: 0;
+            box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
+            content: '';
+            display: block;
+            left: 0;
+            pointer-events: none;
+            position: absolute;
+            right: 0;
+            top: 0; }
           .results .buffer .container .context .message > .more {
             height: 56px;
             width: 56px;
@@ -1213,6 +1219,22 @@ body {
 @keyframes slidein {
   from {
     margin-top: 1rem;
+    opacity: 0; }
+  to {
+    margin-top: 0;
+    opacity: 1; } }
+
+@keyframes slidein_msg_before {
+  from {
+    margin-bottom: .5rem;
+    opacity: 0; }
+  to {
+    margin-bottom: 0;
+    opacity: 1; } }
+
+@keyframes slidein_msg_after {
+  from {
+    margin-top: .5rem;
     opacity: 0; }
   to {
     margin-top: 0;
