@@ -1070,7 +1070,7 @@ body {
         position: relative; }
         .results .buffer .container .context.focus {
           padding: 0;
-          margin: 1rem -1rem; }
+          margin: 0.5rem -0.5rem; }
           @media (max-width: 800px) {
             .results .buffer .container .context.focus {
               margin: 1rem 0; } }

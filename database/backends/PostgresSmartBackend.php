@@ -206,7 +206,7 @@ class PostgresSmartBackend implements Backend
                    backlog.type,
                    backlog.time,
                    network.networkname,
-                   replace(replace(replace(backlog.message, '&', '&amp;'), '<', '&lt;'), '>', '&gt;') AS message
+                   backlog.message
             FROM
               backlog
               JOIN sender ON backlog.senderid = sender.senderid
@@ -230,7 +230,7 @@ class PostgresSmartBackend implements Backend
                    backlog.type,
                    backlog.time,
                    network.networkname,
-                   replace(replace(replace(backlog.message, '&', '&amp;'), '<', '&lt;'), '>', '&gt;') AS message
+                   backlog.message
             FROM
               backlog
               JOIN sender ON backlog.senderid = sender.senderid
