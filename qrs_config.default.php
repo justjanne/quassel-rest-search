@@ -11,7 +11,7 @@ define('qrs_db_pass', 'password');
 
 define('qrs_db_option_tsqueryfunction', "plainto_tsquery('english', :query)");
 // Timeout in milliseconds
-define('qrs_db_option_timeout', 1);
+define('qrs_db_option_timeout', 5000);
 
 define('qrs_backend', 'pgsql-smart');
 
