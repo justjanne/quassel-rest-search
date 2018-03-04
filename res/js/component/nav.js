@@ -52,6 +52,7 @@ class Navigation extends Component {
             $$i.appendChild($$j);
             var $$k = document.createTextNode('exit_to_app');
             $$j.appendChild($$k);
+            $$b.appendChildren((this.loading = new Loading()).elem);
             $$a.appendChildren((this.historyView = new HistoryView()).elem);
             return $$a;
         }.call(this);

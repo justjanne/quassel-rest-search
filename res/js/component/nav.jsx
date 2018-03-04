@@ -36,6 +36,7 @@ class Navigation extends Component {
                                className="icon">exit_to_app</a>
                         </div>
                     </div>
+                    {(this.loading = new Loading()).elem}
                 </div>
                 {(this.historyView = new HistoryView()).elem}
             </div>

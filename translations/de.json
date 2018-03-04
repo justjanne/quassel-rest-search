@@ -24,6 +24,9 @@
       "error_unauthed": "Sie müssen angemeldet sein, um diese Seite zu nutzen."
     }
   },
+  "error": {
+    "none_found": "Keine Ergebnisse gefunden"
+  },
   "search": "Suchen",
   "logout": "Abmelden",
   "title": "QuasselSearch"

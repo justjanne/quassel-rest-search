@@ -24,6 +24,9 @@
       "error_unauthed": "You need to be logged in to access this page."
     }
   },
+  "error": {
+    "none_found": "No results found"
+  },
   "search": "Search",
   "logout": "Logout",
   "title": "QuasselSearch"

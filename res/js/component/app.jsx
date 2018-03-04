@@ -6,6 +6,7 @@ class App {
         this.buffers = [];
 
         this.loadingQuery = 0;
+        this.error = null;
 
         if (Storage.exists('language')) {
             moment.locale(Storage.get('language'));
@@ -32,6 +33,8 @@ class App {
 
     search(query, sender, buffer, network, before, since) {
         this.clear();
+        this.navigation.loading.show();
+
         this.navigation.input.blur();
         this.navigation.historyView.resetNavigation();
         this.navigation.historyView.add(new HistoryElement(query));
@@ -47,12 +50,16 @@ class App {
             if (this.loadingQuery !== queryId)
                 return;
 
+            this.navigation.loading.hide();
             this.buffers = result.map((buffer) => {
                 return new Buffer(buffer.bufferid, buffer.buffername, buffer.networkname, buffer.hasmore, buffer.messages.map((msg) => {
                     return new Context(new Message(msg.messageid, msg.type, msg.time, msg.sender, msg.message, true));
                 }));
             });
             this.buffers.forEach((buffer) => this.insert(buffer));
+            if (this.buffers.length === 0) {
+                this.showError(translation.error.none_found);
+            }
         });
     }
 
@@ -61,12 +68,21 @@ class App {
             const buffer = this.buffers.pop();
             this.resultContainer.removeChild(buffer.elem);
         }
+
+        if (this.error) {
+            this.resultContainer.removeChild(this.error.elem);
+        }
     }
 
     clearAll() {
         this.clear();
         this.navigation.historyView.clear();
         statehandler.clear();
+    }
+
+    showError(text) {
+        this.error = new Error(text);
+        this.resultContainer.appendChild(this.error.elem);
     }
 
     insert(buffer) {
