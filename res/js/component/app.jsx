@@ -70,8 +70,8 @@ class App {
         }
 
         if (this.error) {
-            this.error = null;
             this.resultContainer.removeChild(this.error.elem);
+            this.error = null;
         }
     }
 

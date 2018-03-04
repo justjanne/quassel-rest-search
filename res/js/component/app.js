@@ -63,8 +63,8 @@ class App {
             this.resultContainer.removeChild(buffer.elem);
         }
         if (this.error) {
-            this.error = null;
             this.resultContainer.removeChild(this.error.elem);
+            this.error = null;
         }
     }
     clearAll() {
