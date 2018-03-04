@@ -1065,6 +1065,10 @@ body {
           background-size: cover;
           vertical-align: top;
           margin-right: 16px; }
+      .results .buffer .container.before > .inline-button:before {
+        background-image: url(../icons/chevron-up.svg); }
+      .results .buffer .container.after > .inline-button:before {
+        background-image: url(../icons/chevron-down.svg); }
       .results .buffer .container .context {
         display: block;
         position: relative; }
