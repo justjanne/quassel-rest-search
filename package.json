@@ -5,7 +5,7 @@
   "scripts": {
     "jsx": "node_modules/nativejsx/bin/nativejsx res/js/**/*.jsx",
     "dep": "cp node_modules/nativejsx/dist/nativejsx-prototypes.js res/js/util/",
-    "sass": "node_modules/node-sass/bin/node-sass res/css/login.sass -o res/css/ && node_modules/node-sass/bin/node-sass res/css/search.sass -o res/css/"
+    "sass": "node_modules/node-sass/bin/node-sass --style compressed res/css/ -o res/css/"
   },
   "repository": {
     "type": "git",
