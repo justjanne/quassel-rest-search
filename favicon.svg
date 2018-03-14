@@ -5,7 +5,7 @@
       <stop stop-color="#2883f2" offset="0"/>
       <stop stop-color="#0b50a5" offset="1"/>
     </linearGradient>
-    <radialGradient id="gradientLongShadow" r="38" gradientUnits="userSpaceOnUse">
+    <radialGradient id="gradientLongShadow" r="38" cx="38" cy="38" gradientUnits="userSpaceOnUse">
       <stop stop-color="#1a237e" stop-opacity="0.2" offset="0.71"/>
       <stop stop-color="#1a237e" stop-opacity="0" offset="1"/>
     </radialGradient>
