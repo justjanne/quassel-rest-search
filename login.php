@@ -18,16 +18,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
     if ($backend->authenticate($username, $password)) {
         $session->username = $username;
         $session->password = $password;
-        $renderer->redirect('/');
+        $renderer->redirect('.');
     } else {
         syslog(LOG_ERR, "Could not authenticate user " . $username);
-        $renderer->redirect('/login.php', ['message' => 'login.message.error_invalid', 'type' => 'error']);
+        $renderer->redirect('login.php', ['message' => 'login.message.error_invalid', 'type' => 'error']);
     }
 } elseif (isset($_GET['action']) && $_GET['action'] === 'logout') {
     $session->destroy();
-    $renderer->redirect('/login.php', ['message' => 'login.message.success_logout', 'type' => 'info']);
+    $renderer->redirect('login.php', ['message' => 'login.message.success_logout', 'type' => 'info']);
 } else if ($backend->authenticate($session->username ?: '', $session->password ?: '')) {
-    $renderer->redirect('/');
+    $renderer->redirect('.');
 } else {
     $renderer->renderPage('login');
 }

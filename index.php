@@ -14,7 +14,7 @@ $backend = Database::createFromConfig($config);
 
 if (!$backend->authenticate($session->username ?: '', $session->password ?: '')) {
     $session->destroy();
-    $renderer->redirect('/login.php', ['message' => 'login.message.error_unauthed', 'type' => 'error']);
+    $renderer->redirect('login.php', ['message' => 'login.message.error_unauthed', 'type' => 'error']);
 } else {
     $renderer->renderPage('search', ['username' => $session->username]);
 }
