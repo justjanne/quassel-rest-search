@@ -2,8 +2,6 @@ class Buffer extends Component {
     constructor(id, name, network, hasMore, contextList = []) {
         super();
 
-        console.log(id + ":" + name + ":" + hasMore);
-
         this.id = id;
         this.name = name;
         this.network = network;
