@@ -4,7 +4,7 @@ class Message extends Component {
 
         this.id = id;
         this.type = type;
-        this.time = time;
+        this.time = time.replace(" ", "T") + "Z";
         this.sender = sender;
         this.content = content;
         this.isAnchor = isAnchor;
@@ -23,20 +23,23 @@ class Message extends Component {
 
         return this.elem = (
             <span className={classes.join(" ")}>
-                <div className="hidden">{JSON.stringify(MircColorHandler.render(this.content))}</div>
-                <span><time>{this.formatTime()}</time></span>
+                <span>
+                    <span className="invisible" aria-hidden="true">[</span>
+                    <time dateTime={this.time}>{this.formatTime()}</time>
+                    <span className="invisible" aria-hidden="true">]</span>
+                </span>
                 <span className="container">
                     <span className="sender" data-sendercolor={SenderColorHandler.nickToColor(this.getNick())}>
-                        <span className="invisible"> &lt;</span>
+                        <span className="invisible" aria-hidden="true"> &lt;</span>
                         {this.getNick()}
-                        <span className="invisible">&gt; </span>
+                        <span className="invisible" aria-hidden="true">&gt; </span>
                     </span>
                     <span className="content">
                         {content.length ? content : null}
                     </span>
                 </span>
                 {this.isAnchor ? (
-                    <a className="more icon" onClick={() => this.sendEvent("focus", [])}>list</a>
+                    <a className="more icon" role="button" aria-label={translation.context.show_hide} onClick={() => this.sendEvent("focus", [])}>list</a>
                 ) : null}
                 <br/>
             </span>
@@ -48,7 +51,7 @@ class Message extends Component {
         const timeFormat = Storage.exists('timeformat') ? Storage.get('timeformat') : 'LT';
         const dateTimeFormat = dateFormat + " " + timeFormat;
 
-        return moment(new Date(this.time.replace(" ", "T") + "Z")).format(dateTimeFormat);
+        return moment(new Date(this.time)).format(dateTimeFormat);
     }
 
     getNick() {

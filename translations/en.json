@@ -9,7 +9,8 @@
   },
   "context": {
     "load_later": "Load Later Context",
-    "load_earlier": "Load Earlier Context"
+    "load_earlier": "Load Earlier Context",
+    "show_hide": "Toggle message context"
   },
   "history": {
     "error_unavailable": "No search history available"

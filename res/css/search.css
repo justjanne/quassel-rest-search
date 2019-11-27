@@ -1152,6 +1152,9 @@ body {
           color: #212121;
           background: #fff;
           position: relative; }
+          .results .buffer .container .context .message .invisible {
+            font-size: 0;
+            opacity: 0; }
           .results .buffer .container .context .message:before {
             bottom: 0;
             box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
@@ -1228,9 +1231,6 @@ body {
               flex-shrink: 0;
               overflow: hidden;
               text-overflow: ellipsis; }
-              .results .buffer .container .context .message .container .sender .invisible {
-                font-size: 0;
-                opacity: 0; }
               @media (max-width: 800px) {
                 .results .buffer .container .context .message .container .sender {
                   width: initial;
