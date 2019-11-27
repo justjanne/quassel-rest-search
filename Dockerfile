@@ -1,9 +1,10 @@
-FROM php:7.3-apache
+FROM k8r.eu/justjanne/php:latest
 
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    libsqlite3-dev
+RUN apk add --no-cache --update \
+    php-json \
+    php-pdo_sqlite \
+    php-pdo_pgsql
 
-RUN docker-php-ext-install pdo pdo_pgsql pdo_sqlite
+USER nobody
 
 ADD . /var/www/html/
