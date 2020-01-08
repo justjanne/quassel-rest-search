@@ -9,7 +9,8 @@
   },
   "context": {
     "load_later": "Ältere Nachrichten Laden",
-    "load_earlier": "Neuere Nachrichten Laden"
+    "load_earlier": "Neuere Nachrichten Laden",
+    "show_hide": "Nachrichtenkontext anzeigen/verstecken"
   },
   "history": {
     "error_unavailable": "Keine vorherigen Suchbegriffe vorhanden"

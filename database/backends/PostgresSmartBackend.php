@@ -8,13 +8,15 @@ class PostgresSmartBackend implements Backend
 {
     private $db;
     private $options;
+    private $enable_ranking;
 
-    function __construct(\PDO $db, array $options)
+    function __construct(\PDO $db, array $options, bool $enable_ranking)
     {
         $this->db = $db;
         $timeout = $options["timeout"];
         $this->db->exec("SET statement_timeout = $timeout;");
         $this->options = $options;
+        $this->enable_ranking = $enable_ranking;
     }
 
     public function findUser(): \PDOStatement
@@ -31,9 +33,36 @@ class PostgresSmartBackend implements Backend
         return array_key_exists('tsqueryfunction', $this->options) ? $this->options['tsqueryfunction'] : "plainto_tsquery('english', :query)";
     }
 
+    private function rankingFunction(): string
+    {
+        if ($this->enable_ranking) {
+            return "(
+                      (ts_rank_cd(tsv, query, :config_normalization) ^ :weight_content) *
+                      ((CASE
+                        WHEN TYPE IN (1, 4) THEN 1.0
+                        WHEN TYPE IN (2, 1024, 2048, 4096, 16384) THEN 0.8
+                        WHEN TYPE IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.6
+                        WHEN TYPE IN (8, 16, 8192, 131072) THEN 0.4
+                        ELSE 0.2 END) ^ :weight_type) *
+                      ((1 / (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - EXTRACT(EPOCH FROM time))) ^ :weight_time)
+                    )";
+        } else {
+            return "(
+                      ((CASE
+                        WHEN TYPE IN (1, 4) THEN 1.0
+                        WHEN TYPE IN (2, 1024, 2048, 4096, 16384) THEN 0.8
+                        WHEN TYPE IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.6
+                        WHEN TYPE IN (8, 16, 8192, 131072) THEN 0.4
+                        ELSE 0.2 END) ^ :weight_type) *
+                      ((1 / (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - EXTRACT(EPOCH FROM time))) ^ :weight_time)
+                    )";
+        }
+    }
+
     public function findInBuffers(): \PDOStatement
     {
         $tsQueryFunction = $this->tsQueryFunction();
+        $rankingFunction = $this->rankingFunction();
         return $this->db->prepare("
             SELECT
               ranked_messages.bufferid,
@@ -70,16 +99,7 @@ class PostgresSmartBackend implements Backend
                     backlog.time,
                     backlog.message,
                     query,
-                    (
-                      (ts_rank_cd(tsv, query, :config_normalization) ^ :weight_content) *
-                      ((CASE
-                        WHEN TYPE IN (1, 4) THEN 1.0
-                        WHEN TYPE IN (2, 1024, 2048, 4096, 16384) THEN 0.8
-                        WHEN TYPE IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.6
-                        WHEN TYPE IN (8, 16, 8192, 131072) THEN 0.4
-                        ELSE 0.2 END) ^ :weight_type) *
-                      ((1 / (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - EXTRACT(EPOCH FROM TIME))) ^ :weight_time)
-                    ) AS rank_value
+                    $rankingFunction AS rank_value
                   FROM
                     backlog
                     JOIN buffer ON backlog.bufferid = buffer.bufferid
@@ -128,6 +148,7 @@ class PostgresSmartBackend implements Backend
     public function findInBuffer(): \PDOStatement
     {
         $tsQueryFunction = $this->tsQueryFunction();
+        $rankingFunction = $this->rankingFunction();
         return $this->db->prepare("
             SELECT
               matching_messages.messageid,
@@ -145,16 +166,7 @@ class PostgresSmartBackend implements Backend
                  backlog.time,
                  backlog.message,
                  query,
-                 (
-                   (ts_rank_cd(tsv, query, :config_normalization) ^ :weight_content) *
-                   ((CASE
-                     WHEN TYPE IN (1, 4) THEN 1.0
-                     WHEN TYPE IN (2, 1024, 2048, 4096, 16384) THEN 0.8
-                     WHEN TYPE IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.6
-                     WHEN TYPE IN (8, 16, 8192, 131072) THEN 0.4
-                     ELSE 0.2 END) ^ :weight_type) *
-                   ((1 / (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - EXTRACT(EPOCH FROM TIME))) ^ :weight_time)
-                 ) AS rank_value
+                 $rankingFunction AS rank_value
                FROM
                  backlog
                  JOIN buffer ON backlog.bufferid = buffer.bufferid

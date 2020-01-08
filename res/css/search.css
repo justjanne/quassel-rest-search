@@ -343,64 +343,64 @@ body {
 .irc_monospace {
   font-family: 'Roboto Mono', 'Source Code Pro', monospace; }
 
-[data-irc_foreground="00"] {
+[data-irc_foreground="0"] {
   color: #ffffff; }
 
-[data-irc_background="00"] {
+[data-irc_background="0"] {
   background-color: #ffffff; }
 
-[data-irc_foreground="01"] {
+[data-irc_foreground="1"] {
   color: #000000; }
 
-[data-irc_background="01"] {
+[data-irc_background="1"] {
   background-color: #000000; }
 
-[data-irc_foreground="02"] {
+[data-irc_foreground="2"] {
   color: #000080; }
 
-[data-irc_background="02"] {
+[data-irc_background="2"] {
   background-color: #000080; }
 
-[data-irc_foreground="03"] {
+[data-irc_foreground="3"] {
   color: #008000; }
 
-[data-irc_background="03"] {
+[data-irc_background="3"] {
   background-color: #008000; }
 
-[data-irc_foreground="04"] {
+[data-irc_foreground="4"] {
   color: #ff0000; }
 
-[data-irc_background="04"] {
+[data-irc_background="4"] {
   background-color: #ff0000; }
 
-[data-irc_foreground="05"] {
+[data-irc_foreground="5"] {
   color: #800000; }
 
-[data-irc_background="05"] {
+[data-irc_background="5"] {
   background-color: #800000; }
 
-[data-irc_foreground="06"] {
+[data-irc_foreground="6"] {
   color: #800080; }
 
-[data-irc_background="06"] {
+[data-irc_background="6"] {
   background-color: #800080; }
 
-[data-irc_foreground="07"] {
+[data-irc_foreground="7"] {
   color: #ffa500; }
 
-[data-irc_background="07"] {
+[data-irc_background="7"] {
   background-color: #ffa500; }
 
-[data-irc_foreground="08"] {
+[data-irc_foreground="8"] {
   color: #ffff00; }
 
-[data-irc_background="08"] {
+[data-irc_background="8"] {
   background-color: #ffff00; }
 
-[data-irc_foreground="09"] {
+[data-irc_foreground="9"] {
   color: #00ff00; }
 
-[data-irc_background="09"] {
+[data-irc_background="9"] {
   background-color: #00ff00; }
 
 [data-irc_foreground="10"] {
@@ -1152,6 +1152,9 @@ body {
           color: #212121;
           background: #fff;
           position: relative; }
+          .results .buffer .container .context .message .invisible {
+            font-size: 0;
+            opacity: 0; }
           .results .buffer .container .context .message:before {
             bottom: 0;
             box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
@@ -1228,9 +1231,6 @@ body {
               flex-shrink: 0;
               overflow: hidden;
               text-overflow: ellipsis; }
-              .results .buffer .container .context .message .container .sender .invisible {
-                font-size: 0;
-                opacity: 0; }
               @media (max-width: 800px) {
                 .results .buffer .container .context .message .container .sender {
                   width: initial;

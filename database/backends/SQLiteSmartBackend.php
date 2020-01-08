@@ -9,7 +9,7 @@ class SQLiteSmartBackend implements Backend
     private $db;
     private $options;
 
-    function __construct(\PDO $db, array $options)
+    function __construct(\PDO $db, array $options, $enable_ranking)
     {
         $this->db = $db;
         $this->options = $options;

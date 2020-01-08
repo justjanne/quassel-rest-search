@@ -14,5 +14,6 @@ define('qrs_db_option_tsqueryfunction', "plainto_tsquery('english', :query)");
 define('qrs_db_option_timeout', 5000);
 
 define('qrs_backend', 'pgsql-smart');
+define('qrs_enable_ranking', false);
 
 define('qrs_path_prefix', '');

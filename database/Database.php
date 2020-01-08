@@ -14,20 +14,22 @@ class Database
     private $user;
 
     private $backend;
+    private $enable_ranking;
 
-    private function __construct(string $database_connector, string $username, string $password, string $type, array $options)
+    private function __construct(string $database_connector, string $username, string $password, string $type, array $options, bool $enable_ranking)
     {
-        $this->backend = BackendFactory::create($type, new \PDO($database_connector, $username, $password), $options);
+        $this->backend = BackendFactory::create($type, new \PDO($database_connector, $username, $password), $options, $enable_ranking);
+        $this->enable_ranking = $enable_ranking;
     }
 
     public static function createFromConfig(Config $config): Database
     {
-        return Database::createFromOptions($config->database_connector, $config->username, $config->password, $config->backend, $config->database_options);
+        return Database::createFromOptions($config->database_connector, $config->username, $config->password, $config->backend, $config->database_options, $config->enable_ranking);
     }
 
-    public static function createFromOptions(string $database_connector, string $username, string $password, string $type, array $options): Database
+    public static function createFromOptions(string $database_connector, string $username, string $password, string $type, array $options, bool $enable_ranking): Database
     {
-        return new Database($database_connector, $username, $password, $type, $options);
+        return new Database($database_connector, $username, $password, $type, $options, $enable_ranking);
     }
 
     public function authenticateFromHeader(string $header): bool
@@ -67,10 +69,12 @@ class Database
 
     private function apply_config(\PDOStatement $stmt)
     {
-        $stmt->bindValue(':config_normalization', 4, PDO::PARAM_INT);
+        if ($this->enable_ranking) {
+            $stmt->bindValue(':config_normalization', 4, PDO::PARAM_INT);
+            $stmt->bindValue(':weight_content', 14, PDO::PARAM_INT);
+        }
 
-        $stmt->bindValue(':weight_content', 14, PDO::PARAM_INT);
-        $stmt->bindValue(':weight_type', 16, PDO::PARAM_INT);
+        $stmt->bindValue(':weight_type', 32, PDO::PARAM_INT);
         $stmt->bindValue(':weight_time', 1, PDO::PARAM_INT);
     }
 
