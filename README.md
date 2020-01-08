@@ -52,6 +52,25 @@ First, rename the file `qrs_config.default.php` to `qrs_config.php`.
 
 Then configure the database access, backend (currently only `pgsql-smart` is available), and the prefix of the path.
 
+Usage
+-----
+
+Log in using your quassel username and password.
+
+You can simply search on any term by entering the term in the query box and hitting enter.
+
+More complex queries are available by using these special keywords (followed by a colon and a value) in the query box:
+
+* sender
+* buffer
+* network
+* before
+* since
+
+Example search using special keywords:
+
+```sender:justJanne network:freenode buffer:quassel since:11/01/2019 before:01/01/2020 welcome```
+
 Development
 -----------
 
