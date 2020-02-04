@@ -112,7 +112,6 @@ class PostgresSmartBackend implements Backend
                     AND (:ignore_before::BOOLEAN OR backlog.time < :before::TIMESTAMP)
                     AND (:ignore_buffer::BOOLEAN OR buffer.buffername ~* :buffer)
                     AND backlog.type & 23559 > 0
-                    AND backlog.tsv @@ query
                  ) matching_messages
                 JOIN sender ON matching_messages.senderid = sender.senderid
                 JOIN network ON matching_messages.networkid = network.networkid
@@ -182,7 +181,6 @@ class PostgresSmartBackend implements Backend
                  AND (:ignore_since::BOOLEAN OR backlog.time > :since::TIMESTAMP)
                  AND (:ignore_before::BOOLEAN OR backlog.time < :before::TIMESTAMP)
                  AND backlog.type & 23559 > 0
-                 AND backlog.tsv @@ query
               ) matching_messages
               JOIN sender ON matching_messages.senderid = sender.senderid
               JOIN network ON matching_messages.networkid = network.networkid
