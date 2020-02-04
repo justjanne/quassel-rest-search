@@ -64,6 +64,9 @@ class PostgresSmartBackend implements Backend
         $tsQueryFunction = $this->tsQueryFunction();
         $rankingFunction = $this->rankingFunction();
         return $this->db->prepare("
+            WITH matching_backlog AS (
+              SELECT * FROM backlog WHERE tsv @@ $tsQueryFunction
+            )
             SELECT
               ranked_messages.bufferid,
               ranked_messages.buffername,
@@ -101,7 +104,7 @@ class PostgresSmartBackend implements Backend
                     query,
                     $rankingFunction AS rank_value
                   FROM
-                    backlog
+                    matching_backlog AS backlog
                     JOIN buffer ON backlog.bufferid = buffer.bufferid
                     , $tsQueryFunction query
                   WHERE buffer.userid = :userid
@@ -150,6 +153,9 @@ class PostgresSmartBackend implements Backend
         $tsQueryFunction = $this->tsQueryFunction();
         $rankingFunction = $this->rankingFunction();
         return $this->db->prepare("
+            WITH matching_backlog AS (
+              SELECT * FROM backlog WHERE tsv @@ $tsQueryFunction
+            )
             SELECT
               matching_messages.messageid,
               matching_messages.time,
@@ -168,7 +174,7 @@ class PostgresSmartBackend implements Backend
                  query,
                  $rankingFunction AS rank_value
                FROM
-                 backlog
+                 matching_backlog AS backlog
                  JOIN buffer ON backlog.bufferid = buffer.bufferid
                  , $tsQueryFunction query
                WHERE buffer.userid = :userid
