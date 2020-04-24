@@ -19,6 +19,6 @@
   "homepage": "https://github.com/justjanne/quassel-rest-search#readme",
   "devDependencies": {
     "nativejsx": "https://github.com/j3l11234/nativejsx/archive/4.2.0.2.tar.gz",
-    "node-sass": "^4.13.0"
+    "node-sass": "^4.14.0"
   }
 }
