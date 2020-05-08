@@ -5,7 +5,6 @@ namespace QuasselRestSearch;
 require_once '../../qrs_config.php';
 require_once '../../database/Database.php';
 require_once '../../database/helper/RendererHelper.php';
-require_once '../../database/helper/SessionHelper.php';
 
 $config = Config::createFromGlobals();
 $renderer = new RendererHelper($config);

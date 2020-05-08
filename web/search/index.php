@@ -7,8 +7,8 @@ require_once '../../database/Database.php';
 require_once '../../database/helper/RendererHelper.php';
 require_once '../../database/helper/SessionHelper.php';
 
-$session = SessionHelper::getInstance();
 $config = Config::createFromGlobals();
+$session = SessionHelper::getInstance($config);
 $renderer = new RendererHelper($config);
 $backend = Database::createFromConfig($config);
 

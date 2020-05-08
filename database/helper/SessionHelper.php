@@ -8,18 +8,20 @@ class SessionHelper
     const SESSION_NOT_STARTED = FALSE;
     private static $instance;
     private $sessionState = self::SESSION_NOT_STARTED;
+    private $config;
 
-    private function __construct()
+    private function __construct(Config $config)
     {
+        $this->config = $config;
         ini_set('session.gc_maxlifetime', 7200);
-        session_set_cookie_params(7200);
+        session_set_cookie_params($this->config->session_set_cookie_params);
     }
 
 
-    public static function getInstance(): SessionHelper
+    public static function getInstance(Config $config): SessionHelper
     {
         if (!isset(self::$instance)) {
-            self::$instance = new self;
+            self::$instance = new self($config);
         }
 
         self::$instance->startSession();
