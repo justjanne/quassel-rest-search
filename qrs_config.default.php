@@ -17,3 +17,4 @@ define('qrs_backend', 'pgsql-smart');
 define('qrs_enable_ranking', false);
 
 define('qrs_path_prefix', '');
+define('qrs_session_set_cookie_params', '7200');
