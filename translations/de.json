@@ -28,7 +28,7 @@
   "error": {
     "none_found": "Keine Ergebnisse gefunden"
   },
-  "search": "Suchen (sender:justJanne network:freenode buffer:quassel since:11/01/2019 before:01/01/2020)",
+  "search": "Suchen (sender:justJanne network:freenode buffer:quassel since:%d(2019-11-22) before:%d(2020-01-25))",
   "logout": "Abmelden",
   "title": "QuasselSearch"
 }
