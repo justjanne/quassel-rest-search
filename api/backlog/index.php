@@ -7,13 +7,27 @@ require_once '../../database/Database.php';
 require_once '../../database/helper/RendererHelper.php';
 require_once '../../database/helper/SessionHelper.php';
 
+$session = SessionHelper::getInstance();
 $config = Config::createFromGlobals();
 $renderer = new RendererHelper($config);
 $backend = Database::createFromConfig($config);
 
-try {
-    $backend->authenticateFromHeader($_SERVER['HTTP_AUTHORIZATION'] ?: "");
-    $renderer->renderJson($backend->context($_REQUEST['anchor'] ?: 0, $_REQUEST['buffer'] ?: 0, $_REQUEST['before'], $_REQUEST['after']));
-} catch (\Exception $e) {
-    $renderer->renderJson(["error" => $e->getMessage()]);
+function param(string $key, $default = null)
+{
+    return array_key_exists($key, $_REQUEST) ? ($_REQUEST[$key] !== "" ? $_REQUEST[$key] : $default) : $default;
+}
+
+if (!$backend->authenticate(
+    $session->username ?: $_SERVER['PHP_AUTH_USER'] ?: '',
+    $session->password ?: $_SERVER['PHP_AUTH_PW'] ?: ''
+)) {
+    $session->destroy();
+    $renderer->renderJsonError(false);
+} else {
+    $renderer->renderJson($backend->context(
+        param('anchor', 0),
+        param('buffer', 0),
+        param('before', 4),
+        param('after', 4)
+    ));
 }

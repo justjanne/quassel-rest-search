@@ -46,7 +46,7 @@ class App {
 
         this.loadingQuery++;
         const queryId = this.loadingQuery;
-        load("web/search/", statehandler.parse()).then((result) => {
+        load("api/search/", statehandler.parse()).then((result) => {
             if (this.loadingQuery !== queryId)
                 return;
 
@@ -107,7 +107,7 @@ class App {
         buffer.setLoading(true);
         const offset = buffer.count();
         console.log(offset);
-        load("web/searchbuffer/", statehandler.parse({buffer: buffer.id, offset: offset})).then((result) => {
+        load("api/searchbuffer/", statehandler.parse({buffer: buffer.id, offset: offset})).then((result) => {
             buffer.load(result);
             buffer.setLoading(false);
         });
@@ -134,7 +134,7 @@ class App {
             return;
 
         context.setLoading(true);
-        load("web/backlog/", statehandler.parse({
+        load("api/backlog/", statehandler.parse({
             buffer: buffer.id,
             anchor: context.anchorAfter,
             after: 10,
