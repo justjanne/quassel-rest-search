@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/justjanne/quassel-rest-search#readme",
   "devDependencies": {
+    "acorn": ">=5.7.4",
     "nativejsx": "https://github.com/j3l11234/nativejsx/archive/4.2.0.2.tar.gz",
-    "node-sass": "^4.14.0",
-    "acorn": ">=5.7.4"
+    "node-sass": "^5.0.0"
   }
 }
