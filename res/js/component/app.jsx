@@ -118,7 +118,7 @@ class App {
             return;
 
         context.setLoading(true);
-        load("web/backlog/", statehandler.parse({
+        load("api/backlog/", statehandler.parse({
             buffer: buffer.id,
             anchor: context.anchorBefore,
             after: 0,
@@ -150,7 +150,7 @@ class App {
             return;
 
         context.setLoading(true);
-        load("web/backlog/", statehandler.parse({
+        load("api/backlog/", statehandler.parse({
             buffer: buffer.id,
             anchor: context.anchorAfter,
             after: 4,
