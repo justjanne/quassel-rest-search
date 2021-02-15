@@ -70,7 +70,9 @@ class Database
     private function apply_config(\PDOStatement $stmt)
     {
         if ($this->enable_ranking) {
-            $stmt->bindValue(':config_normalization', 4, PDO::PARAM_INT);
+            if (!($this->backend instanceof SQLiteSmartBackend)) {
+                $stmt->bindValue(':config_normalization', 4, PDO::PARAM_INT);
+            }
             $stmt->bindValue(':weight_content', 14, PDO::PARAM_INT);
         }
 
@@ -134,8 +136,9 @@ class Database
         $stmt->bindParam(':ignore_network', $ignore_network, PDO::PARAM_INT);
         $stmt->bindParam(':ignore_sender', $ignore_sender, PDO::PARAM_INT);
 
-        $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $success = $stmt->execute();
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
     }
 
     public function findInBufferMultipleCount(string $query, string $since = null, string $before = null, string $buffer = null, string $network = null, string $sender = null, int $offset = 0, int $limit = 4): array
@@ -168,7 +171,6 @@ class Database
 
         $success = $stmt->execute();
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
         return $result;
     }
 
