@@ -70,12 +70,12 @@ class Database
     private function apply_config(\PDOStatement $stmt)
     {
         $values = [
-            ":config_normalizatio" => 4,
+            ":config_normalization" => 4,
             ":weight_content" => 4,
             ":weight_type" => 5,
             ":weight_time" => 1,
         ];
-        foreach ($this->rankingParameters() as $parameter) {
+        foreach ($this->backend->rankingParameters() as $parameter) {
             $stmt->bindValue($parameter, $values[$parameter], PDO::PARAM_INT);
         }
     }
