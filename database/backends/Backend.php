@@ -4,6 +4,8 @@ namespace QuasselRestSearch;
 
 interface Backend
 {
+    function rankingParameters(): array;
+
     public function findUser(): \PDOStatement;
 
     public function findInBuffers(): \PDOStatement;

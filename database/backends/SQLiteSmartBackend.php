@@ -124,6 +124,15 @@ class SQLiteSmartBackend implements Backend
         ");
     }
 
+    function rankingParameters(): array
+    {
+        return [
+            ":weight_content",
+            ":weight_type",
+            ":weight_time"
+        ];
+    }
+
     private function rankingFunction(): string
     {
         // TODO: Properly port missing support of Pow in sqlite

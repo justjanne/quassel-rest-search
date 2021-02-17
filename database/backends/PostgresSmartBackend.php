@@ -33,18 +33,28 @@ class PostgresSmartBackend implements Backend
         return array_key_exists('tsqueryfunction', $this->options) ? $this->options['tsqueryfunction'] : "plainto_tsquery('english', :query)";
     }
 
+    function rankingParameters(): array
+    {
+        return [
+            ":config_normalization",
+            ":weight_content",
+            ":weight_type",
+            ":weight_time"
+        ];
+    }
+
     private function rankingFunction(): string
     {
         if ($this->enable_ranking) {
             return "(
-                      (ts_rank_cd(tsv, query, :config_normalization) ^ :weight_content) *
+                      (ts_rank_cd(tsv, query, :config_normalization) ^ (2 ^ :weight_content)) *
                       ((CASE
                         WHEN TYPE IN (1, 4) THEN 1.0
                         WHEN TYPE IN (2, 1024, 2048, 4096, 16384) THEN 0.8
                         WHEN TYPE IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.6
                         WHEN TYPE IN (8, 16, 8192, 131072) THEN 0.4
-                        ELSE 0.2 END) ^ :weight_type) *
-                      ((1 / (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - EXTRACT(EPOCH FROM time))) ^ :weight_time)
+                        ELSE 0.2 END) ^ (2 ^ :weight_type)) *
+                      ((1 / (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - EXTRACT(EPOCH FROM time))) ^ (2 ^ :weight_time))
                     )";
         } else {
             return "(
@@ -53,8 +63,8 @@ class PostgresSmartBackend implements Backend
                         WHEN TYPE IN (2, 1024, 2048, 4096, 16384) THEN 0.8
                         WHEN TYPE IN (32, 64, 128, 256, 512, 32768, 65536) THEN 0.6
                         WHEN TYPE IN (8, 16, 8192, 131072) THEN 0.4
-                        ELSE 0.2 END) ^ :weight_type) *
-                      ((1 / (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - EXTRACT(EPOCH FROM time))) ^ :weight_time)
+                        ELSE 0.2 END) ^ (2 ^ :weight_type)) *
+                      ((1 / (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) - EXTRACT(EPOCH FROM time))) ^ (2 ^ :weight_time))
                     )";
         }
     }

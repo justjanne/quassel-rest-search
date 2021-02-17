@@ -69,15 +69,15 @@ class Database
 
     private function apply_config(\PDOStatement $stmt)
     {
-        if ($this->enable_ranking) {
-            if (!($this->backend instanceof SQLiteSmartBackend)) {
-                $stmt->bindValue(':config_normalization', 4, PDO::PARAM_INT);
-            }
-            $stmt->bindValue(':weight_content', 14, PDO::PARAM_INT);
+        $values = [
+            ":config_normalizatio" => 4,
+            ":weight_content" => 4,
+            ":weight_type" => 5,
+            ":weight_time" => 1,
+        ];
+        foreach ($this->rankingParameters() as $parameter) {
+            $stmt->bindValue($parameter, $values[$parameter], PDO::PARAM_INT);
         }
-
-        $stmt->bindValue(':weight_type', 32, PDO::PARAM_INT);
-        $stmt->bindValue(':weight_time', 1, PDO::PARAM_INT);
     }
 
     public function find(string $query, string $since = null, string $before = null, string $buffer = null, string $network = null, string $sender = null, int $limitPerBuffer = 4): array
