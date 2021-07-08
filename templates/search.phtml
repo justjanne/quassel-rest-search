@@ -24,18 +24,22 @@
     <link rel="stylesheet" href="res/css/search.css">
 </head>
 <body>
-
-<script>
-    const translation = <?php echo json_encode($translation); ?>;
-</script>
+<script src="res/js/util/storage.js"></script>
 <script src="res/js/util/moment-with-locales.js"></script>
+<script>
+    function dateformatter(match, year, month, date, offset, string) {
+        const dateFormat = Storage.exists('dateformat') ? Storage.get('dateformat') : 'L';
+        return moment(new Date(year, month-1, date)).format(dateFormat).toString();
+    }
+    const translation = JSON.parse(JSON.stringify(<?php echo json_encode($translation); ?>).replace(/\%d\(([0-9]{4})-([0-9]{2})-([0-9]{2})\)/g, dateformatter));
+</script>
 <script src="res/js/util/nativejsx-prototypes.js"></script>
 <script src="res/js/util/loader.js"></script>
 <script src="res/js/util/component.js"></script>
 <script src="res/js/util/mirccolorhandler.js"></script>
 <script src="res/js/util/sendercolorhandler.js"></script>
 <script src="res/js/util/statehandler.js"></script>
-<script src="res/js/util/storage.js"></script>
+
 <script src="res/js/component/nohistoryelement.js"></script>
 <script src="res/js/component/historyelement.js"></script>
 <script src="res/js/component/history.js"></script>
