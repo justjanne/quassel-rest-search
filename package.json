@@ -20,6 +20,6 @@
   "devDependencies": {
     "acorn": ">=5.7.4",
     "nativejsx": "https://github.com/j3l11234/nativejsx/archive/4.2.0.2.tar.gz",
-    "node-sass": "^5.0.0"
+    "node-sass": "^7.0.0"
   }
 }
