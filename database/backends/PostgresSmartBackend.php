@@ -35,12 +35,19 @@ class PostgresSmartBackend implements Backend
 
     function rankingParameters(): array
     {
-        return [
-            ":config_normalization",
-            ":weight_content",
-            ":weight_type",
-            ":weight_time"
-        ];
+        if ($this->enable_ranking) {
+            return [
+                ":config_normalization",
+                ":weight_content",
+                ":weight_type",
+                ":weight_time"
+            ];
+        } else {
+            return [
+                ":weight_type",
+                ":weight_time"
+            ];
+        }
     }
 
     private function rankingFunction(): string

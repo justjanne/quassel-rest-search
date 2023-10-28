@@ -20,7 +20,7 @@ class Config
         $this->database_connector = $database_connector;
         $this->username = $username;
         $this->password = $password;
-        $this->path_prefix = $path_prefix;
+        $this->path_prefix = rtrim($path_prefix, "/");
         $this->backend = $backend;
         $this->database_options = $options;
         $this->enable_ranking = $enable_ranking;
