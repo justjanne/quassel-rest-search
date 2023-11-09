@@ -9,6 +9,32 @@ Setting up search backends
 
 #### pgsql-smart
 
+##### Using stored generated columns (PostgreSQL 12 or later)
+
+First, add a new column to the backlog table:
+
+```sql
+ALTER TABLE backlog ADD COLUMN tsv tsvector
+  GENERATED ALWAYS AS (to_tsvector('english', message)) STORED;
+```
+
+Second, add the two new indices:
+
+```sql
+CREATE INDEX backlog_tsv_idx
+  ON backlog
+  USING gin(tsv);
+```
+
+```sql
+CREATE INDEX backlog_tsv_filtered_idx
+  ON backlog
+  USING gin(tsv)
+  WHERE (type & 23559) > 0;
+```
+
+##### Older versions
+
 First, add a new column to the backlog table:
 
 ```sql
